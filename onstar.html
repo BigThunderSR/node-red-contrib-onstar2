@@ -1,0 +1,396 @@
+<script type="text/javascript">
+    RED.nodes.registerType('diagnostics', {
+        category: 'onstar',
+        color: '#7eb0ff',
+        defaults: {
+            name: { value: 'Diagnostics' },
+            onstar: { value: 'Onstar config', type: 'onstar' }
+        },
+        inputs: 1,
+        outputs: 1,
+        icon: 'onstar.png',
+        label: function () {
+            return this.name || 'diagnostics';
+        },
+    });
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType('lock-vehicle', {
+        category: 'onstar',
+        color: '#7eb0ff',
+        defaults: {
+            name: { value: 'Lock Vehicle' },
+            onstar: { value: 'Onstar config', type: 'onstar' }
+        },
+        inputs: 1,
+        outputs: 1,
+        icon: 'onstar.png',
+        label: function () {
+            return this.name || 'lock-vehicle';
+        },
+    });
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType('unlock-vehicle', {
+        category: 'onstar',
+        color: '#7eb0ff',
+        defaults: {
+            name: { value: 'Unlock Vehicle' },
+            onstar: { value: 'Onstar config', type: 'onstar' }
+        },
+        inputs: 1,
+        outputs: 1,
+        icon: 'onstar.png',
+        label: function () {
+            return this.name || 'unlock-vehicle';
+        },
+    });
+</script>
+
+
+<script type="text/javascript">
+    RED.nodes.registerType('start-vehicle', {
+        category: 'onstar',
+        color: '#7eb0ff',
+        defaults: {
+            name: { value: 'Start Vehicle' },
+            onstar: { value: 'Onstar config', type: 'onstar' }
+        },
+        inputs: 1,
+        outputs: 1,
+        icon: 'onstar.png',
+        label: function () {
+            return this.name || 'start-vehicle';
+        },
+    });
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType('cancel-start-vehicle', {
+        category: 'onstar',
+        color: '#7eb0ff',
+        defaults: {
+            name: { value: 'Cancel Start Vehicle' },
+            onstar: { value: 'Onstar config', type: 'onstar' }
+        },
+        inputs: 1,
+        outputs: 1,
+        icon: 'onstar.png',
+        label: function () {
+            return this.name || 'cancel-start-vehicle';
+        },
+    });
+</script>
+
+
+<script type="text/javascript">
+    RED.nodes.registerType('alert-vehicle', {
+        category: 'onstar',
+        color: '#7eb0ff',
+        defaults: {
+            name: { value: 'Alert Vehicle' },
+            onstar: { value: 'Onstar config', type: 'onstar' }
+        },
+        inputs: 1,
+        outputs: 1,
+        icon: 'onstar.png',
+        label: function () {
+            return this.name || 'alert-vehicle';
+        },
+    });
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType('cancel-alert-vehicle', {
+        category: 'onstar',
+        color: '#7eb0ff',
+        defaults: {
+            name: { value: 'Cancel Alert Vehicle' },
+            onstar: { value: 'Onstar config', type: 'onstar' }
+        },
+        inputs: 1,
+        outputs: 1,
+        icon: 'onstar.png',
+        label: function () {
+            return this.name || 'cancel-alert-vehicle';
+        },
+    });
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType('location', {
+        category: 'onstar',
+        color: '#7eb0ff',
+        defaults: {
+            name: { value: 'Get Vehicle Location' },
+            onstar: { value: 'Onstar config', type: 'onstar' }
+        },
+        inputs: 1,
+        outputs: 1,
+        icon: 'onstar.png',
+        label: function () {
+            return this.name || 'location';
+        },
+    });
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType('charge-override', {
+        category: 'onstar',
+        color: '#7eb0ff',
+        defaults: {
+            name: { value: 'Override Charge State' },
+            onstar: { value: 'Onstar config', type: 'onstar' }
+        },
+        inputs: 1,
+        outputs: 1,
+        icon: 'onstar.png',
+        label: function () {
+            return this.name || 'charge-override';
+        },
+    });
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType('get-charge-profile', {
+        category: 'onstar',
+        color: '#7eb0ff',
+        defaults: {
+            name: { value: 'Get Charging Profile' },
+            onstar: { value: 'Onstar config', type: 'onstar' }
+        },
+        inputs: 1,
+        outputs: 1,
+        icon: 'onstar.png',
+        label: function () {
+            return this.name || 'get-charge-profile';
+        },
+    });
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType('set-charge-profile', {
+        category: 'onstar',
+        color: '#7eb0ff',
+        defaults: {
+            name: { value: 'Set Charge Profile' },
+            onstar: { value: 'Onstar config', type: 'onstar' }
+        },
+        inputs: 1,
+        outputs: 1,
+        icon: 'onstar.png',
+        label: function () {
+            return this.name || 'set-charge-profile';
+        },
+    });
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType('onstar', {
+        category: 'config',
+        defaults: {
+            username: { required: true },
+            password: { required: true },
+            pin: { required: true, validate: RED.validators.number() },
+            vin: { required: true },
+            deviceid: { required: true }
+        },
+        label: function () {
+            return this.vin;
+        },
+    });
+</script>
+
+<script type="text/html" data-template-name="diagnostics">
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name" />
+    </div>
+    <div class="form-row">
+        <label for="node-input-onstar"><i class="icon-tag"></i> Config</label>
+        <input type="text" id="node-input-onstar" placeholder="Name" />
+    </div>
+</script>
+
+<script type="text/html" data-help-name="diagnostics">
+    <p>Get diagnostic information for the vehicle</p>
+</script>
+
+<script type="text/html" data-template-name="lock-vehicle">
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name" />
+    </div>
+    <div class="form-row">
+        <label for="node-input-onstar"><i class="icon-tag"></i> Config</label>
+        <input type="text" id="node-input-onstar" placeholder="Name" />
+    </div>
+</script>
+
+<script type="text/html" data-help-name="lock-vehicle">
+    <p>Lock vehicle doors</p>
+</script>
+
+<script type="text/html" data-template-name="unlock-vehicle">
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name" />
+    </div>
+    <div class="form-row">
+        <label for="node-input-onstar"><i class="icon-tag"></i> Config</label>
+        <input type="text" id="node-input-onstar" placeholder="Name" />
+    </div>
+</script>
+
+<script type="text/html" data-help-name="unlock-vehicle">
+    <p>Unlock vehicle doors</p>
+</script>
+
+<script type="text/html" data-template-name="start-vehicle">
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name" />
+    </div>
+    <div class="form-row">
+        <label for="node-input-onstar"><i class="icon-tag"></i> Config</label>
+        <input type="text" id="node-input-onstar" placeholder="Name" />
+    </div>
+</script>
+
+<script type="text/html" data-help-name="start-vehicle">
+    <p>Start the vehicle</p>
+</script>
+
+<script type="text/html" data-template-name="cancel-start-vehicle">
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name" />
+    </div>
+    <div class="form-row">
+        <label for="node-input-onstar"><i class="icon-tag"></i> Config</label>
+        <input type="text" id="node-input-onstar" placeholder="Name" />
+    </div>
+</script>
+
+<script type="text/html" data-help-name="cancel-start-vehicle">
+    <p>Stop the vehicle if it was started remotely</p>
+</script>
+
+<script type="text/html" data-template-name="alert-vehicle">
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name" />
+    </div>
+    <div class="form-row">
+        <label for="node-input-onstar"><i class="icon-tag"></i> Config</label>
+        <input type="text" id="node-input-onstar" placeholder="Name" />
+    </div>
+</script>
+
+<script type="text/html" data-help-name="alert-vehicle">
+    <p>Turn on vehicle alert (horn and lights)</p>
+</script>
+
+<script type="text/html" data-template-name="cancel-alert-vehicle">
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name" />
+    </div>
+    <div class="form-row">
+        <label for="node-input-onstar"><i class="icon-tag"></i> Config</label>
+        <input type="text" id="node-input-onstar" placeholder="Name" />
+    </div>
+</script>
+
+<script type="text/html" data-help-name="cancel-alert-vehicle">
+    <p>Stop the vehicle alert</p>
+</script>
+
+<script type="text/html" data-template-name="location">
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name" />
+    </div>
+    <div class="form-row">
+        <label for="node-input-onstar"><i class="icon-tag"></i> Config</label>
+        <input type="text" id="node-input-onstar" placeholder="Name" />
+    </div>
+</script>
+
+<script type="text/html" data-help-name="location">
+    <p>Get vehicle location</p>
+</script>
+
+<script type="text/html" data-template-name="charge-override">
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name" />
+    </div>
+    <div class="form-row">
+        <label for="node-input-onstar"><i class="icon-tag"></i> Config</label>
+        <input type="text" id="node-input-onstar" placeholder="Name" />
+    </div>
+</script>
+
+<script type="text/html" data-help-name="charge-override">
+    <p>Override charging state</p>
+</script>
+
+<script type="text/html" data-template-name="set-charge-profile">
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name" />
+    </div>
+    <div class="form-row">
+        <label for="node-input-onstar"><i class="icon-tag"></i> Config</label>
+        <input type="text" id="node-input-onstar" placeholder="Name" />
+    </div>
+</script>
+
+<script type="text/html" data-help-name="set-charge-profile">
+    <p>Set the charge profile</p>
+</script>
+
+<script type="text/html" data-template-name="get-charge-profile">
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name" />
+    </div>
+    <div class="form-row">
+        <label for="node-input-onstar"><i class="icon-tag"></i> Config</label>
+        <input type="text" id="node-input-onstar" placeholder="Name" />
+    </div>
+</script>
+
+<script type="text/html" data-help-name="get-charge-profile">
+    <p>Get the charge profile</p>
+</script>
+
+<script type="text/html" data-template-name="onstar">
+    <div class="form-row">
+        <label for="node-config-input-name"><i class="icon-bookmark"></i> Name</label>
+        <input type="text" id="node-config-input-name" value="OnStar" />
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-username"><i class="icon-bookmark"></i> Username</label>
+        <input type="text" id="node-config-input-username" />
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-password"><i class="icon-bookmark"></i> Password</label>
+        <input type="password" id="node-config-input-password" />
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-pin"><i class="icon-bookmark"></i> Pin</label>
+        <input type="password" id="node-config-input-pin" />
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-vin"><i class="icon-bookmark"></i> Vin</label>
+        <input type="text" id="node-config-input-vin" />
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-deviceid"><i class="icon-bookmark"></i> Device ID (any valid UUID)</label>
+        <input type="text" id="node-config-input-deviceid" />
+    </div>
+</script>
