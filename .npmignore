@@ -3,4 +3,5 @@ node_modules
 .eslintrc.yml
 .github
 .nvmrc
+.bak
 
