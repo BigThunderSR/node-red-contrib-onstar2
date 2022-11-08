@@ -8,7 +8,7 @@
   },
   "node-red": {
     "version": ">=3.0.0",
-    "license" : "SEE LICENSE IN LICENSE"
+    "license" : "SEE LICENSE IN LICENSE",
     "nodes": {
       "onstar": "onstar.js"
     }
