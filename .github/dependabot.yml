@@ -1,11 +1,12 @@
+# dependabot.yml file with
+# customized schedule for version updates
+
 version: 2
 updates:
-  # Maintain dependencies for GitHub Actions
-  - package-ecosystem: "github-actions"
-    directory: "/"
-    schedule:
-      interval: "weekly"
+  # Keep npm dependencies up to date
   - package-ecosystem: "npm"
     directory: "/"
+    # Check the npm registry for updates at 2am UTC
     schedule:
-      interval: "weekly"
+      interval: "daily"
+      time: "02:00"
