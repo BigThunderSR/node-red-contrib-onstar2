@@ -1,4 +1,4 @@
-# node-red-contrib-onstar
+# node-red-contrib-onstar2
 A node-red flow for controlling GM OnStar vehicles powered by [onstarjs](https://github.com/samrum/OnStarJS) originally written by [caseyjmorton](https://www.npmjs.com/~caseyjmorton)
 
 [![npm](https://img.shields.io/npm/v/node-red-contrib-onstar.svg)](https://www.npmjs.com/package/node-red-contrib-onstar2)
