@@ -11,9 +11,6 @@
     "license" : "SEE LICENSE IN LICENSE"
     "nodes": {
       "onstar": "onstar.js"
-    },
-    "engines": {
-      "node": ">=18.0.0"
     }
   },
   "repository": {
