@@ -1,5 +1,5 @@
 # node-red-contrib-onstar2
-A node-red flow for controlling GM OnStar vehicles powered by [onstarjs](https://github.com/samrum/OnStarJS) originally written by [caseyjmorton](https://www.npmjs.com/~caseyjmorton) and published [here](https://www.npmjs.com/package/node-red-contrib-onstar)
+A node-red flow for controlling GM OnStar vehicles powered by [onstarjs](https://github.com/samrum/OnStarJS) originally written by [caseyjmorton](https://www.npmjs.com/~caseyjmorton) and published [here](https://www.npmjs.com/package/node-red-contrib-onstar).
 
 This fork is for me to experiment with the capabilities exposed in the original version and to add custom commands as necessary. 
 
