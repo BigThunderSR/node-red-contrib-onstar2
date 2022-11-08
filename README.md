@@ -4,7 +4,6 @@ A node-red flow for controlling GM OnStar vehicles powered by [onstarjs](https:/
 This fork is for me to experiment with the capabilities exposed in the original version and to add custom commands as necessary. 
 
 [![npm](https://img.shields.io/npm/v/node-red-contrib-onstar2.svg)](https://www.npmjs.com/package/node-red-contrib-onstar2)
-#[![Discord](https://img.shields.io/discord/913133909909323887)](https://discord.gg/XX5sz6T9)
 
 ![Sample](https://i.imgur.com/wXMHZWT.png)
 
