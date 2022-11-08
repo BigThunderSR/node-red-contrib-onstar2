@@ -6,15 +6,14 @@
   "dependencies": {
     "onstarjs": "^2.3.13"
   },
+  "engines": {
+      "node": ">=18.0.0"
+  },
   "node-red": {
     "version": ">=3.0.0",
-    "license" : "SEE LICENSE IN LICENSE",
     "nodes": {
       "onstar": "onstar.js"
-    },
-    "engines": {
-      "node": ">=18.0.0"
-    }
+    }    
   },
   "repository": {
     "type": "git",
@@ -30,5 +29,6 @@
     "Buick",
     "Cadillac"
   ],
-  "author": "Casey Morton, Updated by bigthundersr"
+  "author": "Casey Morton, Updated by bigthundersr",
+  "license" : "SEE LICENSE IN LICENSE"
 }
