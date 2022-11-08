@@ -18,12 +18,8 @@ module.exports = function(RED) {
         node.on('input', async function (msg) {
             try {
                 let configNode = RED.nodes.getNode(config.onstar);
-                
-                let client = createClient(configNode);
-                let request = {
-                    diagnosticItem: msg.payload.diagnosticItem || ["ENGINE COOLANT TEMP", "ENGINE RPM", "LAST TRIP FUEL ECONOMY", "OIL LIFE", "LIFETIME FUEL ECON", "HOTSPOT CONFIG", "LIFETIME FUEL USED", "ODOMETER", "HOTSPOT STATUS", "TIRE PRESSURE", "AMBIENT AIR TEMPERATURE", "LAST TRIP DISTANCE", "INTERM VOLT BATT VOLT", "FUEL TANK INFO", "HANDS FREE CALLING", "VEHICLE RANGE"]
-                };
 
+                let client = createClient(configNode);
                 let result = await client.diagnostics();
                 node.send({
                     payload: result.response.data.commandResponse.body,
