@@ -8,7 +8,7 @@ A node-red flow for controlling GM OnStar vehicles powered by [onstarjs](https:/
 
 ## Install
 ```sh
-npm install node-red-contrib-onstar
+npm install node-red-contrib-onstar2
 ```
 
 ## Documentation
