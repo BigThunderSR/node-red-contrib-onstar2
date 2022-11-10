@@ -21,7 +21,7 @@ module.exports = function(RED) {
 
                 let client = createClient(configNode);
                 let request = {
-                    diagnosticItem: msg.payload.diagnosticItem || ["ENGINE COOLANT TEMP", "ENGINE RPM", "LAST TRIP FUEL ECONOMY", "OIL LIFE", "LIFETIME FUEL ECON", "HOTSPOT CONFIG", "LIFETIME FUEL USED", "ODOMETER", "HOTSPOT STATUS", "TIRE PRESSURE", "AMBIENT AIR TEMPERATURE", "LAST TRIP DISTANCE", "INTERM VOLT BATT VOLT", "FUEL TANK INFO", "HANDS FREE CALLING", "VEHICLE RANGE", "Engine Air Filter Monitor Status"]
+                    diagnosticItem: msg.payload.diagnosticItem || ["ENGINE COOLANT TEMP", "ENGINE RPM", "LAST TRIP FUEL ECONOMY", "OIL LIFE", "LIFETIME FUEL ECON", "HOTSPOT CONFIG", "LIFETIME FUEL USED", "ODOMETER", "HOTSPOT STATUS", "TIRE PRESSURE", "AMBIENT AIR TEMPERATURE", "LAST TRIP DISTANCE", "INTERM VOLT BATT VOLT", "FUEL TANK INFO", "HANDS FREE CALLING", "VEHICLE RANGE", "ENGINE AIR FILTER MONITOR STATUS"]
                 };
 
 		let result = await client.diagnostics(request);
