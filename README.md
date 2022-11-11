@@ -23,7 +23,9 @@ This project is in very early alpha phase.  Documentation TBD.
 - Set Charge Profile
 - Get Charge Profile
 - Override Charge State
-- Vehicle Alert
+- Vehicle Alert (Lights and Horn)
+- Vehicle Alert (Lights Only)
+- Vehicle Alert (Horn Only)
 - Cancel Vehicle Alert
 - Get vehicle Location
 - Get Diagnostic Information
