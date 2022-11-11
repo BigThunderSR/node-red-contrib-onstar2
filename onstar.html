@@ -103,6 +103,40 @@
 </script>
 
 <script type="text/javascript">
+    RED.nodes.registerType('alert-vehicle-lights', {
+        category: 'onstar',
+        color: '#7eb0ff',
+        defaults: {
+            name: { value: 'Alert Vehicle Lights Only' },
+            onstar: { value: 'Onstar config', type: 'onstar' }
+        },
+        inputs: 1,
+        outputs: 1,
+        icon: 'onstar.png',
+        label: function () {
+            return this.name || 'alert-vehicle';
+        },
+    });
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType('alert-vehicle-horn', {
+        category: 'onstar',
+        color: '#7eb0ff',
+        defaults: {
+            name: { value: 'Alert Vehicle Horn Only' },
+            onstar: { value: 'Onstar config', type: 'onstar' }
+        },
+        inputs: 1,
+        outputs: 1,
+        icon: 'onstar.png',
+        label: function () {
+            return this.name || 'alert-vehicle';
+        },
+    });
+</script>
+
+<script type="text/javascript">
     RED.nodes.registerType('cancel-alert-vehicle', {
         category: 'onstar',
         color: '#7eb0ff',
@@ -292,6 +326,37 @@
 <script type="text/html" data-help-name="alert-vehicle">
     <p>Turn on vehicle alert (horn and lights)</p>
 </script>
+
+<script type="text/html" data-template-name="alert-vehicle-lights">
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name" />
+    </div>
+    <div class="form-row">
+        <label for="node-input-onstar"><i class="icon-tag"></i> Config</label>
+        <input type="text" id="node-input-onstar" placeholder="Name" />
+    </div>
+</script>
+
+<script type="text/html" data-help-name="alert-vehicle-lights">
+    <p>Turn on vehicle alert (lights only)</p>
+</script>
+
+<script type="text/html" data-template-name="alert-vehicle-horn">
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name" />
+    </div>
+    <div class="form-row">
+        <label for="node-input-onstar"><i class="icon-tag"></i> Config</label>
+        <input type="text" id="node-input-onstar" placeholder="Name" />
+    </div>
+</script>
+
+<script type="text/html" data-help-name="alert-vehicle-horn">
+    <p>Turn on vehicle alert (horn only)</p>
+</script>
+
 
 <script type="text/html" data-template-name="cancel-alert-vehicle">
     <div class="form-row">
