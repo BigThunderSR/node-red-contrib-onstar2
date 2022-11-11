@@ -225,6 +225,7 @@
     RED.nodes.registerType('onstar', {
         category: 'config',
         defaults: {
+            carname: { required: true },
             username: { required: true },
             password: { required: true },
             pin: { required: true, validate: RED.validators.number() },
@@ -232,7 +233,7 @@
             deviceid: { required: true }
         },
         label: function () {
-            return this.vin;
+            return this.carname;
         },
     });
 </script>
@@ -437,6 +438,10 @@
     <div class="form-row">
         <label for="node-config-input-name"><i class="icon-bookmark"></i> Name</label>
         <input type="text" id="node-config-input-name" value="OnStar" />
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-carname"><i class="icon-bookmark"></i> Car Name</label>
+        <input type="text" id="node-config-input-carname" />
     </div>
     <div class="form-row">
         <label for="node-config-input-username"><i class="icon-bookmark"></i> Username</label>
