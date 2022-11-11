@@ -155,6 +155,62 @@ module.exports = function(RED) {
         });
     }
 
+    function AlertVehicleLights(config) {
+        RED.nodes.createNode(this, config);
+        const node = this;
+
+        node.on('input', async function (msg) {
+            try {
+                let configNode = RED.nodes.getNode(config.onstar);
+
+                let client = createClient(configNode);
+                let request = {
+                    action: msg.payload.action || ["Flash"],
+                    delay: msg.payload.delay || 0,
+                    duration: msg.payload.duration || 1,
+                    override: msg.payload.override || ["DoorOpen", "IgnitionOn"]
+                };
+
+                let result = await client.alert(request);
+                node.send({
+                    payload: result.response.data.commandResponse.body,
+                });
+            } catch (err) {
+                node.send({
+                    payload: err,
+                });
+            }
+        });
+    }
+
+    function AlertVehicleHorn(config) {
+        RED.nodes.createNode(this, config);
+        const node = this;
+
+        node.on('input', async function (msg) {
+            try {
+                let configNode = RED.nodes.getNode(config.onstar);
+
+                let client = createClient(configNode);
+                let request = {
+                    action: msg.payload.action || ["Honk"],
+                    delay: msg.payload.delay || 0,
+                    duration: msg.payload.duration || 1,
+                    override: msg.payload.override || ["DoorOpen", "IgnitionOn"]
+                };
+
+                let result = await client.alert(request);
+                node.send({
+                    payload: result.response.data.commandResponse.body,
+                });
+            } catch (err) {
+                node.send({
+                    payload: err,
+                });
+            }
+        });
+    }
+    
     function CancelAlertVehicle(config) {
         RED.nodes.createNode(this, config);
         const node = this;
@@ -285,6 +341,8 @@ module.exports = function(RED) {
     RED.nodes.registerType('start-vehicle', StartVehicle);
     RED.nodes.registerType('cancel-start-vehicle', CancelStartVehicle);
     RED.nodes.registerType('alert-vehicle', AlertVehicle);
+    RED.nodes.registerType('alert-vehicle-lights', AlertVehicleLights);
+    RED.nodes.registerType('alert-vehicle-horn', AlertVehicleHorn);
     RED.nodes.registerType('cancel-alert-vehicle', CancelAlertVehicle);
     RED.nodes.registerType('location', Location);
     RED.nodes.registerType('charge-override', ChargeOverride);
