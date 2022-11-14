@@ -11,6 +11,27 @@ function createClient(configNode) {
 }
 
 module.exports = function(RED) {
+    function GetAccountVehicles(config) {
+        RED.nodes.createNode(this, config);
+        const node = this;
+
+        node.on('input', async function (msg) {
+            try {
+                let configNode = RED.nodes.getNode(config.onstar);
+
+                let client = createClient(configNode);
+                let result = await client.getAccountVehicles();
+                node.send({
+                    payload: result.response.data.commandResponse.body,
+                });
+            } catch (err) {
+                node.send({
+                    payload: err,
+                });
+            }
+        });
+    }
+    
     function GetDiagnostics(config) {
         RED.nodes.createNode(this, config);
         const node = this;
@@ -335,6 +356,7 @@ module.exports = function(RED) {
     }
 
     RED.nodes.registerType('onstar', OnStarNode);
+    RED.nodes.registerType('get-account-vehicles', GetAccountVehicles);
     RED.nodes.registerType('diagnostics', GetDiagnostics);
     RED.nodes.registerType('lock-vehicle', LockVehicle);
     RED.nodes.registerType('unlock-vehicle', UnlockVehicle);

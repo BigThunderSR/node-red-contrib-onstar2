@@ -1,4 +1,21 @@
 <script type="text/javascript">
+    RED.nodes.registerType('get-account-vehicles', {
+        category: 'onstar',
+        color: '#7eb0ff',
+        defaults: {
+            name: { value: 'Get Account Vehicles' },
+            onstar: { value: 'Onstar config', type: 'onstar' }
+        },
+        inputs: 1,
+        outputs: 1,
+        icon: 'onstar.png',
+        label: function () {
+            return this.name || 'get-account-vehicles';
+        },
+    });
+</script>
+
+<script type="text/javascript">
     RED.nodes.registerType('diagnostics', {
         category: 'onstar',
         color: '#7eb0ff',
@@ -236,6 +253,21 @@
             return this.carname;
         },
     });
+</script>
+
+<script type="text/html" data-template-name="get-account-vehicles">
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name" />
+    </div>
+    <div class="form-row">
+        <label for="node-input-onstar"><i class="icon-tag"></i> Config</label>
+        <input type="text" id="node-input-onstar" placeholder="Name" />
+    </div>
+</script>
+
+<script type="text/html" data-help-name="get-account-vehicles">
+    <p>Get requests supported by the vehicle</p>
 </script>
 
 <script type="text/html" data-template-name="diagnostics">

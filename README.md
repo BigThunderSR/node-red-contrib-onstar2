@@ -27,5 +27,6 @@ This project is in very early alpha phase.  Documentation TBD.
 - Vehicle Alert (Lights Only)
 - Vehicle Alert (Horn Only)
 - Cancel Vehicle Alert
-- Get vehicle Location
+- Get Vehicle Location
 - Get Diagnostic Information
+- Get Vehicle Capabilities
