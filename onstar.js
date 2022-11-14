@@ -20,7 +20,7 @@ module.exports = function(RED) {
                 let configNode = RED.nodes.getNode(config.onstar);
 
                 let client = createClient(configNode);
-                let result = await client.getAccountVehicles();
+                let result = await client.getAccountVehicles(request);
                 node.send({
                     payload: result.response.data.commandResponse.body,
                 });
