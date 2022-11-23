@@ -10,6 +10,9 @@
         outputs: 1,
         icon: 'onstar.png',
         label: function () {
+            //return this.name || 'get-account-vehicles';
+            //return this.name || configCarName+" "+get-account-vehicles;
+            //return this.onstar+" "+this.name ;
             var configCarName = RED.nodes.node(this.onstar);
             return configCarName.label()+" "+this.name;
         },
@@ -386,10 +389,63 @@
             password: { required: true },
             pin: { required: true, validate: RED.validators.number() },
             vin: { required: true },
-            deviceid: { required: true }
+            deviceid: { required: true },
+            checkrequeststatus: { value: 'true', required: true },
+            requestpollingtimeoutseconds: { value: '60', required: true, validate: RED.validators.number() },
+            requestpollingintervalseconds: { value: '6', required: true, validate: RED.validators.number() }
         },
         label: function () {
             return this.carname;
+        },
+        oneditprepare: function() {
+            var defaultCheckRequestStatus = "true";
+            var defaultRequestPollingTimeoutSeconds = "60";
+            var defaultRequestPollingIntervalSeconds = "6";
+            var editNodeValCheckRequestStatus = $("#node-config-input-checkrequeststatus").val();
+            var editNodeValRequestPollingTimeoutSeconds = $("#node-config-input-requestpollingtimeoutseconds").val();
+            var editNodeValRequestPollingIntervalSeconds = $("#node-config-input-requestpollingintervalseconds").val();
+            
+            $("#node-config-input-checkrequeststatus").typedInput({
+            type:"bool"
+            });
+
+            if (editNodeValCheckRequestStatus == '') {
+                $("#node-config-input-checkrequeststatus").val(defaultCheckRequestStatus);
+            }
+            $("#node-config-input-checkrequeststatus").val();
+
+            if (editNodeValRequestPollingTimeoutSeconds == '') {
+                $("#node-config-input-requestpollingtimeoutseconds").val(defaultRequestPollingTimeoutSeconds);
+            }
+            $("#node-config-input-requestpollingtimeoutseconds").val();
+
+            if (editNodeValRequestPollingIntervalSeconds == '') {
+                $("#node-config-input-requestpollingintervalseconds").val(defaultRequestPollingIntervalSeconds);
+            }
+            $("#node-config-input-requestpollingintervalseconds").val();
+        },
+        oneditsave: function() {
+            var defaultCheckRequestStatus = "true";
+            var defaultRequestPollingTimeoutSeconds = "60";
+            var defaultRequestPollingIntervalSeconds = "6";
+            var editNodeValCheckRequestStatus = $("#node-config-input-checkrequeststatus").val();
+            var editNodeValRequestPollingTimeoutSeconds = $("#node-config-input-requestpollingtimeoutseconds").val();
+            var editNodeValRequestPollingIntervalSeconds = $("#node-config-input-requestpollingintervalseconds").val();
+            
+            if (editNodeValCheckRequestStatus == '') {
+                $("#node-config-input-checkrequeststatus").val(defaultCheckRequestStatus);
+            }
+            $("#node-config-input-checkrequeststatus").val();
+
+            if (editNodeValRequestPollingTimeoutSeconds == '') {
+                $("#node-config-input-requestpollingtimeoutseconds").val(defaultRequestPollingTimeoutSeconds);
+            }
+            $("#node-config-input-requestpollingtimeoutseconds").val();
+
+            if (editNodeValRequestPollingIntervalSeconds == '') {
+                $("#node-config-input-requestpollingintervalseconds").val(defaultRequestPollingIntervalSeconds);
+            }
+            $("#node-config-input-requestpollingintervalseconds").val();
         },
     });
 </script>
@@ -633,5 +689,17 @@
     <div class="form-row">
         <label for="node-config-input-deviceid"><i class="icon-bookmark"></i> Device ID (any valid UUID)</label>
         <input type="text" id="node-config-input-deviceid" />
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-checkrequeststatus"><i class="icon-bookmark"></i> Set checkRequestStatus Value for OnStarJS</label>
+        <input type="text" id="node-config-input-checkrequeststatus" />
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-requestpollingtimeoutseconds"><i class="icon-bookmark"></i> Set requestPollingTimeoutSeconds Value for OnStarJS</label>
+        <input type="text" id="node-config-input-requestpollingtimeoutseconds" />
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-requestpollingintervalseconds"><i class="icon-bookmark"></i> Set requestPollingIntervalSeconds Value for OnStarJS</label>
+        <input type="text" id="node-config-input-requestpollingintervalseconds" />
     </div>
 </script>

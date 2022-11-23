@@ -6,7 +6,10 @@ function createClient(configNode) {
         password: configNode.password,
         vin: configNode.vin,
         onStarPin: configNode.pin,
-        deviceId: configNode.deviceid
+        deviceId: configNode.deviceid,
+        checkRequestStatus: configNode.checkrequeststatus,
+        requestPollingTimeoutSeconds: configNode.requestpollingtimeoutseconds,
+        requestPollingIntervalSeconds: configNode.requestpollingintervalseconds
     });
 }
 
@@ -45,7 +48,7 @@ module.exports = function(RED) {
                     diagnosticItem: msg.payload.diagnosticItem || ["ENGINE COOLANT TEMP", "ENGINE RPM", "LAST TRIP FUEL ECONOMY", "OIL LIFE", "LIFETIME FUEL ECON", "HOTSPOT CONFIG", "LIFETIME FUEL USED", "ODOMETER", "HOTSPOT STATUS", "TIRE PRESSURE", "AMBIENT AIR TEMPERATURE", "LAST TRIP DISTANCE", "INTERM VOLT BATT VOLT", "FUEL TANK INFO", "HANDS FREE CALLING", "VEHICLE RANGE", "ENGINE AIR FILTER MONITOR STATUS"]
                 };
 
-		let result = await client.diagnostics(request);
+		        let result = await client.diagnostics(request);
                 node.send({
                     payload: result.response.data.commandResponse.body,
                 });
@@ -353,6 +356,9 @@ module.exports = function(RED) {
         this.pin = config.pin;
         this.vin = config.vin;
         this.deviceid = config.deviceid;
+        this.checkrequeststatus = config.checkRequestStatus;
+        this.requestpollingtimeoutseconds = config.requestPollingTimeoutSeconds;
+        this.requestpollingintervalseconds = config.requestPollingIntervalSeconds;
     }
 
     RED.nodes.registerType('onstar', OnStarNode);
