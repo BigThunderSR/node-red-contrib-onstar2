@@ -10,9 +10,16 @@
         outputs: 1,
         icon: 'onstar.png',
         label: function () {
-            //return this.name || 'get-account-vehicles';
             var configCarName = RED.nodes.node(this.onstar);
             return configCarName.label()+" "+this.name;
+        },
+        oneditsave: function() {
+            var originalName = "Get Account Vehicles";
+            var editNodeName = $("#node-input-name").val();
+            if (editNodeName == '') {
+                $("#node-input-name").val(originalName);
+            }
+            $("#node-input-name").val();
         },
     });
 </script>
@@ -33,6 +40,14 @@
             var configCarName = RED.nodes.node(this.onstar);
             return configCarName.label()+" "+this.name;
         },
+        oneditsave: function() {
+            var originalName = "Diagnostics";
+            var editNodeName = $("#node-input-name").val();
+            if (editNodeName == '') {
+                $("#node-input-name").val(originalName);
+            }
+            $("#node-input-name").val();
+        },
     });
 </script>
 
@@ -52,6 +67,14 @@
             var configCarName = RED.nodes.node(this.onstar);
             return configCarName.label()+" "+this.name;
         },
+        oneditsave: function() {
+            var originalName = "Lock Vehicle";
+            var editNodeName = $("#node-input-name").val();
+            if (editNodeName == '') {
+                $("#node-input-name").val(originalName);
+            }
+            $("#node-input-name").val();
+        },
     });
 </script>
 
@@ -70,6 +93,14 @@
             //return this.name || 'unlock-vehicle';
             var configCarName = RED.nodes.node(this.onstar);
             return configCarName.label()+" "+this.name;
+        },
+        oneditsave: function() {
+            var originalName = "Unlock Vehicle";
+            var editNodeName = $("#node-input-name").val();
+            if (editNodeName == '') {
+                $("#node-input-name").val(originalName);
+            }
+            $("#node-input-name").val();
         },
     });
 </script>
@@ -91,6 +122,14 @@
             var configCarName = RED.nodes.node(this.onstar);
             return configCarName.label()+" "+this.name;
         },
+        oneditsave: function() {
+            var originalName = "Start Vehicle";
+            var editNodeName = $("#node-input-name").val();
+            if (editNodeName == '') {
+                $("#node-input-name").val(originalName);
+            }
+            $("#node-input-name").val();
+        },
     });
 </script>
 
@@ -109,6 +148,14 @@
             //return this.name || 'cancel-start-vehicle';
             var configCarName = RED.nodes.node(this.onstar);
             return configCarName.label()+" "+this.name;
+        },
+        oneditsave: function() {
+            var originalName = "Cancel Start Vehicle";
+            var editNodeName = $("#node-input-name").val();
+            if (editNodeName == '') {
+                $("#node-input-name").val(originalName);
+            }
+            $("#node-input-name").val();
         },
     });
 </script>
@@ -130,6 +177,14 @@
             var configCarName = RED.nodes.node(this.onstar);
             return configCarName.label()+" "+this.name;
         },
+        oneditsave: function() {
+            var originalName = "Alert Vehicle";
+            var editNodeName = $("#node-input-name").val();
+            if (editNodeName == '') {
+                $("#node-input-name").val(originalName);
+            }
+            $("#node-input-name").val();
+        },
     });
 </script>
 
@@ -148,6 +203,14 @@
             //return this.name || 'alert-vehicle';
             var configCarName = RED.nodes.node(this.onstar);
             return configCarName.label()+" "+this.name;
+        },
+        oneditsave: function() {
+            var originalName = "Alert Vehicle Lights Only";
+            var editNodeName = $("#node-input-name").val();
+            if (editNodeName == '') {
+                $("#node-input-name").val(originalName);
+            }
+            $("#node-input-name").val();
         },
     });
 </script>
@@ -168,6 +231,14 @@
             var configCarName = RED.nodes.node(this.onstar);
             return configCarName.label()+" "+this.name;
         },
+        oneditsave: function() {
+            var originalName = "Alert Vehicle Horn Only";
+            var editNodeName = $("#node-input-name").val();
+            if (editNodeName == '') {
+                $("#node-input-name").val(originalName);
+            }
+            $("#node-input-name").val();
+        },
     });
 </script>
 
@@ -186,6 +257,14 @@
             //return this.name || 'cancel-alert-vehicle';
             var configCarName = RED.nodes.node(this.onstar);
             return configCarName.label()+" "+this.name;
+        },
+        oneditsave: function() {
+            var originalName = "Cancel Alert Vehicle";
+            var editNodeName = $("#node-input-name").val();
+            if (editNodeName == '') {
+                $("#node-input-name").val(originalName);
+            }
+            $("#node-input-name").val();
         },
     });
 </script>
@@ -206,6 +285,14 @@
             var configCarName = RED.nodes.node(this.onstar);
             return configCarName.label()+" "+this.name;
         },
+        oneditsave: function() {
+            var originalName = "Get Vehicle Location";
+            var editNodeName = $("#node-input-name").val();
+            if (editNodeName == '') {
+                $("#node-input-name").val(originalName);
+            }
+            $("#node-input-name").val();
+        },
     });
 </script>
 
@@ -224,6 +311,14 @@
             //return this.name || 'charge-override';
             var configCarName = RED.nodes.node(this.onstar);
             return configCarName.label()+" "+this.name;
+        },
+        oneditsave: function() {
+            var originalName = "Override Charge State";
+            var editNodeName = $("#node-input-name").val();
+            if (editNodeName == '') {
+                $("#node-input-name").val(originalName);
+            }
+            $("#node-input-name").val();
         },
     });
 </script>
@@ -244,6 +339,14 @@
             var configCarName = RED.nodes.node(this.onstar);
             return configCarName.label()+" "+this.name;
         },
+        oneditsave: function() {
+            var originalName = "Get Charging Profile";
+            var editNodeName = $("#node-input-name").val();
+            if (editNodeName == '') {
+                $("#node-input-name").val(originalName);
+            }
+            $("#node-input-name").val();
+        },
     });
 </script>
 
@@ -262,6 +365,14 @@
             //return this.name || 'set-charge-profile';
             var configCarName = RED.nodes.node(this.onstar);
             return configCarName.label()+" "+this.name;
+        },
+        oneditsave: function() {
+            var originalName = "Set Charge Profile";
+            var editNodeName = $("#node-input-name").val();
+            if (editNodeName == '') {
+                $("#node-input-name").val(originalName);
+            }
+            $("#node-input-name").val();
         },
     });
 </script>
