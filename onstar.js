@@ -1,4 +1,6 @@
 const OnStar = require('onstarjs');
+const _ = require('lodash');
+const Vehicle = require('./vehicle');
 
 function createClient(configNode) {
     return OnStar.create({
@@ -23,9 +25,13 @@ module.exports = function(RED) {
                 let configNode = RED.nodes.getNode(config.onstar);
 
                 let client = createClient(configNode);
-                let result = await client.getAccountVehicles();
+                const vehiclesRes = await client.getAccountVehicles();
+                const vehicles = _.map(
+                    _.get(vehiclesRes, 'response.data.vehicles.vehicle'),
+                    v => new Vehicle(v)
+                );
                 node.send({
-                    payload: result.response.data.commandResponse.body,
+                    payload: vehicles,
                 });
             } catch (err) {
                 node.send({
@@ -75,7 +81,7 @@ module.exports = function(RED) {
 
                 let result = await client.lockDoor(request);
                 node.send({
-                    payload: result.response.data.commandResponse.body,
+                    payload: result.response.data.commandResponse.status,
                 });
             } catch (err) {
                 node.send({
@@ -99,7 +105,7 @@ module.exports = function(RED) {
                 let client = createClient(configNode);
                 let result = await client.unlockDoor(request);
                 node.send({
-                    payload: result.response.data.commandResponse.body,
+                    payload: result.response.data.commandResponse.status,
                 });
             } catch (err) {
                 node.send({
@@ -120,7 +126,7 @@ module.exports = function(RED) {
                 let client = createClient(configNode);
                 let result = await client.start();
                 node.send({
-                    payload: result.response.data.commandResponse.body,
+                    payload: result.response.data.commandResponse.status,
                 });
             } catch (err) {
                 node.send({
@@ -141,7 +147,7 @@ module.exports = function(RED) {
                 let client = createClient(configNode);
                 let result = await client.cancelStart();
                 node.send({
-                    payload: result.response.data.commandResponse.body,
+                    payload: result.response.data.commandResponse.status,
                 });
             } catch (err) {
                 node.send({
@@ -169,7 +175,7 @@ module.exports = function(RED) {
 
                 let result = await client.alert(request);
                 node.send({
-                    payload: result.response.data.commandResponse.body,
+                    payload: result.response.data.commandResponse.status,
                 });
             } catch (err) {
                 node.send({
@@ -197,7 +203,7 @@ module.exports = function(RED) {
 
                 let result = await client.alert(request);
                 node.send({
-                    payload: result.response.data.commandResponse.body,
+                    payload: result.response.data.commandResponse.status,
                 });
             } catch (err) {
                 node.send({
@@ -225,7 +231,7 @@ module.exports = function(RED) {
 
                 let result = await client.alert(request);
                 node.send({
-                    payload: result.response.data.commandResponse.body,
+                    payload: result.response.data.commandResponse.status,
                 });
             } catch (err) {
                 node.send({
@@ -246,7 +252,7 @@ module.exports = function(RED) {
                 let client = createClient(configNode);
                 let result = await client.cancelAlert();
                 node.send({
-                    payload: result.response.data.commandResponse.body,
+                    payload: result.response.data.commandResponse.status,
                 });
             } catch (err) {
                 node.send({
@@ -292,7 +298,7 @@ module.exports = function(RED) {
 
                 let result = await client.chargeOverride(request);
                 node.send({
-                    payload: result.response.data.commandResponse.body,
+                    payload: result.response.data.commandResponse.status,
                 });
             } catch (err) {
                 node.send({
@@ -339,7 +345,7 @@ module.exports = function(RED) {
 
                 let result = await client.setChargingProfile(request);
                 node.send({
-                    payload: result.response.data.commandResponse.body,
+                    payload: result.response.data.commandResponse.status,
                 });
             } catch (err) {
                 node.send({

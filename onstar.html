@@ -11,8 +11,6 @@
         icon: 'onstar.png',
         label: function () {
             //return this.name || 'get-account-vehicles';
-            //return this.name || configCarName+" "+get-account-vehicles;
-            //return this.onstar+" "+this.name ;
             var configCarName = RED.nodes.node(this.onstar);
             return configCarName.label()+" "+this.name;
         },
