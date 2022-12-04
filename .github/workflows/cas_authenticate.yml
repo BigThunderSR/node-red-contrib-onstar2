@@ -53,3 +53,8 @@ jobs:
         with:          
           asset: vehicle.js
           signerID: QmlnVGh1bmRlclNSQG91dGxvb2suY29t
+      - name: Notarize Example-Flow-File.json        
+        uses: codenotary/cas-authenticate-asset-github-action@main
+        with:          
+          asset: examples/Example-Flow-File.json
+          signerID: QmlnVGh1bmRlclNSQG91dGxvb2suY29t

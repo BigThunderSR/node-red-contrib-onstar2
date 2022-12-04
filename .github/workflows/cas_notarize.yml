@@ -49,3 +49,8 @@ jobs:
         with:          
           asset: vehicle.js
           cas_api_key: ${{ secrets.CAS_API_KEY }}
+      - name: Notarize Example-Flow-File.json        
+        uses: codenotary/cas-notarize-asset-github-action@main
+        with:          
+          asset: examples/Example-Flow-File.json
+          cas_api_key: ${{ secrets.CAS_API_KEY }}
