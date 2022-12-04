@@ -17,11 +17,13 @@ This fork is for me to experiment with the capabilities exposed in the original 
 [![npm](https://img.shields.io/npm/v/node-red-contrib-onstar2.svg)](https://www.npmjs.com/package/node-red-contrib-onstar2)
 
 ## Install
+
 ```sh
 npm install node-red-contrib-onstar2
 ```
 
 ## Documentation
+
 Each node is self-explanatory with hints provided wherever necessary.
 
 ## Running
@@ -33,6 +35,7 @@ Collect the following information:
 1. Your car's VIN. Easily found in the monthly OnStar diagnostic emails.
 
 ## Supported Features
+
 - Lock
 - Unlock
 - Start
