@@ -1,17 +1,18 @@
 <script type="text/javascript">
     RED.nodes.registerType('get-account-vehicles', {
-        category: 'onstar',
+        category: 'onstar2',
         color: '#7eb0ff',
         defaults: {
             name: { value: 'Get Account Vehicles' },
-            onstar: { value: 'Onstar config', type: 'onstar' }
+            onstar2: { value: 'Onstar Config', type: 'onstar2' }
         },
         inputs: 1,
-        outputs: 1,
+        outputs: 2,
+        outputLabels: ["Account Vehicle Capabilities","result.response"],
         icon: 'onstar.png',
         label: function () {
             //return this.name || 'get-account-vehicles';
-            var configCarName = RED.nodes.node(this.onstar);
+            var configCarName = RED.nodes.node(this.onstar2);
             return configCarName.label()+" "+this.name;
         },
         oneditsave: function() {
@@ -27,18 +28,19 @@
 
 <script type="text/javascript">
     RED.nodes.registerType('diagnostics', {
-        category: 'onstar',
+        category: 'onstar2',
         color: '#7eb0ff',
         defaults: {
             name: { value: 'Diagnostics' },
-            onstar: { value: 'Onstar config', type: 'onstar' }
+            onstar2: { value: 'Onstar Config', type: 'onstar2' }
         },
         inputs: 1,
-        outputs: 1,
+        outputs: 2,
+        outputLabels: ["Diagnostics","result.response.data"],
         icon: 'onstar.png',
         label: function () {
             //return this.name || 'diagnostics';
-            var configCarName = RED.nodes.node(this.onstar);
+            var configCarName = RED.nodes.node(this.onstar2);
             return configCarName.label()+" "+this.name;
         },
         oneditsave: function() {
@@ -54,18 +56,19 @@
 
 <script type="text/javascript">
     RED.nodes.registerType('lock-vehicle', {
-        category: 'onstar',
+        category: 'onstar2',
         color: '#7eb0ff',
         defaults: {
             name: { value: 'Lock Vehicle' },
-            onstar: { value: 'Onstar config', type: 'onstar' }
+            onstar2: { value: 'Onstar Config', type: 'onstar2' }
         },
         inputs: 1,
-        outputs: 1,
+        outputs: 2,
+        outputLabels: ["Command Status","result.response.data"],
         icon: 'onstar.png',
         label: function () {
             //return this.name || 'lock-vehicle';
-            var configCarName = RED.nodes.node(this.onstar);
+            var configCarName = RED.nodes.node(this.onstar2);
             return configCarName.label()+" "+this.name;
         },
         oneditsave: function() {
@@ -81,18 +84,19 @@
 
 <script type="text/javascript">
     RED.nodes.registerType('unlock-vehicle', {
-        category: 'onstar',
+        category: 'onstar2',
         color: '#7eb0ff',
         defaults: {
             name: { value: 'Unlock Vehicle' },
-            onstar: { value: 'Onstar config', type: 'onstar' }
+            onstar2: { value: 'Onstar Config', type: 'onstar2' }
         },
         inputs: 1,
-        outputs: 1,
+        outputs: 2,
+        outputLabels: ["Command Status","result.response.data"],
         icon: 'onstar.png',
         label: function () {
             //return this.name || 'unlock-vehicle';
-            var configCarName = RED.nodes.node(this.onstar);
+            var configCarName = RED.nodes.node(this.onstar2);
             return configCarName.label()+" "+this.name;
         },
         oneditsave: function() {
@@ -109,18 +113,19 @@
 
 <script type="text/javascript">
     RED.nodes.registerType('start-vehicle', {
-        category: 'onstar',
+        category: 'onstar2',
         color: '#7eb0ff',
         defaults: {
             name: { value: 'Start Vehicle' },
-            onstar: { value: 'Onstar config', type: 'onstar' }
+            onstar2: { value: 'Onstar Config', type: 'onstar2' }
         },
         inputs: 1,
-        outputs: 1,
+        outputs: 2,
+        outputLabels: ["Command Status","result.response.data"],
         icon: 'onstar.png',
         label: function () {
             //return this.name || 'start-vehicle';
-            var configCarName = RED.nodes.node(this.onstar);
+            var configCarName = RED.nodes.node(this.onstar2);
             return configCarName.label()+" "+this.name;
         },
         oneditsave: function() {
@@ -136,18 +141,19 @@
 
 <script type="text/javascript">
     RED.nodes.registerType('cancel-start-vehicle', {
-        category: 'onstar',
+        category: 'onstar2',
         color: '#7eb0ff',
         defaults: {
             name: { value: 'Cancel Start Vehicle' },
-            onstar: { value: 'Onstar config', type: 'onstar' }
+            onstar2: { value: 'Onstar Config', type: 'onstar2' }
         },
         inputs: 1,
-        outputs: 1,
+        outputs: 2,
+        outputLabels: ["Command Status","result.response.data"],
         icon: 'onstar.png',
         label: function () {
             //return this.name || 'cancel-start-vehicle';
-            var configCarName = RED.nodes.node(this.onstar);
+            var configCarName = RED.nodes.node(this.onstar2);
             return configCarName.label()+" "+this.name;
         },
         oneditsave: function() {
@@ -164,18 +170,19 @@
 
 <script type="text/javascript">
     RED.nodes.registerType('alert-vehicle', {
-        category: 'onstar',
+        category: 'onstar2',
         color: '#7eb0ff',
         defaults: {
             name: { value: 'Alert Vehicle' },
-            onstar: { value: 'Onstar config', type: 'onstar' }
+            onstar2: { value: 'Onstar Config', type: 'onstar2' }
         },
         inputs: 1,
-        outputs: 1,
+        outputs: 2,
+        outputLabels: ["Command Status","result.response.data"],
         icon: 'onstar.png',
         label: function () {
             //return this.name || 'alert-vehicle';
-            var configCarName = RED.nodes.node(this.onstar);
+            var configCarName = RED.nodes.node(this.onstar2);
             return configCarName.label()+" "+this.name;
         },
         oneditsave: function() {
@@ -191,18 +198,19 @@
 
 <script type="text/javascript">
     RED.nodes.registerType('alert-vehicle-lights', {
-        category: 'onstar',
+        category: 'onstar2',
         color: '#7eb0ff',
         defaults: {
             name: { value: 'Alert Vehicle Lights Only' },
-            onstar: { value: 'Onstar config', type: 'onstar' }
+            onstar2: { value: 'Onstar Config', type: 'onstar2' }
         },
         inputs: 1,
-        outputs: 1,
+        outputs: 2,
+        outputLabels: ["Command Status","result.response.data"],
         icon: 'onstar.png',
         label: function () {
             //return this.name || 'alert-vehicle';
-            var configCarName = RED.nodes.node(this.onstar);
+            var configCarName = RED.nodes.node(this.onstar2);
             return configCarName.label()+" "+this.name;
         },
         oneditsave: function() {
@@ -218,18 +226,19 @@
 
 <script type="text/javascript">
     RED.nodes.registerType('alert-vehicle-horn', {
-        category: 'onstar',
+        category: 'onstar2',
         color: '#7eb0ff',
         defaults: {
             name: { value: 'Alert Vehicle Horn Only' },
-            onstar: { value: 'Onstar config', type: 'onstar' }
+            onstar2: { value: 'Onstar Config', type: 'onstar2' }
         },
         inputs: 1,
-        outputs: 1,
+        outputs: 2,
+        outputLabels: ["Command Status","result.response.data"],
         icon: 'onstar.png',
         label: function () {
             //return this.name || 'alert-vehicle';
-            var configCarName = RED.nodes.node(this.onstar);
+            var configCarName = RED.nodes.node(this.onstar2);
             return configCarName.label()+" "+this.name;
         },
         oneditsave: function() {
@@ -245,18 +254,19 @@
 
 <script type="text/javascript">
     RED.nodes.registerType('cancel-alert-vehicle', {
-        category: 'onstar',
+        category: 'onstar2',
         color: '#7eb0ff',
         defaults: {
             name: { value: 'Cancel Alert Vehicle' },
-            onstar: { value: 'Onstar config', type: 'onstar' }
+            onstar2: { value: 'Onstar Config', type: 'onstar2' }
         },
         inputs: 1,
-        outputs: 1,
+        outputs: 2,
+        outputLabels: ["Command Status","result.response.data"],
         icon: 'onstar.png',
         label: function () {
             //return this.name || 'cancel-alert-vehicle';
-            var configCarName = RED.nodes.node(this.onstar);
+            var configCarName = RED.nodes.node(this.onstar2);
             return configCarName.label()+" "+this.name;
         },
         oneditsave: function() {
@@ -271,19 +281,20 @@
 </script>
 
 <script type="text/javascript">
-    RED.nodes.registerType('location', {
-        category: 'onstar',
+    RED.nodes.registerType('locate-vehicle', {
+        category: 'onstar2',
         color: '#7eb0ff',
         defaults: {
             name: { value: 'Get Vehicle Location' },
-            onstar: { value: 'Onstar config', type: 'onstar' }
+            onstar2: { value: 'Onstar Config', type: 'onstar2' }
         },
         inputs: 1,
-        outputs: 1,
+        outputs: 2,
+        outputLabels: ["Location Information","result.response.data"],
         icon: 'onstar.png',
         label: function () {
             //return this.name || 'location';
-            var configCarName = RED.nodes.node(this.onstar);
+            var configCarName = RED.nodes.node(this.onstar2);
             return configCarName.label()+" "+this.name;
         },
         oneditsave: function() {
@@ -299,18 +310,19 @@
 
 <script type="text/javascript">
     RED.nodes.registerType('charge-override', {
-        category: 'onstar',
+        category: 'onstar2',
         color: '#7eb0ff',
         defaults: {
             name: { value: 'Override Charge State' },
-            onstar: { value: 'Onstar config', type: 'onstar' }
+            onstar2: { value: 'Onstar Config', type: 'onstar2' }
         },
         inputs: 1,
-        outputs: 1,
+        outputs: 2,
+        outputLabels: ["Command Status","result.response.data"],
         icon: 'onstar.png',
         label: function () {
             //return this.name || 'charge-override';
-            var configCarName = RED.nodes.node(this.onstar);
+            var configCarName = RED.nodes.node(this.onstar2);
             return configCarName.label()+" "+this.name;
         },
         oneditsave: function() {
@@ -326,18 +338,19 @@
 
 <script type="text/javascript">
     RED.nodes.registerType('get-charge-profile', {
-        category: 'onstar',
+        category: 'onstar2',
         color: '#7eb0ff',
         defaults: {
             name: { value: 'Get Charging Profile' },
-            onstar: { value: 'Onstar config', type: 'onstar' }
+            onstar2: { value: 'Onstar Config', type: 'onstar2' }
         },
         inputs: 1,
-        outputs: 1,
+        outputs: 2,
+        outputLabels: ["Get Charging Profile","result.response.data"],
         icon: 'onstar.png',
         label: function () {
             //return this.name || 'get-charge-profile';
-            var configCarName = RED.nodes.node(this.onstar);
+            var configCarName = RED.nodes.node(this.onstar2);
             return configCarName.label()+" "+this.name;
         },
         oneditsave: function() {
@@ -353,18 +366,19 @@
 
 <script type="text/javascript">
     RED.nodes.registerType('set-charge-profile', {
-        category: 'onstar',
+        category: 'onstar2',
         color: '#7eb0ff',
         defaults: {
             name: { value: 'Set Charge Profile' },
-            onstar: { value: 'Onstar config', type: 'onstar' }
+            onstar2: { value: 'Onstar Config', type: 'onstar2' }
         },
         inputs: 1,
-        outputs: 1,
+        outputs: 2,
+        outputLabels: ["Command Status","result.response.data"],
         icon: 'onstar.png',
         label: function () {
             //return this.name || 'set-charge-profile';
-            var configCarName = RED.nodes.node(this.onstar);
+            var configCarName = RED.nodes.node(this.onstar2);
             return configCarName.label()+" "+this.name;
         },
         oneditsave: function() {
@@ -379,7 +393,7 @@
 </script>
 
 <script type="text/javascript">
-    RED.nodes.registerType('onstar', {
+    RED.nodes.registerType('onstar2', {
         category: 'config',
         defaults: {
             carname: { required: true },
@@ -454,8 +468,8 @@
         <input type="text" id="node-input-name" placeholder="Name" />
     </div>
     <div class="form-row">
-        <label for="node-input-onstar"><i class="icon-tag"></i> Config</label>
-        <input type="text" id="node-input-onstar" placeholder="Name" />
+        <label for="node-input-onstar2"><i class="icon-tag"></i> Config</label>
+        <input type="text" id="node-input-onstar2" placeholder="Name" />
     </div>
 </script>
 
@@ -469,8 +483,8 @@
         <input type="text" id="node-input-name" placeholder="Name" />
     </div>
     <div class="form-row">
-        <label for="node-input-onstar"><i class="icon-tag"></i> Config</label>
-        <input type="text" id="node-input-onstar" placeholder="Name" />
+        <label for="node-input-onstar2"><i class="icon-tag"></i> Config</label>
+        <input type="text" id="node-input-onstar2" placeholder="Name" />
     </div>
 </script>
 
@@ -484,8 +498,8 @@
         <input type="text" id="node-input-name" placeholder="Name" />
     </div>
     <div class="form-row">
-        <label for="node-input-onstar"><i class="icon-tag"></i> Config</label>
-        <input type="text" id="node-input-onstar" placeholder="Name" />
+        <label for="node-input-onstar2"><i class="icon-tag"></i> Config</label>
+        <input type="text" id="node-input-onstar2" placeholder="Name" />
     </div>
 </script>
 
@@ -499,8 +513,8 @@
         <input type="text" id="node-input-name" placeholder="Name" />
     </div>
     <div class="form-row">
-        <label for="node-input-onstar"><i class="icon-tag"></i> Config</label>
-        <input type="text" id="node-input-onstar" placeholder="Name" />
+        <label for="node-input-onstar2"><i class="icon-tag"></i> Config</label>
+        <input type="text" id="node-input-onstar2" placeholder="Name" />
     </div>
 </script>
 
@@ -514,8 +528,8 @@
         <input type="text" id="node-input-name" placeholder="Name" />
     </div>
     <div class="form-row">
-        <label for="node-input-onstar"><i class="icon-tag"></i> Config</label>
-        <input type="text" id="node-input-onstar" placeholder="Name" />
+        <label for="node-input-onstar2"><i class="icon-tag"></i> Config</label>
+        <input type="text" id="node-input-onstar2" placeholder="Name" />
     </div>
 </script>
 
@@ -529,8 +543,8 @@
         <input type="text" id="node-input-name" placeholder="Name" />
     </div>
     <div class="form-row">
-        <label for="node-input-onstar"><i class="icon-tag"></i> Config</label>
-        <input type="text" id="node-input-onstar" placeholder="Name" />
+        <label for="node-input-onstar2"><i class="icon-tag"></i> Config</label>
+        <input type="text" id="node-input-onstar2" placeholder="Name" />
     </div>
 </script>
 
@@ -544,8 +558,8 @@
         <input type="text" id="node-input-name" placeholder="Name" />
     </div>
     <div class="form-row">
-        <label for="node-input-onstar"><i class="icon-tag"></i> Config</label>
-        <input type="text" id="node-input-onstar" placeholder="Name" />
+        <label for="node-input-onstar2"><i class="icon-tag"></i> Config</label>
+        <input type="text" id="node-input-onstar2" placeholder="Name" />
     </div>
 </script>
 
@@ -559,8 +573,8 @@
         <input type="text" id="node-input-name" placeholder="Name" />
     </div>
     <div class="form-row">
-        <label for="node-input-onstar"><i class="icon-tag"></i> Config</label>
-        <input type="text" id="node-input-onstar" placeholder="Name" />
+        <label for="node-input-onstar2"><i class="icon-tag"></i> Config</label>
+        <input type="text" id="node-input-onstar2" placeholder="Name" />
     </div>
 </script>
 
@@ -574,8 +588,8 @@
         <input type="text" id="node-input-name" placeholder="Name" />
     </div>
     <div class="form-row">
-        <label for="node-input-onstar"><i class="icon-tag"></i> Config</label>
-        <input type="text" id="node-input-onstar" placeholder="Name" />
+        <label for="node-input-onstar2"><i class="icon-tag"></i> Config</label>
+        <input type="text" id="node-input-onstar2" placeholder="Name" />
     </div>
 </script>
 
@@ -590,8 +604,8 @@
         <input type="text" id="node-input-name" placeholder="Name" />
     </div>
     <div class="form-row">
-        <label for="node-input-onstar"><i class="icon-tag"></i> Config</label>
-        <input type="text" id="node-input-onstar" placeholder="Name" />
+        <label for="node-input-onstar2"><i class="icon-tag"></i> Config</label>
+        <input type="text" id="node-input-onstar2" placeholder="Name" />
     </div>
 </script>
 
@@ -599,18 +613,18 @@
     <p>Stop the vehicle alert</p>
 </script>
 
-<script type="text/html" data-template-name="location">
+<script type="text/html" data-template-name="locate-vehicle">
     <div class="form-row">
         <label for="node-input-name"><i class="icon-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Name" />
     </div>
     <div class="form-row">
-        <label for="node-input-onstar"><i class="icon-tag"></i> Config</label>
-        <input type="text" id="node-input-onstar" placeholder="Name" />
+        <label for="node-input-onstar2"><i class="icon-tag"></i> Config</label>
+        <input type="text" id="node-input-onstar2" placeholder="Name" />
     </div>
 </script>
 
-<script type="text/html" data-help-name="location">
+<script type="text/html" data-help-name="locate-vehicle">
     <p>Get vehicle location</p>
 </script>
 
@@ -620,8 +634,8 @@
         <input type="text" id="node-input-name" placeholder="Name" />
     </div>
     <div class="form-row">
-        <label for="node-input-onstar"><i class="icon-tag"></i> Config</label>
-        <input type="text" id="node-input-onstar" placeholder="Name" />
+        <label for="node-input-onstar2"><i class="icon-tag"></i> Config</label>
+        <input type="text" id="node-input-onstar2" placeholder="Name" />
     </div>
 </script>
 
@@ -635,8 +649,8 @@
         <input type="text" id="node-input-name" placeholder="Name" />
     </div>
     <div class="form-row">
-        <label for="node-input-onstar"><i class="icon-tag"></i> Config</label>
-        <input type="text" id="node-input-onstar" placeholder="Name" />
+        <label for="node-input-onstar2"><i class="icon-tag"></i> Config</label>
+        <input type="text" id="node-input-onstar2" placeholder="Name" />
     </div>
 </script>
 
@@ -650,8 +664,8 @@
         <input type="text" id="node-input-name" placeholder="Name" />
     </div>
     <div class="form-row">
-        <label for="node-input-onstar"><i class="icon-tag"></i> Config</label>
-        <input type="text" id="node-input-onstar" placeholder="Name" />
+        <label for="node-input-onstar2"><i class="icon-tag"></i> Config</label>
+        <input type="text" id="node-input-onstar2" placeholder="Name" />
     </div>
 </script>
 
@@ -659,7 +673,7 @@
     <p>Get the charge profile</p>
 </script>
 
-<script type="text/html" data-template-name="onstar">
+<script type="text/html" data-template-name="onstar2">
     <div class="form-row">
         <label for="node-config-input-name"><i class="icon-bookmark"></i> Name</label>
         <input type="text" id="node-config-input-name" value="OnStar" />

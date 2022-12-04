@@ -20,9 +20,10 @@ module.exports = function(RED) {
         RED.nodes.createNode(this, config);
         const node = this;
 
-        node.on('input', async function (msg) {
+        //node.on('input', async function (msg) 
+        node.on('input', async function () {
             try {
-                let configNode = RED.nodes.getNode(config.onstar);
+                let configNode = RED.nodes.getNode(config.onstar2);
 
                 let client = createClient(configNode);
                 const vehiclesRes = await client.getAccountVehicles();
@@ -30,13 +31,16 @@ module.exports = function(RED) {
                     _.get(vehiclesRes, 'response.data.vehicles.vehicle'),
                     v => new Vehicle(v)
                 );
-                node.send({
-                    payload: vehicles,
-                });
+                let msg1 = {payload: vehicles};
+                let msg2 = {payload: vehiclesRes.response};
+                node.send(
+                    [(msg1), (msg2)]
+                );
             } catch (err) {
-                node.send({
-                    payload: err,
-                });
+                let errmsg = {payload: err}
+                node.send(
+                    [errmsg, errmsg]
+                );
             }
         });
     }
@@ -47,21 +51,24 @@ module.exports = function(RED) {
 
         node.on('input', async function (msg) {
             try {
-                let configNode = RED.nodes.getNode(config.onstar);
+                let configNode = RED.nodes.getNode(config.onstar2);
 
                 let client = createClient(configNode);
                 let request = {
                     diagnosticItem: msg.payload.diagnosticItem || ["ENGINE COOLANT TEMP", "ENGINE RPM", "LAST TRIP FUEL ECONOMY", "OIL LIFE", "LIFETIME FUEL ECON", "HOTSPOT CONFIG", "LIFETIME FUEL USED", "ODOMETER", "HOTSPOT STATUS", "TIRE PRESSURE", "AMBIENT AIR TEMPERATURE", "LAST TRIP DISTANCE", "INTERM VOLT BATT VOLT", "FUEL TANK INFO", "HANDS FREE CALLING", "VEHICLE RANGE", "ENGINE AIR FILTER MONITOR STATUS"]
                 };
 
-		        let result = await client.diagnostics(request);
-                node.send({
-                    payload: result.response.data.commandResponse.body,
-                });
+                let result = await client.diagnostics(request);
+                let msg1 = {payload: result.response.data.commandResponse.body};
+                let msg2 = {payload: result.response.data};
+                node.send(
+                    [(msg1), (msg2)]
+                );
             } catch (err) {
-                node.send({
-                    payload: err,
-                });
+                let errmsg = {payload: err}
+                node.send(
+                    [errmsg, errmsg]
+                );
             }
         });
     }
@@ -72,7 +79,7 @@ module.exports = function(RED) {
 
         node.on('input', async function (msg) {
             try {
-                let configNode = RED.nodes.getNode(config.onstar);
+                let configNode = RED.nodes.getNode(config.onstar2);
 
                 let client = createClient(configNode);
                 let request = {
@@ -80,13 +87,16 @@ module.exports = function(RED) {
                 };
 
                 let result = await client.lockDoor(request);
-                node.send({
-                    payload: result.response.data.commandResponse.status,
-                });
+                let msg1 = {payload: result.response.data.commandResponse.status};
+                let msg2 = {payload: result.response.data};
+                node.send(
+                    [(msg1), (msg2)]
+                );
             } catch (err) {
-                node.send({
-                    payload: err,
-                });
+                let errmsg = {payload: err}
+                node.send(
+                    [errmsg, errmsg]
+                );
             }
         });
     }
@@ -97,20 +107,23 @@ module.exports = function(RED) {
 
         node.on('input', async function (msg) {
             try {
-                let configNode = RED.nodes.getNode(config.onstar);
+                let configNode = RED.nodes.getNode(config.onstar2);
                 let request = {
                     delay: msg.payload.delay || 0
                 };
 
                 let client = createClient(configNode);
                 let result = await client.unlockDoor(request);
-                node.send({
-                    payload: result.response.data.commandResponse.status,
-                });
+                let msg1 = {payload: result.response.data.commandResponse.status};
+                let msg2 = {payload: result.response.data};
+                node.send(
+                    [(msg1), (msg2)]
+                );
             } catch (err) {
-                node.send({
-                    payload: err,
-                });
+                let errmsg = {payload: err}
+                node.send(
+                    [errmsg, errmsg]
+                );
             }
         });
     }
@@ -119,19 +132,23 @@ module.exports = function(RED) {
         RED.nodes.createNode(this, config);
         const node = this;
 
-        node.on('input', async function (msg) {
+        //node.on('input', async function (msg) 
+        node.on('input', async function () {
             try {
-                let configNode = RED.nodes.getNode(config.onstar);
+                let configNode = RED.nodes.getNode(config.onstar2);
 
                 let client = createClient(configNode);
                 let result = await client.start();
-                node.send({
-                    payload: result.response.data.commandResponse.status,
-                });
+                let msg1 = {payload: result.response.data.commandResponse.status};
+                let msg2 = {payload: result.response.data};
+                node.send(
+                    [(msg1), (msg2)]
+                );
             } catch (err) {
-                node.send({
-                    payload: err,
-                });
+                let errmsg = {payload: err}
+                node.send(
+                    [errmsg, errmsg]
+                );
             }
         });
     }
@@ -140,19 +157,23 @@ module.exports = function(RED) {
         RED.nodes.createNode(this, config);
         const node = this;
 
-        node.on('input', async function (msg) {
+        //node.on('input', async function (msg) 
+        node.on('input', async function () {
             try {
-                let configNode = RED.nodes.getNode(config.onstar);
+                let configNode = RED.nodes.getNode(config.onstar2);
 
                 let client = createClient(configNode);
                 let result = await client.cancelStart();
-                node.send({
-                    payload: result.response.data.commandResponse.status,
-                });
+                let msg1 = {payload: result.response.data.commandResponse.status};
+                let msg2 = {payload: result.response.data};
+                node.send(
+                    [(msg1), (msg2)]
+                );
             } catch (err) {
-                node.send({
-                    payload: err,
-                });
+                let errmsg = {payload: err}
+                node.send(
+                    [errmsg, errmsg]
+                );
             }
         });
     }
@@ -163,7 +184,7 @@ module.exports = function(RED) {
 
         node.on('input', async function (msg) {
             try {
-                let configNode = RED.nodes.getNode(config.onstar);
+                let configNode = RED.nodes.getNode(config.onstar2);
 
                 let client = createClient(configNode);
                 let request = {
@@ -174,13 +195,16 @@ module.exports = function(RED) {
                 };
 
                 let result = await client.alert(request);
-                node.send({
-                    payload: result.response.data.commandResponse.status,
-                });
+                let msg1 = {payload: result.response.data.commandResponse.status};
+                let msg2 = {payload: result.response.data};
+                node.send(
+                    [(msg1), (msg2)]
+                );
             } catch (err) {
-                node.send({
-                    payload: err,
-                });
+                let errmsg = {payload: err}
+                node.send(
+                    [errmsg, errmsg]
+                );
             }
         });
     }
@@ -191,7 +215,7 @@ module.exports = function(RED) {
 
         node.on('input', async function (msg) {
             try {
-                let configNode = RED.nodes.getNode(config.onstar);
+                let configNode = RED.nodes.getNode(config.onstar2);
 
                 let client = createClient(configNode);
                 let request = {
@@ -202,13 +226,16 @@ module.exports = function(RED) {
                 };
 
                 let result = await client.alert(request);
-                node.send({
-                    payload: result.response.data.commandResponse.status,
-                });
+                let msg1 = {payload: result.response.data.commandResponse.status};
+                let msg2 = {payload: result.response.data};
+                node.send(
+                    [(msg1), (msg2)]
+                );
             } catch (err) {
-                node.send({
-                    payload: err,
-                });
+                let errmsg = {payload: err}
+                node.send(
+                    [errmsg, errmsg]
+                );
             }
         });
     }
@@ -219,7 +246,7 @@ module.exports = function(RED) {
 
         node.on('input', async function (msg) {
             try {
-                let configNode = RED.nodes.getNode(config.onstar);
+                let configNode = RED.nodes.getNode(config.onstar2);
 
                 let client = createClient(configNode);
                 let request = {
@@ -230,13 +257,16 @@ module.exports = function(RED) {
                 };
 
                 let result = await client.alert(request);
-                node.send({
-                    payload: result.response.data.commandResponse.status,
-                });
+                let msg1 = {payload: result.response.data.commandResponse.status};
+                let msg2 = {payload: result.response.data};
+                node.send(
+                    [(msg1), (msg2)]
+                );
             } catch (err) {
-                node.send({
-                    payload: err,
-                });
+                let errmsg = {payload: err}
+                node.send(
+                    [errmsg, errmsg]
+                );
             }
         });
     }
@@ -245,40 +275,48 @@ module.exports = function(RED) {
         RED.nodes.createNode(this, config);
         const node = this;
 
-        node.on('input', async function (msg) {
+        //node.on('input', async function (msg) 
+        node.on('input', async function () {
             try {
-                let configNode = RED.nodes.getNode(config.onstar);
+                let configNode = RED.nodes.getNode(config.onstar2);
 
                 let client = createClient(configNode);
                 let result = await client.cancelAlert();
-                node.send({
-                    payload: result.response.data.commandResponse.status,
-                });
+                let msg1 = {payload: result.response.data.commandResponse.status};
+                let msg2 = {payload: result.response.data};
+                node.send(
+                    [(msg1), (msg2)]
+                );
             } catch (err) {
-                node.send({
-                    payload: err,
-                });
+                let errmsg = {payload: err}
+                node.send(
+                    [errmsg, errmsg]
+                );
             }
         });
     }
 
-    function Location(config) {
+    function LocateVehicle(config) {
         RED.nodes.createNode(this, config);
         const node = this;
 
-        node.on('input', async function (msg) {
+        //node.on('input', async function (msg) 
+        node.on('input', async function () {
             try {
-                let configNode = RED.nodes.getNode(config.onstar);
+                let configNode = RED.nodes.getNode(config.onstar2);
 
                 let client = createClient(configNode);
                 let result = await client.location();
-                node.send({
-                    payload: result.response.data.commandResponse.body,
-                });
+                let msg1 = {payload: result.response.data.commandResponse.body};
+                let msg2 = {payload: result.response.data};
+                node.send(
+                    [(msg1), (msg2)]
+                );
             } catch (err) {
-                node.send({
-                    payload: err,
-                });
+                let errmsg = {payload: err}
+                node.send(
+                    [errmsg, errmsg]
+                );
             }
         });
     }
@@ -289,7 +327,7 @@ module.exports = function(RED) {
 
         node.on('input', async function (msg) {
             try {
-                let configNode = RED.nodes.getNode(config.onstar);
+                let configNode = RED.nodes.getNode(config.onstar2);
 
                 let client = createClient(configNode);
                 let request = {
@@ -297,13 +335,16 @@ module.exports = function(RED) {
                 };
 
                 let result = await client.chargeOverride(request);
-                node.send({
-                    payload: result.response.data.commandResponse.status,
-                });
+                let msg1 = {payload: result.response.data.commandResponse.status};
+                let msg2 = {payload: result.response.data};
+                node.send(
+                    [(msg1), (msg2)]
+                );
             } catch (err) {
-                node.send({
-                    payload: err,
-                });
+                let errmsg = {payload: err}
+                node.send(
+                    [errmsg, errmsg]
+                );
             }
         });
     }
@@ -312,19 +353,23 @@ module.exports = function(RED) {
         RED.nodes.createNode(this, config);
         const node = this;
 
-        node.on('input', async function (msg) {
+        //node.on('input', async function (msg) 
+        node.on('input', async function () {
             try {
-                let configNode = RED.nodes.getNode(config.onstar);
+                let configNode = RED.nodes.getNode(config.onstar2);
 
                 let client = createClient(configNode);
                 let result = await client.getChargingProfile();
-                node.send({
-                    payload: result.response.data.commandResponse.body,
-                });
+                let msg1 = {payload: result.response.data.commandResponse.body};
+                let msg2 = {payload: result.response.data};
+                node.send(
+                    [(msg1), (msg2)]
+                );
             } catch (err) {
-                node.send({
-                    payload: err,
-                });
+                let errmsg = {payload: err}
+                node.send(
+                    [errmsg, errmsg]
+                );
             }
         });
     }
@@ -335,7 +380,7 @@ module.exports = function(RED) {
 
         node.on('input', async function (msg) {
             try {
-                let configNode = RED.nodes.getNode(config.onstar);
+                let configNode = RED.nodes.getNode(config.onstar2);
 
                 let client = createClient(configNode);
                 let request = {
@@ -344,13 +389,16 @@ module.exports = function(RED) {
                 };
 
                 let result = await client.setChargingProfile(request);
-                node.send({
-                    payload: result.response.data.commandResponse.status,
-                });
+                let msg1 = {payload: result.response.data.commandResponse.status};
+                let msg2 = {payload: result.response.data};
+                node.send(
+                    [(msg1), (msg2)]
+                );
             } catch (err) {
-                node.send({
-                    payload: err,
-                });
+                let errmsg = {payload: err}
+                node.send(
+                    [errmsg, errmsg]
+                );
             }
         });
     }
@@ -367,7 +415,7 @@ module.exports = function(RED) {
         this.requestpollingintervalseconds = config.requestPollingIntervalSeconds;
     }
 
-    RED.nodes.registerType('onstar', OnStarNode);
+    RED.nodes.registerType('onstar2', OnStarNode);
     RED.nodes.registerType('get-account-vehicles', GetAccountVehicles);
     RED.nodes.registerType('diagnostics', GetDiagnostics);
     RED.nodes.registerType('lock-vehicle', LockVehicle);
@@ -378,7 +426,7 @@ module.exports = function(RED) {
     RED.nodes.registerType('alert-vehicle-lights', AlertVehicleLights);
     RED.nodes.registerType('alert-vehicle-horn', AlertVehicleHorn);
     RED.nodes.registerType('cancel-alert-vehicle', CancelAlertVehicle);
-    RED.nodes.registerType('location', Location);
+    RED.nodes.registerType('locate-vehicle', LocateVehicle);
     RED.nodes.registerType('charge-override', ChargeOverride);
     RED.nodes.registerType('get-charge-profile', GetChargeProfile);
     RED.nodes.registerType('set-charge-profile', SetChargeProfile);

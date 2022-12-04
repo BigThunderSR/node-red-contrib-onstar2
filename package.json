@@ -4,14 +4,14 @@
   "version": "0.1.33",
   "description": "A Node Red Library for OnstarJs, an unofficial client library for the OnStar Vehicle API",
   "dependencies": {
-    "onstarjs": "^2.3.13",
-    "lodash": "^4.17.21"
+    "lodash": "^4.17.21",
+    "onstarjs": "^2.3.13"
   },
   "node-red": {
     "version": ">=3.0.0",
     "nodes": {
       "onstar": "onstar.js"
-    }    
+    }
   },
   "engines": {
     "node": ">=14.0.0"
@@ -19,6 +19,13 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/bigthundersr/node-red-contrib-onstar2.git"
+  },
+  "devDependencies": {
+    "@babel/eslint-parser": "7.19.1",
+    "@babel/eslint-plugin": "7.19.1",
+    "@babel/plugin-syntax-class-properties": "^7.12.13",
+    "@babel/preset-env": "7.20.2",
+    "eslint": "^8.29.0"
   },
   "keywords": [
     "node-red",
@@ -30,6 +37,6 @@
     "Buick",
     "Cadillac"
   ],
-  "author": "Casey Morton, Updated by bigthundersr",
-  "license" : "MIT"
+  "author": "Casey Morton, Updated by BigThunderSR",
+  "license": "MIT"
 }
