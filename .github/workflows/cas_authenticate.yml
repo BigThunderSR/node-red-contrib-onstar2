@@ -2,8 +2,11 @@ name: Authenticate Assets with CAS
 
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
+  #push:
+  #  branches: [main]
+  workflow_run:
+    workflows: ["Notarize Assets with CAS"]    
+    types: [completed]
 
 jobs:
   authenticate-assets-job:
