@@ -8,11 +8,13 @@
 
 A node-red flow for controlling GM OnStar vehicles powered by [onstarjs](https://github.com/samrum/OnStarJS) originally written by [caseyjmorton](https://www.npmjs.com/~caseyjmorton) and published [here](https://www.npmjs.com/package/node-red-contrib-onstar).
 
-This fork is for me to experiment with the capabilities exposed in the original version and to add custom commands as necessary.  
+This fork is for me to experiment with the capabilities exposed in the original version and to add custom commands as necessary.
+
+- ***Following a major re-write, this project is now at version 2.0 and is fully independent from the original npm package.***
+
+- ***Version 2.0 has breaking changes, but no further breaking changes are expected at this time.***
 
 [![npm](https://img.shields.io/npm/v/node-red-contrib-onstar2.svg)](https://www.npmjs.com/package/node-red-contrib-onstar2)
-
-![Sample](https://i.imgur.com/wXMHZWT.png)
 
 ## Install
 ```sh
@@ -20,7 +22,15 @@ npm install node-red-contrib-onstar2
 ```
 
 ## Documentation
-This project is in very early alpha phase.  Documentation TBD.
+Each node is self-explanatory with hints provided wherever necessary.
+
+## Running
+
+Collect the following information:
+
+1. [Generate](https://www.uuidgenerator.net/version4) a v4 uuid for the device ID
+1. OnStar login: username, password, PIN
+1. Your car's VIN. Easily found in the monthly OnStar diagnostic emails.
 
 ## Supported Features
 - Lock
@@ -37,3 +47,5 @@ This project is in very early alpha phase.  Documentation TBD.
 - Get Vehicle Location
 - Get Diagnostic Information
 - Get Vehicle Capabilities
+
+![node-red-contrib-onstar2-sample](https://user-images.githubusercontent.com/17056173/205469943-64614ee4-4a34-449e-98a4-c31aff820468.png)
