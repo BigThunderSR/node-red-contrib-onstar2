@@ -9,7 +9,8 @@ on:
   #pull_request:
   #  branches: [ "main" ]
   workflow_run:
-    workflows: ["CodeQL", "Lint Code Base"]    
+    #workflows: ["CodeQL", "Lint Code Base"]
+    workflows: ["Lint Code Base"]
     types: [completed]
 jobs:
   build:
