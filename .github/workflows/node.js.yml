@@ -9,7 +9,7 @@ on:
   pull_request:
     branches: [ "main" ]
   workflow_run:
-    workflows: ["CodeQL"]    
+    workflows: ["CodeQL", "Lint Code Base"]    
     types: 
       - completed
 jobs:
