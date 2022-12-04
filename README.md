@@ -16,6 +16,8 @@ This fork is for me to experiment with the capabilities exposed in the original 
 
 [![npm](https://img.shields.io/npm/v/node-red-contrib-onstar2.svg)](https://www.npmjs.com/package/node-red-contrib-onstar2)
 
+![node-red-contrib-onstar2-sample_s](https://user-images.githubusercontent.com/17056173/205470439-c27a5fc0-2ec3-4043-bef3-408042f78d29.png)
+
 ## Install
 
 ```sh
@@ -50,5 +52,3 @@ Collect the following information:
 - Get Vehicle Location
 - Get Diagnostic Information
 - Get Vehicle Capabilities
-
-![node-red-contrib-onstar2-sample](https://user-images.githubusercontent.com/17056173/205469943-64614ee4-4a34-449e-98a4-c31aff820468.png)
