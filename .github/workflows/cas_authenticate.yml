@@ -1,0 +1,52 @@
+name: Authenticate Assets with CAS
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+jobs:
+  authenticate-assets-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+    
+      - name: Authenticate LICENSE
+        #--> Run the GitHub action
+        uses: codenotary/cas-authenticate-asset-github-action@main
+        with:
+          # Whatever asset is being notarized, can be a target/ or dist/ compiled binary or any type of file
+          # Your signerID is the only thing needed to authenticate assets, this can be provided in both base64 or plaintext, and will be the email address used to generate your API Key
+          asset: LICENSE
+          signerID: QmlnVGh1bmRlclNSQG91dGxvb2suY29t
+      - name: Authenticate onstar.html        
+        uses: codenotary/cas-authenticate-asset-github-action@main
+        with:          
+          asset: onstar.html
+          signerID: QmlnVGh1bmRlclNSQG91dGxvb2suY29t
+      - name: Authenticate onstar.js        
+        uses: codenotary/cas-authenticate-asset-github-action@main
+        with:          
+          asset: onstar.js
+          signerID: QmlnVGh1bmRlclNSQG91dGxvb2suY29t
+      - name: Authenticate package.json        
+        uses: codenotary/cas-authenticate-asset-github-action@main
+        with:          
+          asset: package.json
+          signerID: QmlnVGh1bmRlclNSQG91dGxvb2suY29t          
+      - name: Authenticate package-lock.json        
+        uses: codenotary/cas-authenticate-asset-github-action@main
+        with:          
+          asset: package-lock.json
+          signerID: QmlnVGh1bmRlclNSQG91dGxvb2suY29t
+      - name: Authenticate README.md        
+        uses: codenotary/cas-authenticate-asset-github-action@main
+        with:          
+          asset: README.md
+          signerID: QmlnVGh1bmRlclNSQG91dGxvb2suY29t
+      - name: Authenticate vehicle.js        
+        uses: codenotary/cas-authenticate-asset-github-action@main
+        with:          
+          asset: vehicle.js
+          signerID: QmlnVGh1bmRlclNSQG91dGxvb2suY29t

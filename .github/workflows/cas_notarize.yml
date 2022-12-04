@@ -1,0 +1,51 @@
+name: Notarize Assets with CAS
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+jobs:
+  notarize-assets-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+    
+      - name: Notarize LICENSE
+        #--> Run the GitHub action
+        uses: codenotary/cas-notarize-asset-github-action@main
+        with:
+          # Whatever asset is being notarized, can be a target/ or dist/ compiled binary or any type of file          
+          asset: LICENSE
+          cas_api_key: ${{ secrets.CAS_API_KEY }}
+      - name: Notarize onstar.html        
+        uses: codenotary/cas-notarize-asset-github-action@main
+        with:          
+          asset: onstar.html
+          cas_api_key: ${{ secrets.CAS_API_KEY }}
+      - name: Notarize onstar.js        
+        uses: codenotary/cas-notarize-asset-github-action@main
+        with:          
+          asset: onstar.js
+          cas_api_key: ${{ secrets.CAS_API_KEY }}
+      - name: Notarize package.json        
+        uses: codenotary/cas-notarize-asset-github-action@main
+        with:          
+          asset: package.json
+          cas_api_key: ${{ secrets.CAS_API_KEY }}          
+      - name: Notarize package-lock.json        
+        uses: codenotary/cas-notarize-asset-github-action@main
+        with:          
+          asset: package-lock.json
+          cas_api_key: ${{ secrets.CAS_API_KEY }}
+      - name: Notarize README.md        
+        uses: codenotary/cas-notarize-asset-github-action@main
+        with:          
+          asset: README.md
+          cas_api_key: ${{ secrets.CAS_API_KEY }}
+      - name: Notarize vehicle.js        
+        uses: codenotary/cas-notarize-asset-github-action@main
+        with:          
+          asset: vehicle.js
+          cas_api_key: ${{ secrets.CAS_API_KEY }}
