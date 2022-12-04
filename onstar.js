@@ -417,17 +417,17 @@ module.exports = function(RED) {
 
     RED.nodes.registerType('onstar2', OnStarNode);
     RED.nodes.registerType('get-account-vehicles', GetAccountVehicles);
-    RED.nodes.registerType('diagnostics', GetDiagnostics);
-    RED.nodes.registerType('lock-vehicle', LockVehicle);
-    RED.nodes.registerType('unlock-vehicle', UnlockVehicle);
-    RED.nodes.registerType('start-vehicle', StartVehicle);
-    RED.nodes.registerType('cancel-start-vehicle', CancelStartVehicle);
-    RED.nodes.registerType('alert-vehicle', AlertVehicle);
-    RED.nodes.registerType('alert-vehicle-lights', AlertVehicleLights);
-    RED.nodes.registerType('alert-vehicle-horn', AlertVehicleHorn);
-    RED.nodes.registerType('cancel-alert-vehicle', CancelAlertVehicle);
+    RED.nodes.registerType('get-diagnostics', GetDiagnostics);
+    RED.nodes.registerType('lock-myvehicle', LockVehicle);
+    RED.nodes.registerType('unlock-myvehicle', UnlockVehicle);
+    RED.nodes.registerType('start-myvehicle', StartVehicle);
+    RED.nodes.registerType('cancel-start-myvehicle', CancelStartVehicle);
+    RED.nodes.registerType('alert-myvehicle', AlertVehicle);
+    RED.nodes.registerType('alert-myvehicle-lights', AlertVehicleLights);
+    RED.nodes.registerType('alert-myvehicle-horn', AlertVehicleHorn);
+    RED.nodes.registerType('cancel-alert-myvehicle', CancelAlertVehicle);
     RED.nodes.registerType('locate-vehicle', LocateVehicle);
-    RED.nodes.registerType('charge-override', ChargeOverride);
-    RED.nodes.registerType('get-charge-profile', GetChargeProfile);
-    RED.nodes.registerType('set-charge-profile', SetChargeProfile);
+    RED.nodes.registerType('mycharge-override', ChargeOverride);
+    RED.nodes.registerType('get-mycharge-profile', GetChargeProfile);
+    RED.nodes.registerType('set-mycharge-profile', SetChargeProfile);
 }

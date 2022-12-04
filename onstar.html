@@ -27,7 +27,7 @@
 </script>
 
 <script type="text/javascript">
-    RED.nodes.registerType('diagnostics', {
+    RED.nodes.registerType('get-diagnostics', {
         category: 'onstar2',
         color: '#7eb0ff',
         defaults: {
@@ -55,7 +55,7 @@
 </script>
 
 <script type="text/javascript">
-    RED.nodes.registerType('lock-vehicle', {
+    RED.nodes.registerType('lock-myvehicle', {
         category: 'onstar2',
         color: '#7eb0ff',
         defaults: {
@@ -83,7 +83,7 @@
 </script>
 
 <script type="text/javascript">
-    RED.nodes.registerType('unlock-vehicle', {
+    RED.nodes.registerType('unlock-myvehicle', {
         category: 'onstar2',
         color: '#7eb0ff',
         defaults: {
@@ -112,7 +112,7 @@
 
 
 <script type="text/javascript">
-    RED.nodes.registerType('start-vehicle', {
+    RED.nodes.registerType('start-myvehicle', {
         category: 'onstar2',
         color: '#7eb0ff',
         defaults: {
@@ -140,7 +140,7 @@
 </script>
 
 <script type="text/javascript">
-    RED.nodes.registerType('cancel-start-vehicle', {
+    RED.nodes.registerType('cancel-start-myvehicle', {
         category: 'onstar2',
         color: '#7eb0ff',
         defaults: {
@@ -169,7 +169,7 @@
 
 
 <script type="text/javascript">
-    RED.nodes.registerType('alert-vehicle', {
+    RED.nodes.registerType('alert-myvehicle', {
         category: 'onstar2',
         color: '#7eb0ff',
         defaults: {
@@ -197,7 +197,7 @@
 </script>
 
 <script type="text/javascript">
-    RED.nodes.registerType('alert-vehicle-lights', {
+    RED.nodes.registerType('alert-myvehicle-lights', {
         category: 'onstar2',
         color: '#7eb0ff',
         defaults: {
@@ -225,7 +225,7 @@
 </script>
 
 <script type="text/javascript">
-    RED.nodes.registerType('alert-vehicle-horn', {
+    RED.nodes.registerType('alert-myvehicle-horn', {
         category: 'onstar2',
         color: '#7eb0ff',
         defaults: {
@@ -253,7 +253,7 @@
 </script>
 
 <script type="text/javascript">
-    RED.nodes.registerType('cancel-alert-vehicle', {
+    RED.nodes.registerType('cancel-alert-myvehicle', {
         category: 'onstar2',
         color: '#7eb0ff',
         defaults: {
@@ -309,7 +309,7 @@
 </script>
 
 <script type="text/javascript">
-    RED.nodes.registerType('charge-override', {
+    RED.nodes.registerType('mycharge-override', {
         category: 'onstar2',
         color: '#7eb0ff',
         defaults: {
@@ -337,7 +337,7 @@
 </script>
 
 <script type="text/javascript">
-    RED.nodes.registerType('get-charge-profile', {
+    RED.nodes.registerType('get-mycharge-profile', {
         category: 'onstar2',
         color: '#7eb0ff',
         defaults: {
@@ -365,7 +365,7 @@
 </script>
 
 <script type="text/javascript">
-    RED.nodes.registerType('set-charge-profile', {
+    RED.nodes.registerType('set-mycharge-profile', {
         category: 'onstar2',
         color: '#7eb0ff',
         defaults: {
@@ -477,7 +477,7 @@
     <p>Get requests supported by the vehicle</p>
 </script>
 
-<script type="text/html" data-template-name="diagnostics">
+<script type="text/html" data-template-name="get-diagnostics">
     <div class="form-row">
         <label for="node-input-name"><i class="icon-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Name" />
@@ -488,11 +488,11 @@
     </div>
 </script>
 
-<script type="text/html" data-help-name="diagnostics">
+<script type="text/html" data-help-name="get-diagnostics">
     <p>Get diagnostic information for the vehicle</p>
 </script>
 
-<script type="text/html" data-template-name="lock-vehicle">
+<script type="text/html" data-template-name="lock-myvehicle">
     <div class="form-row">
         <label for="node-input-name"><i class="icon-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Name" />
@@ -503,11 +503,11 @@
     </div>
 </script>
 
-<script type="text/html" data-help-name="lock-vehicle">
+<script type="text/html" data-help-name="lock-myvehicle">
     <p>Lock vehicle doors</p>
 </script>
 
-<script type="text/html" data-template-name="unlock-vehicle">
+<script type="text/html" data-template-name="unlock-myvehicle">
     <div class="form-row">
         <label for="node-input-name"><i class="icon-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Name" />
@@ -518,11 +518,11 @@
     </div>
 </script>
 
-<script type="text/html" data-help-name="unlock-vehicle">
+<script type="text/html" data-help-name="unlock-myvehicle">
     <p>Unlock vehicle doors</p>
 </script>
 
-<script type="text/html" data-template-name="start-vehicle">
+<script type="text/html" data-template-name="start-myvehicle">
     <div class="form-row">
         <label for="node-input-name"><i class="icon-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Name" />
@@ -533,11 +533,11 @@
     </div>
 </script>
 
-<script type="text/html" data-help-name="start-vehicle">
+<script type="text/html" data-help-name="start-myvehicle">
     <p>Start the vehicle</p>
 </script>
 
-<script type="text/html" data-template-name="cancel-start-vehicle">
+<script type="text/html" data-template-name="cancel-start-myvehicle">
     <div class="form-row">
         <label for="node-input-name"><i class="icon-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Name" />
@@ -548,11 +548,11 @@
     </div>
 </script>
 
-<script type="text/html" data-help-name="cancel-start-vehicle">
+<script type="text/html" data-help-name="cancel-start-myvehicle">
     <p>Stop the vehicle if it was started remotely</p>
 </script>
 
-<script type="text/html" data-template-name="alert-vehicle">
+<script type="text/html" data-template-name="alert-myvehicle">
     <div class="form-row">
         <label for="node-input-name"><i class="icon-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Name" />
@@ -563,11 +563,11 @@
     </div>
 </script>
 
-<script type="text/html" data-help-name="alert-vehicle">
+<script type="text/html" data-help-name="alert-myvehicle">
     <p>Turn on vehicle alert (horn and lights)</p>
 </script>
 
-<script type="text/html" data-template-name="alert-vehicle-lights">
+<script type="text/html" data-template-name="alert-myvehicle-lights">
     <div class="form-row">
         <label for="node-input-name"><i class="icon-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Name" />
@@ -578,11 +578,11 @@
     </div>
 </script>
 
-<script type="text/html" data-help-name="alert-vehicle-lights">
+<script type="text/html" data-help-name="alert-myvehicle-lights">
     <p>Turn on vehicle alert (lights only)</p>
 </script>
 
-<script type="text/html" data-template-name="alert-vehicle-horn">
+<script type="text/html" data-template-name="alert-myvehicle-horn">
     <div class="form-row">
         <label for="node-input-name"><i class="icon-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Name" />
@@ -593,12 +593,12 @@
     </div>
 </script>
 
-<script type="text/html" data-help-name="alert-vehicle-horn">
+<script type="text/html" data-help-name="alert-myvehicle-horn">
     <p>Turn on vehicle alert (horn only)</p>
 </script>
 
 
-<script type="text/html" data-template-name="cancel-alert-vehicle">
+<script type="text/html" data-template-name="cancel-alert-myvehicle">
     <div class="form-row">
         <label for="node-input-name"><i class="icon-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Name" />
@@ -609,7 +609,7 @@
     </div>
 </script>
 
-<script type="text/html" data-help-name="cancel-alert-vehicle">
+<script type="text/html" data-help-name="cancel-alert-myvehicle">
     <p>Stop the vehicle alert</p>
 </script>
 
@@ -628,7 +628,7 @@
     <p>Get vehicle location</p>
 </script>
 
-<script type="text/html" data-template-name="charge-override">
+<script type="text/html" data-template-name="mycharge-override">
     <div class="form-row">
         <label for="node-input-name"><i class="icon-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Name" />
@@ -639,11 +639,11 @@
     </div>
 </script>
 
-<script type="text/html" data-help-name="charge-override">
+<script type="text/html" data-help-name="mycharge-override">
     <p>Override charging state</p>
 </script>
 
-<script type="text/html" data-template-name="set-charge-profile">
+<script type="text/html" data-template-name="set-mycharge-profile">
     <div class="form-row">
         <label for="node-input-name"><i class="icon-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Name" />
@@ -654,11 +654,11 @@
     </div>
 </script>
 
-<script type="text/html" data-help-name="set-charge-profile">
+<script type="text/html" data-help-name="set-mycharge-profile">
     <p>Set the charge profile</p>
 </script>
 
-<script type="text/html" data-template-name="get-charge-profile">
+<script type="text/html" data-template-name="get-mycharge-profile">
     <div class="form-row">
         <label for="node-input-name"><i class="icon-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Name" />
@@ -669,7 +669,7 @@
     </div>
 </script>
 
-<script type="text/html" data-help-name="get-charge-profile">
+<script type="text/html" data-help-name="get-mycharge-profile">
     <p>Get the charge profile</p>
 </script>
 
