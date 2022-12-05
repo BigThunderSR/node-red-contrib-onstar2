@@ -12,6 +12,11 @@ on:
     #workflows: ["CodeQL", "Lint Code Base"]
     workflows: ["Lint Code Base"]
     types: [completed]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   build:
 
