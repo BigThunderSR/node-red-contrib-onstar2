@@ -403,28 +403,21 @@
             vin: { required: true },
             deviceid: { required: true },
             checkrequeststatus: { value: true, required: true },
-            requestpollingtimeoutseconds: { value: 60, required: true, validate: RED.validators.number() },
+            requestpollingtimeoutseconds: { value: 90, required: true, validate: RED.validators.number() },
             requestpollingintervalseconds: { value: 6, required: true, validate: RED.validators.number() }
         },
         label: function () {
             return this.carname;
         },
-        oneditprepare: function() {
-            var defaultCheckRequestStatus = true;
-            var defaultRequestPollingTimeoutSeconds = 60;
-            var defaultRequestPollingIntervalSeconds = 6;
-            var editNodeValCheckRequestStatus = $("#node-config-input-checkrequeststatus").val();
+        oneditprepare: function() {            
+            var defaultRequestPollingTimeoutSeconds = 90;
+            var defaultRequestPollingIntervalSeconds = 6;            
             var editNodeValRequestPollingTimeoutSeconds = $("#node-config-input-requestpollingtimeoutseconds").val();
             var editNodeValRequestPollingIntervalSeconds = $("#node-config-input-requestpollingintervalseconds").val();
             
             $("#node-config-input-checkrequeststatus").typedInput({
             type:"bool"
             });
-
-            if (editNodeValCheckRequestStatus == '') {
-                $("#node-config-input-checkrequeststatus").val(defaultCheckRequestStatus);
-            }
-            $("#node-config-input-checkrequeststatus").val();
 
             if (editNodeValRequestPollingTimeoutSeconds == '') {
                 $("#node-config-input-requestpollingtimeoutseconds").val(defaultRequestPollingTimeoutSeconds);
@@ -436,19 +429,12 @@
             }
             $("#node-config-input-requestpollingintervalseconds").val();
         },
-        oneditsave: function() {
-            var defaultCheckRequestStatus = true;
-            var defaultRequestPollingTimeoutSeconds = 60;
-            var defaultRequestPollingIntervalSeconds = 6;
-            var editNodeValCheckRequestStatus = $("#node-config-input-checkrequeststatus").val();
+        oneditsave: function() {            
+            var defaultRequestPollingTimeoutSeconds = 90;
+            var defaultRequestPollingIntervalSeconds = 6;            
             var editNodeValRequestPollingTimeoutSeconds = $("#node-config-input-requestpollingtimeoutseconds").val();
             var editNodeValRequestPollingIntervalSeconds = $("#node-config-input-requestpollingintervalseconds").val();
-            
-            if (editNodeValCheckRequestStatus == '') {
-                $("#node-config-input-checkrequeststatus").val(defaultCheckRequestStatus);
-            }
-            $("#node-config-input-checkrequeststatus").val();
-
+                        
             if (editNodeValRequestPollingTimeoutSeconds == '') {
                 $("#node-config-input-requestpollingtimeoutseconds").val(defaultRequestPollingTimeoutSeconds);
             }
