@@ -409,9 +409,7 @@
         label: function () {
             return this.carname;
         },
-        oneditprepare: function() {            
-            var defaultRequestPollingTimeoutSeconds = 90;
-            var defaultRequestPollingIntervalSeconds = 6;            
+        oneditprepare: function() {                                    
             var editNodeValRequestPollingTimeoutSeconds = $("#node-config-input-requestpollingtimeoutseconds").val();
             var editNodeValRequestPollingIntervalSeconds = $("#node-config-input-requestpollingintervalseconds").val();
             
@@ -420,28 +418,26 @@
             });
 
             if (editNodeValRequestPollingTimeoutSeconds == '') {
-                $("#node-config-input-requestpollingtimeoutseconds").val(defaultRequestPollingTimeoutSeconds);
+                $("#node-config-input-requestpollingtimeoutseconds").val(this.requestpollingtimeoutseconds);
             }
             $("#node-config-input-requestpollingtimeoutseconds").val();
 
             if (editNodeValRequestPollingIntervalSeconds == '') {
-                $("#node-config-input-requestpollingintervalseconds").val(defaultRequestPollingIntervalSeconds);
+                $("#node-config-input-requestpollingintervalseconds").val(this.requestpollingintervalseconds);
             }
             $("#node-config-input-requestpollingintervalseconds").val();
         },
-        oneditsave: function() {            
-            var defaultRequestPollingTimeoutSeconds = 90;
-            var defaultRequestPollingIntervalSeconds = 6;            
+        oneditsave: function() {                        
             var editNodeValRequestPollingTimeoutSeconds = $("#node-config-input-requestpollingtimeoutseconds").val();
             var editNodeValRequestPollingIntervalSeconds = $("#node-config-input-requestpollingintervalseconds").val();
                         
             if (editNodeValRequestPollingTimeoutSeconds == '') {
-                $("#node-config-input-requestpollingtimeoutseconds").val(defaultRequestPollingTimeoutSeconds);
+                $("#node-config-input-requestpollingtimeoutseconds").val(this.requestpollingtimeoutseconds);
             }
             $("#node-config-input-requestpollingtimeoutseconds").val();
 
             if (editNodeValRequestPollingIntervalSeconds == '') {
-                $("#node-config-input-requestpollingintervalseconds").val(defaultRequestPollingIntervalSeconds);
+                $("#node-config-input-requestpollingintervalseconds").val(this.requestpollingintervalseconds);
             }
             $("#node-config-input-requestpollingintervalseconds").val();
         },
