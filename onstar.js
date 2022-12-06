@@ -410,9 +410,9 @@ module.exports = function(RED) {
         this.pin = config.pin;
         this.vin = config.vin;
         this.deviceid = config.deviceid;
-        this.checkrequeststatus = config.checkRequestStatus;
-        this.requestpollingtimeoutseconds = config.requestPollingTimeoutSeconds;
-        this.requestpollingintervalseconds = config.requestPollingIntervalSeconds;
+        this.checkrequeststatus = config.checkrequeststatus;
+        this.requestpollingtimeoutseconds = config.requestpollingtimeoutseconds;
+        this.requestpollingintervalseconds = config.requestpollingintervalseconds;
     }
 
     RED.nodes.registerType('onstar2', OnStarNode);
