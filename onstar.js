@@ -55,7 +55,7 @@ module.exports = function(RED) {
 
                 let client = createClient(configNode);
                 let request = {
-                    diagnosticItem: msg.payload.diagnosticItem || ["ENGINE COOLANT TEMP", "ENGINE RPM", "LAST TRIP FUEL ECONOMY", "OIL LIFE", "LIFETIME FUEL ECON", "HOTSPOT CONFIG", "LIFETIME FUEL USED", "ODOMETER", "HOTSPOT STATUS", "TIRE PRESSURE", "AMBIENT AIR TEMPERATURE", "LAST TRIP DISTANCE", "INTERM VOLT BATT VOLT", "FUEL TANK INFO", "HANDS FREE CALLING", "VEHICLE RANGE", "ENGINE AIR FILTER MONITOR STATUS"]
+                    diagnosticItem: msg.payload.diagnosticItem || ["ENGINE AIR FILTER MONITOR STATUS", "ENGINE COOLANT TEMP", "ENGINE RPM", "OIL LIFE", "TIRE PRESSURE", "ODOMETER", "LAST TRIP DISTANCE", "LAST TRIP FUEL ECONOMY", "LIFETIME FUEL ECON", "LIFETIME FUEL USED", "FUEL TANK INFO", "VEHICLE RANGE", "INTERM VOLT BATT VOLT", "AMBIENT AIR TEMPERATURE", "HOTSPOT CONFIG", "HOTSPOT STATUS", "HANDS FREE CALLING", "GET COMMUTE SCHEDULE", "GET CHARGE MODE", "EV SCHEDULED CHARGE START", "ENERGY EFFICIENCY", "LIFETIME EV ODOMETER", "EV PLUG VOLTAGE", "EV PLUG STATE", "EV CHARGE STATE", "EV ESTIMATED CHARGE END", "EV BATTERY LEVEL"]
                 };
 
                 let result = await client.diagnostics(request);
@@ -110,7 +110,7 @@ module.exports = function(RED) {
         node.on('input', async function (msg) {
             try {
                 let configNode = RED.nodes.getNode(config.onstar2);
-                
+
                 let delay = config.delay;
                 let request = {
                     //delay: msg.payload.delay || 0
