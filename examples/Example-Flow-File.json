@@ -695,7 +695,7 @@
         "vin": "Vehicle_VIN",
         "deviceid": "Any_Valid_UUID",
         "checkrequeststatus": "true",
-        "requestpollingtimeoutseconds": "60",
-        "requestpollingintervalseconds": "6"
+        "requestpollingtimeoutseconds": 90,
+        "requestpollingintervalseconds": 6
     }
 ]
