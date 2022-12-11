@@ -44,10 +44,9 @@
             return configCarName.label()+" "+this.name;
         },
         oneditsave: function() {
-            var originalName = "Diagnostics";
             var editNodeName = $("#node-input-name").val();
             if (editNodeName == '') {
-                $("#node-input-name").val(originalName);
+                $("#node-input-name").val("Diagnostics");
             }
             $("#node-input-name").val();
         },
@@ -60,7 +59,8 @@
         color: '#7eb0ff',
         defaults: {
             name: { value: 'Lock Vehicle' },
-            onstar2: { value: 'Onstar Config', type: 'onstar2' }
+            onstar2: { value: 'Onstar Config', type: 'onstar2' },
+            delay: { required: false, validate: RED.validators.regex(/^(|\d)+$/)}
         },
         inputs: 1,
         outputs: 2,
@@ -71,11 +71,10 @@
             var configCarName = RED.nodes.node(this.onstar2);
             return configCarName.label()+" "+this.name;
         },
-        oneditsave: function() {
-            var originalName = "Lock Vehicle";
+        oneditsave: function() {            
             var editNodeName = $("#node-input-name").val();
             if (editNodeName == '') {
-                $("#node-input-name").val(originalName);
+                $("#node-input-name").val("Lock Vehicle");
             }
             $("#node-input-name").val();
         },
@@ -88,7 +87,8 @@
         color: '#7eb0ff',
         defaults: {
             name: { value: 'Unlock Vehicle' },
-            onstar2: { value: 'Onstar Config', type: 'onstar2' }
+            onstar2: { value: 'Onstar Config', type: 'onstar2' },
+            delay: { required: false, validate: RED.validators.regex(/^(|\d)+$/)}
         },
         inputs: 1,
         outputs: 2,
@@ -99,11 +99,10 @@
             var configCarName = RED.nodes.node(this.onstar2);
             return configCarName.label()+" "+this.name;
         },
-        oneditsave: function() {
-            var originalName = "Unlock Vehicle";
+        oneditsave: function() {            
             var editNodeName = $("#node-input-name").val();
             if (editNodeName == '') {
-                $("#node-input-name").val(originalName);
+                $("#node-input-name").val("Unlock Vehicle");
             }
             $("#node-input-name").val();
         },
@@ -128,11 +127,10 @@
             var configCarName = RED.nodes.node(this.onstar2);
             return configCarName.label()+" "+this.name;
         },
-        oneditsave: function() {
-            var originalName = "Start Vehicle";
+        oneditsave: function() {            
             var editNodeName = $("#node-input-name").val();
             if (editNodeName == '') {
-                $("#node-input-name").val(originalName);
+                $("#node-input-name").val("Start Vehicle");
             }
             $("#node-input-name").val();
         },
@@ -156,11 +154,10 @@
             var configCarName = RED.nodes.node(this.onstar2);
             return configCarName.label()+" "+this.name;
         },
-        oneditsave: function() {
-            var originalName = "Cancel Start Vehicle";
+        oneditsave: function() {            
             var editNodeName = $("#node-input-name").val();
             if (editNodeName == '') {
-                $("#node-input-name").val(originalName);
+                $("#node-input-name").val("Cancel Start Vehicle");
             }
             $("#node-input-name").val();
         },
@@ -185,11 +182,10 @@
             var configCarName = RED.nodes.node(this.onstar2);
             return configCarName.label()+" "+this.name;
         },
-        oneditsave: function() {
-            var originalName = "Alert Vehicle";
+        oneditsave: function() {            
             var editNodeName = $("#node-input-name").val();
             if (editNodeName == '') {
-                $("#node-input-name").val(originalName);
+                $("#node-input-name").val("Alert Vehicle");
             }
             $("#node-input-name").val();
         },
@@ -213,11 +209,10 @@
             var configCarName = RED.nodes.node(this.onstar2);
             return configCarName.label()+" "+this.name;
         },
-        oneditsave: function() {
-            var originalName = "Alert Vehicle Lights Only";
+        oneditsave: function() {            
             var editNodeName = $("#node-input-name").val();
             if (editNodeName == '') {
-                $("#node-input-name").val(originalName);
+                $("#node-input-name").val("Alert Vehicle Lights Only");
             }
             $("#node-input-name").val();
         },
@@ -241,11 +236,10 @@
             var configCarName = RED.nodes.node(this.onstar2);
             return configCarName.label()+" "+this.name;
         },
-        oneditsave: function() {
-            var originalName = "Alert Vehicle Horn Only";
+        oneditsave: function() {            
             var editNodeName = $("#node-input-name").val();
             if (editNodeName == '') {
-                $("#node-input-name").val(originalName);
+                $("#node-input-name").val("Alert Vehicle Horn Only");
             }
             $("#node-input-name").val();
         },
@@ -270,10 +264,9 @@
             return configCarName.label()+" "+this.name;
         },
         oneditsave: function() {
-            var originalName = "Cancel Alert Vehicle";
             var editNodeName = $("#node-input-name").val();
             if (editNodeName == '') {
-                $("#node-input-name").val(originalName);
+                $("#node-input-name").val("Cancel Alert Vehicle");
             }
             $("#node-input-name").val();
         },
@@ -298,10 +291,9 @@
             return configCarName.label()+" "+this.name;
         },
         oneditsave: function() {
-            var originalName = "Get Vehicle Location";
             var editNodeName = $("#node-input-name").val();
             if (editNodeName == '') {
-                $("#node-input-name").val(originalName);
+                $("#node-input-name").val("Get Vehicle Location");
             }
             $("#node-input-name").val();
         },
@@ -326,10 +318,9 @@
             return configCarName.label()+" "+this.name;
         },
         oneditsave: function() {
-            var originalName = "Override Charge State";
             var editNodeName = $("#node-input-name").val();
             if (editNodeName == '') {
-                $("#node-input-name").val(originalName);
+                $("#node-input-name").val("Override Charge State");
             }
             $("#node-input-name").val();
         },
@@ -354,10 +345,9 @@
             return configCarName.label()+" "+this.name;
         },
         oneditsave: function() {
-            var originalName = "Get Charging Profile";
             var editNodeName = $("#node-input-name").val();
             if (editNodeName == '') {
-                $("#node-input-name").val(originalName);
+                $("#node-input-name").val("Get Charging Profile");
             }
             $("#node-input-name").val();
         },
@@ -382,10 +372,9 @@
             return configCarName.label()+" "+this.name;
         },
         oneditsave: function() {
-            var originalName = "Set Charge Profile";
             var editNodeName = $("#node-input-name").val();
             if (editNodeName == '') {
-                $("#node-input-name").val(originalName);
+                $("#node-input-name").val("Set Charge Profile");
             }
             $("#node-input-name").val();
         },
@@ -418,12 +407,12 @@
             });
 
             if (editNodeValRequestPollingTimeoutSeconds == '') {
-                $("#node-config-input-requestpollingtimeoutseconds").val(this.requestpollingtimeoutseconds);
+                $("#node-config-input-requestpollingtimeoutseconds").val(90);
             }
             $("#node-config-input-requestpollingtimeoutseconds").val();
 
             if (editNodeValRequestPollingIntervalSeconds == '') {
-                $("#node-config-input-requestpollingintervalseconds").val(this.requestpollingintervalseconds);
+                $("#node-config-input-requestpollingintervalseconds").val(6);
             }
             $("#node-config-input-requestpollingintervalseconds").val();
         },
@@ -432,12 +421,12 @@
             var editNodeValRequestPollingIntervalSeconds = $("#node-config-input-requestpollingintervalseconds").val();
                         
             if (editNodeValRequestPollingTimeoutSeconds == '') {
-                $("#node-config-input-requestpollingtimeoutseconds").val(this.requestpollingtimeoutseconds);
+                $("#node-config-input-requestpollingtimeoutseconds").val(90);
             }
             $("#node-config-input-requestpollingtimeoutseconds").val();
 
             if (editNodeValRequestPollingIntervalSeconds == '') {
-                $("#node-config-input-requestpollingintervalseconds").val(this.requestpollingintervalseconds);
+                $("#node-config-input-requestpollingintervalseconds").val(6);
             }
             $("#node-config-input-requestpollingintervalseconds").val();
         },
@@ -483,10 +472,14 @@
         <label for="node-input-onstar2"><i class="icon-tag"></i> Config</label>
         <input type="text" id="node-input-onstar2" placeholder="Name" />
     </div>
+    <div class="form-row">
+        <label for="node-input-delay"><i class="icon-bookmark"></i> Delay (Minutes)</label>
+        <input type="text" id="node-input-delay" />
+    </div>
 </script>
 
 <script type="text/html" data-help-name="lock-myvehicle">
-    <p>Lock vehicle doors</p>
+    <p>Lock vehicle doors. Delay parameter is in minutes and is optional, but if not set in the config dialog, defaults to 0 (immediate/no delay) or the value sent to the input via "msg.payload.delay".</p>
 </script>
 
 <script type="text/html" data-template-name="unlock-myvehicle">
@@ -498,10 +491,14 @@
         <label for="node-input-onstar2"><i class="icon-tag"></i> Config</label>
         <input type="text" id="node-input-onstar2" placeholder="Name" />
     </div>
+    <div class="form-row">
+        <label for="node-input-delay"><i class="icon-bookmark"></i> Delay (Minutes)</label>
+        <input type="text" id="node-input-delay" />
+    </div>
 </script>
 
 <script type="text/html" data-help-name="unlock-myvehicle">
-    <p>Unlock vehicle doors</p>
+    <p>Unlock vehicle doors. Delay parameter is in minutes and is optional, but if not set in the config dialog, defaults to 0 (immediate/no delay) or the value sent to the input via "msg.payload.delay".</p>
 </script>
 
 <script type="text/html" data-template-name="start-myvehicle">
