@@ -75,7 +75,6 @@ module.exports = function(RED) {
 
     function LockVehicle(config) {
         RED.nodes.createNode(this, config);
-        const delay = config.delay;
         const node = this;
 
         node.on('input', async function (msg) {
@@ -83,6 +82,7 @@ module.exports = function(RED) {
                 let configNode = RED.nodes.getNode(config.onstar2);
 
                 let client = createClient(configNode);
+                let delay = config.delay;
                 let request = {
                     //delay: msg.payload.delay || 0
                     delay: delay || msg.payload.delay || 0
@@ -105,12 +105,13 @@ module.exports = function(RED) {
 
     function UnlockVehicle(config) {
         RED.nodes.createNode(this, config);
-        const delay = config.delay;
         const node = this;
 
         node.on('input', async function (msg) {
             try {
                 let configNode = RED.nodes.getNode(config.onstar2);
+                
+                let delay = config.delay;
                 let request = {
                     //delay: msg.payload.delay || 0
                     delay: delay || msg.payload.delay || 0
