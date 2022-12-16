@@ -377,7 +377,7 @@
         defaults: {
             name: { value: 'Override Charge State' },
             onstar2: { value: 'Onstar Config', type: 'onstar2' },
-            mode: { required: false }
+            mode: { value: '', required: false }
         },
         inputs: 1,
         outputs: 2,
@@ -393,8 +393,8 @@
                 types: [
                     {
                         value: "mode",
-                        multiple: "false",
                         options: [
+                            { value: '', label: "-- Use Default or Select Option from List --"},
                             { value: "CHARGE_NOW" },
                             { value: "CANCEL_OVERRIDE" }
                         ]
@@ -446,8 +446,8 @@
         defaults: {
             name: { value: 'Set Charging Profile' },
             onstar2: { value: 'Onstar Config', type: 'onstar2' },
-            chargemode: { required: false },
-            ratetype: { required: false }
+            chargemode: { value: '', required: false },
+            ratetype: { value: '', required: false }
         },
         inputs: 1,
         outputs: 2,
@@ -463,8 +463,8 @@
                 types: [
                     {
                         value: "chargemode",
-                        multiple: "false",
                         options: [
+                            { value: '', label: "-- Use Default or Select Option from List --"},
                             { value: "DEFAULT_IMMEDIATE" },
                             { value: "IMMEDIATE" },
                             { value: "DEPARTURE_BASED" },
@@ -478,8 +478,8 @@
                 types: [
                     {
                         value: "ratetype",
-                        multiple: "false",
                         options: [
+                            { value: '', label: "-- Use Default or Select Option from List --"},
                             { value: "OFFPEAK" },
                             { value: "MIDPEAK" },
                             { value: "PEAK" }
