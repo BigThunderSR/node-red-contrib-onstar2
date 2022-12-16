@@ -46,16 +46,25 @@ module.exports = function(RED) {
     }
     
     function GetDiagnostics(config) {
-        RED.nodes.createNode(this, config);
+        RED.nodes.createNode(this, config);                
         const node = this;
 
-        node.on('input', async function (msg) {
+        node.on('input', async function (msg) {            
             try {
                 let configNode = RED.nodes.getNode(config.onstar2);
 
+                let diagnostics = config.diagnostics;
+                let diagnosticsArray = undefined;                
+                if (diagnostics == '') {
+                    diagnosticsArray = undefined;
+                }
+                if (diagnostics !== '') {
+                    diagnosticsArray = diagnostics.split(',');
+                }                
+
                 let client = createClient(configNode);
                 let request = {
-                    diagnosticItem: msg.payload.diagnosticItem || ["ENGINE AIR FILTER MONITOR STATUS", "ENGINE COOLANT TEMP", "ENGINE RPM", "OIL LIFE", "TIRE PRESSURE", "ODOMETER", "LAST TRIP DISTANCE", "LAST TRIP FUEL ECONOMY", "LIFETIME FUEL ECON", "LIFETIME FUEL USED", "FUEL TANK INFO", "VEHICLE RANGE", "INTERM VOLT BATT VOLT", "AMBIENT AIR TEMPERATURE", "HOTSPOT CONFIG", "HOTSPOT STATUS", "HANDS FREE CALLING", "GET COMMUTE SCHEDULE", "GET CHARGE MODE", "EV SCHEDULED CHARGE START", "ENERGY EFFICIENCY", "LIFETIME EV ODOMETER", "EV PLUG VOLTAGE", "EV PLUG STATE", "EV CHARGE STATE", "EV ESTIMATED CHARGE END", "EV BATTERY LEVEL"]
+                    diagnosticItem: diagnosticsArray || msg.payload.diagnosticItem || ["ENGINE AIR FILTER MONITOR STATUS", "ENGINE COOLANT TEMP", "ENGINE RPM", "OIL LIFE", "TIRE PRESSURE", "ODOMETER", "LAST TRIP DISTANCE", "LAST TRIP FUEL ECONOMY", "LIFETIME FUEL ECON", "LIFETIME FUEL USED", "FUEL TANK INFO", "VEHICLE RANGE", "INTERM VOLT BATT VOLT", "AMBIENT AIR TEMPERATURE", "HOTSPOT CONFIG", "HOTSPOT STATUS", "HANDS FREE CALLING", "GET COMMUTE SCHEDULE", "GET CHARGE MODE", "EV SCHEDULED CHARGE START", "ENERGY EFFICIENCY", "LIFETIME EV ODOMETER", "EV PLUG VOLTAGE", "EV PLUG STATE", "EV CHARGE STATE", "EV ESTIMATED CHARGE END", "EV BATTERY LEVEL"]
                 };
 
                 let result = await client.diagnostics(request);
@@ -191,12 +200,32 @@ module.exports = function(RED) {
             try {
                 let configNode = RED.nodes.getNode(config.onstar2);
 
-                let client = createClient(configNode);
+                let action = config.action;
+                let actionArray = undefined;
+                let delay = config.delay;
+                let duration = config.duration;
+                let override = config.override;
+                let overrideArray = undefined;
+
+                if (action == '') {
+                    actionArray = undefined;
+                }
+                if (action !== '') {
+                    actionArray = action.split(',');
+                }
+                if (override == '') {
+                    overrideArray = undefined
+                }
+                if (override !== '') {
+                    overrideArray = override.split(',');
+                }
+
+                let client = createClient(configNode);                              
                 let request = {
-                    action: msg.payload.action || ["Flash", "Honk"],
-                    delay: msg.payload.delay || 0,
-                    duration: msg.payload.duration || 1,
-                    override: msg.payload.override || ["DoorOpen", "IgnitionOn"]
+                    action: actionArray || msg.payload.action || ["Flash", "Honk"],
+                    delay: delay || msg.payload.delay || 0,
+                    duration: duration || msg.payload.duration || 1,
+                    override: overrideArray || msg.payload.override || ["DoorOpen", "IgnitionOn"]
                 };
 
                 let result = await client.alert(request);
@@ -333,10 +362,10 @@ module.exports = function(RED) {
         node.on('input', async function (msg) {
             try {
                 let configNode = RED.nodes.getNode(config.onstar2);
-
+                let mode = config.mode;
                 let client = createClient(configNode);
                 let request = {
-                    mode: msg.payload.mode || "CHARGE_NOW"
+                    mode: mode || msg.payload.mode || "CHARGE_NOW"
                 };
 
                 let result = await client.chargeOverride(request);
@@ -387,10 +416,13 @@ module.exports = function(RED) {
             try {
                 let configNode = RED.nodes.getNode(config.onstar2);
 
+                let chargemode = config.chargemode;
+                let ratetype = config.ratetype;
+
                 let client = createClient(configNode);
                 let request = {
-                    chargeMode: msg.payload.chargeMode || "IMMEDIATE",
-                    rateType: msg.payload.rateType || "MIDPEAK"
+                    chargeMode: chargemode || msg.payload.chargeMode || "IMMEDIATE",
+                    rateType: ratetype || msg.payload.rateType || "MIDPEAK"
                 };
 
                 let result = await client.setChargingProfile(request);

@@ -32,7 +32,8 @@
         color: '#7eb0ff',
         defaults: {
             name: { value: 'Diagnostics' },
-            onstar2: { value: 'Onstar Config', type: 'onstar2' }
+            onstar2: { value: 'Onstar Config', type: 'onstar2' },
+            diagnostics: { required: false }
         },
         inputs: 1,
         outputs: 2,
@@ -43,7 +44,46 @@
             var configCarName = RED.nodes.node(this.onstar2);
             return configCarName.label()+" "+this.name;
         },
-        oneditsave: function() {
+        oneditprepare: function() { 
+            $("#node-input-diagnostics").typedInput({                
+                types: [
+                    {
+                        value: "diagnostics",
+                        multiple: "true",
+                        options: [
+                            { value: "ENGINE AIR FILTER MONITOR STATUS" },
+                            { value: "ENGINE COOLANT TEMP" },
+                            { value: "ENGINE RPM" },                            
+                            { value: "OIL LIFE" },
+                            { value: "TIRE PRESSURE" },
+                            { value: "ODOMETER" }, 
+                            { value: "LAST TRIP DISTANCE" },
+                            { value: "LAST TRIP FUEL ECONOMY" },                        
+                            { value: "LIFETIME FUEL ECON" },                            
+                            { value: "LIFETIME FUEL USED" },                                             
+                            { value: "FUEL TANK INFO" },
+                            { value: "VEHICLE RANGE" },
+                            { value: "INTERM VOLT BATT VOLT" },
+                            { value: "AMBIENT AIR TEMPERATURE" },
+                            { value: "HOTSPOT CONFIG" }, 
+                            { value: "HOTSPOT STATUS" }, 
+                            { value: "HANDS FREE CALLING" }, 
+                            { value: "GET COMMUTE SCHEDULE" }, 
+                            { value: "GET CHARGE MODE" }, 
+                            { value: "EV SCHEDULED CHARGE START" },                             
+                            { value: "ENERGY EFFICIENCY" },                            
+                            { value: "LIFETIME EV ODOMETER" },
+                            { value: "EV PLUG VOLTAGE" }, 
+                            { value: "EV PLUG STATE" }, 
+                            { value: "EV CHARGE STATE" },
+                            { value: "EV ESTIMATED CHARGE END" }, 
+                            { value: "EV BATTERY LEVEL" }                            
+                        ]
+                    }
+                ]
+            })
+        },
+        oneditsave: function() {            
             var editNodeName = $("#node-input-name").val();
             if (editNodeName == '') {
                 $("#node-input-name").val("Diagnostics");
@@ -171,7 +211,11 @@
         color: '#7eb0ff',
         defaults: {
             name: { value: 'Alert Vehicle' },
-            onstar2: { value: 'Onstar Config', type: 'onstar2' }
+            onstar2: { value: 'Onstar Config', type: 'onstar2' },
+            action: { required: false },
+            delay: { required: false, validate: RED.validators.regex(/^(|\d)+$/)},
+            duration: { required: false, validate: RED.validators.regex(/^(|\d)+$/)},
+            override: { required: false }
         },
         inputs: 1,
         outputs: 2,
@@ -181,6 +225,32 @@
             //return this.name || 'alert-vehicle';
             var configCarName = RED.nodes.node(this.onstar2);
             return configCarName.label()+" "+this.name;
+        },
+        oneditprepare: function() {            
+            $("#node-input-action").typedInput({
+                types: [
+                    {
+                        value: "action",
+                        multiple: "true",
+                        options: [
+                            { value: "Flash" },
+                            { value: "Honk" }
+                        ]
+                    }
+                ]
+            })            
+            $("#node-input-override").typedInput({
+                types: [
+                    {
+                        value: "override",
+                        multiple: "true",
+                        options: [
+                            { value: "DoorOpen" },
+                            { value: "IgnitionOn" }
+                        ]
+                    }
+                ]
+            })
         },
         oneditsave: function() {            
             var editNodeName = $("#node-input-name").val();
@@ -306,7 +376,8 @@
         color: '#7eb0ff',
         defaults: {
             name: { value: 'Override Charge State' },
-            onstar2: { value: 'Onstar Config', type: 'onstar2' }
+            onstar2: { value: 'Onstar Config', type: 'onstar2' },
+            mode: { required: false }
         },
         inputs: 1,
         outputs: 2,
@@ -316,6 +387,20 @@
             //return this.name || 'charge-override';
             var configCarName = RED.nodes.node(this.onstar2);
             return configCarName.label()+" "+this.name;
+        },
+        oneditprepare: function() {
+            $("#node-input-mode").typedInput({
+                types: [
+                    {
+                        value: "mode",
+                        multiple: "false",
+                        options: [
+                            { value: "CHARGE_NOW" },
+                            { value: "CANCEL_OVERRIDE" }
+                        ]
+                    }
+                ]
+            })                       
         },
         oneditsave: function() {
             var editNodeName = $("#node-input-name").val();
@@ -359,8 +444,10 @@
         category: 'onstar2',
         color: '#7eb0ff',
         defaults: {
-            name: { value: 'Set Charge Profile' },
-            onstar2: { value: 'Onstar Config', type: 'onstar2' }
+            name: { value: 'Set Charging Profile' },
+            onstar2: { value: 'Onstar Config', type: 'onstar2' },
+            chargemode: { required: false },
+            ratetype: { required: false }
         },
         inputs: 1,
         outputs: 2,
@@ -371,10 +458,40 @@
             var configCarName = RED.nodes.node(this.onstar2);
             return configCarName.label()+" "+this.name;
         },
+        oneditprepare: function() {
+            $("#node-input-chargemode").typedInput({
+                types: [
+                    {
+                        value: "chargemode",
+                        multiple: "false",
+                        options: [
+                            { value: "DEFAULT_IMMEDIATE" },
+                            { value: "IMMEDIATE" },
+                            { value: "DEPARTURE_BASED" },
+                            { value: "RATE_BASED" },
+                            { value: "PHEV_AFTER_MIDNIGHT" }
+                        ]
+                    }
+                ]
+            })
+            $("#node-input-ratetype").typedInput({
+                types: [
+                    {
+                        value: "ratetype",
+                        multiple: "false",
+                        options: [
+                            { value: "OFFPEAK" },
+                            { value: "MIDPEAK" },
+                            { value: "PEAK" }
+                        ]
+                    }
+                ]
+            })                       
+        },
         oneditsave: function() {
             var editNodeName = $("#node-input-name").val();
             if (editNodeName == '') {
-                $("#node-input-name").val("Set Charge Profile");
+                $("#node-input-name").val("Set Charging Profile");
             }
             $("#node-input-name").val();
         },
@@ -445,7 +562,7 @@
 </script>
 
 <script type="text/html" data-help-name="get-account-vehicles">
-    <p>Get requests supported by the vehicle</p>
+    <p>Get list of vehicles in your account and requests supported by the vehicles in your account.</p>
 </script>
 
 <script type="text/html" data-template-name="get-diagnostics">
@@ -457,10 +574,14 @@
         <label for="node-input-onstar2"><i class="icon-tag"></i> Config</label>
         <input type="text" id="node-input-onstar2" placeholder="Name" />
     </div>
+    <div class="form-row">
+        <label for="node-input-diagnostics"><i class="icon-bookmark"></i> Diagnostic Items to Query</label>
+        <input type="text" id="node-input-diagnostics" />
+    </div>
 </script>
 
 <script type="text/html" data-help-name="get-diagnostics">
-    <p>Get diagnostic information for the vehicle</p>
+    <p>Get diagnostic information for the vehicle. Diagnostics parameter is optional, but if not set in the config dialog, defaults to ALL known diagnostics or the value sent to the input via "msg.payload.diagnosticItem".</p>
 </script>
 
 <script type="text/html" data-template-name="lock-myvehicle">
@@ -513,7 +634,7 @@
 </script>
 
 <script type="text/html" data-help-name="start-myvehicle">
-    <p>Start the vehicle</p>
+    <p>Start the vehicle remotely.</p>
 </script>
 
 <script type="text/html" data-template-name="cancel-start-myvehicle">
@@ -528,7 +649,7 @@
 </script>
 
 <script type="text/html" data-help-name="cancel-start-myvehicle">
-    <p>Stop the vehicle if it was started remotely</p>
+    <p>Stop the vehicle if it was started remotely.</p>
 </script>
 
 <script type="text/html" data-template-name="alert-myvehicle">
@@ -540,10 +661,34 @@
         <label for="node-input-onstar2"><i class="icon-tag"></i> Config</label>
         <input type="text" id="node-input-onstar2" placeholder="Name" />
     </div>
+    <div class="form-row">
+        <label for="node-input-action"><i class="icon-bookmark"></i> Action</label>
+        <input type="text" id="node-input-action" />
+    </div>
+    <div class="form-row">
+        <label for="node-input-delay"><i class="icon-bookmark"></i> Delay (Minutes)</label>
+        <input type="text" id="node-input-delay" />
+    </div>
+    <div class="form-row">
+        <label for="node-input-duration"><i class="icon-bookmark"></i> Duration (Minutes)</label>
+        <input type="text" id="node-input-duration" />
+    </div>
+    <div class="form-row">
+        <label for="node-input-override"><i class="icon-bookmark"></i> Override</label>
+        <input type="text" id="node-input-override" />
+    </div>
 </script>
 
 <script type="text/html" data-help-name="alert-myvehicle">
-    <p>Turn on vehicle alert (horn and lights)</p>
+    <p>Turn on vehicle alert with customizable options.
+    <br>     
+        <br>&bull; <b>Action</b> parameter is optional, but if not set in the config dialog, defaults to ["Flash", "Honk"] (OnStarJS Defaults) or the value sent to the input via "msg.payload.action".
+        <br>&bull; <b>Delay</b> parameter is in minutes and is optional, but if not set in the config dialog, defaults to 0 (immediate/no delay - OnStarJS Default) or the value sent to the input via "msg.payload.delay".
+        <br>&bull; <b>Duration</b> parameter is in minutes and is optional, but if not set in the config dialog, defaults to 1 minute (OnStarJS Default) or the value sent to the input via "msg.payload.duration".
+        <br>&bull; <b>Override</b> parameter is optional, but if not set in the config dialog, defaults to ["DoorOpen", "IgnitionOn"] (OnStarJS Defaults) or the value sent to the input via "msg.payload.override".
+    <br><br>
+    <b>NOTE: </b>This new functionality since v2.1.0 makes the "alert-myvehicle-horn" and "alert-myvehicle-lights" nodes redundant, but still keeping them in for backwards compatibility.
+    </p>
 </script>
 
 <script type="text/html" data-template-name="alert-myvehicle-lights">
@@ -558,7 +703,7 @@
 </script>
 
 <script type="text/html" data-help-name="alert-myvehicle-lights">
-    <p>Turn on vehicle alert (lights only)</p>
+    <p>Turn on vehicle alert (lights only).</p>
 </script>
 
 <script type="text/html" data-template-name="alert-myvehicle-horn">
@@ -573,7 +718,7 @@
 </script>
 
 <script type="text/html" data-help-name="alert-myvehicle-horn">
-    <p>Turn on vehicle alert (horn only)</p>
+    <p>Turn on vehicle alert (horn only).</p>
 </script>
 
 
@@ -589,7 +734,7 @@
 </script>
 
 <script type="text/html" data-help-name="cancel-alert-myvehicle">
-    <p>Stop the vehicle alert</p>
+    <p>Stop the vehicle alert.</p>
 </script>
 
 <script type="text/html" data-template-name="locate-vehicle">
@@ -604,7 +749,7 @@
 </script>
 
 <script type="text/html" data-help-name="locate-vehicle">
-    <p>Get vehicle location</p>
+    <p>Get vehicle location information.</p>
 </script>
 
 <script type="text/html" data-template-name="mycharge-override">
@@ -616,10 +761,16 @@
         <label for="node-input-onstar2"><i class="icon-tag"></i> Config</label>
         <input type="text" id="node-input-onstar2" placeholder="Name" />
     </div>
+    <div class="form-row">
+        <label for="node-input-mode"><i class="icon-tag"></i> Mode</label>
+        <input type="text" id="node-input-mode" placeholder="Name" />
+    </div>
 </script>
 
-<script type="text/html" data-help-name="mycharge-override">
-    <p>Override charging state</p>
+<script type="text/html" data-help-name="mycharge-override">    
+    <p>Override charging state. 
+        <br>&bull; <b>Mode</b> parameter is optional, but if not set in the config dialog, defaults to "CHARGE_NOW" (OnStarJS Default) or the value sent to the input via "msg.payload.mode".
+    </p>
 </script>
 
 <script type="text/html" data-template-name="set-mycharge-profile">
@@ -631,10 +782,21 @@
         <label for="node-input-onstar2"><i class="icon-tag"></i> Config</label>
         <input type="text" id="node-input-onstar2" placeholder="Name" />
     </div>
+    <div class="form-row">
+        <label for="node-input-chargemode"><i class="icon-tag"></i> Charge Mode</label>
+        <input type="text" id="node-input-chargemode" placeholder="Name" />
+    </div>
+    <div class="form-row">
+        <label for="node-input-ratetype"><i class="icon-tag"></i> Rate Type</label>
+        <input type="text" id="node-input-ratetype" placeholder="Name" />
+    </div>
 </script>
 
 <script type="text/html" data-help-name="set-mycharge-profile">
-    <p>Set the charge profile</p>
+    <p>Set the charging profile.
+        <br>&bull; <b>Charge Mode</b> parameter is optional, but if not set in the config dialog, defaults to "IMMEDIATE" (OnStarJS Default) or the value sent to the input via "msg.payload.chargeMode".
+        <br>&bull; <b>Rate Type</b> parameter is optional, but if not set in the config dialog, defaults to "MIDPEAK" (OnStarJS Default) or the value sent to the input via "msg.payload.rateType".
+    </p>
 </script>
 
 <script type="text/html" data-template-name="get-mycharge-profile">
@@ -649,7 +811,7 @@
 </script>
 
 <script type="text/html" data-help-name="get-mycharge-profile">
-    <p>Get the charge profile</p>
+    <p>Get the charging profile.</p>
 </script>
 
 <script type="text/html" data-template-name="onstar2">
