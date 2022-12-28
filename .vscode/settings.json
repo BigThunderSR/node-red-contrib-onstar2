@@ -1,0 +1,20 @@
+{
+    "cSpell.words": [
+        "carname",
+        "chargemode",
+        "checkrequeststatus",
+        "deviceid",
+        "HOTSPOT",
+        "INTERM",
+        "MIDPEAK",
+        "mycharge",
+        "myvehicle",
+        "OFFPEAK",
+        "oneditprepare",
+        "oneditsave",
+        "PHEV",
+        "ratetype",
+        "requestpollingintervalseconds",
+        "requestpollingtimeoutseconds"
+    ]
+}
