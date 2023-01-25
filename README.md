@@ -28,7 +28,7 @@ npm install node-red-contrib-onstar2
 
 ## Documentation
 
-Each node is self-explanatory with hints provided wherever necessary.
+Each node is self-explanatory with hints provided wherever necessary as well as detailed information in the Help section of each node as necessary.
 
 ## Running
 
