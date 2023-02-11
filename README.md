@@ -12,9 +12,9 @@ A node-red flow for controlling GM OnStar vehicles powered by [onstarjs](https:/
 
 This fork is for me to experiment with the capabilities exposed in the original version and to add custom commands as necessary.
 
-- ***Following a major re-write, this project is now at version 2.0 and is fully independent from the original npm package.***
+- ***Following a major re-write, this project is now at version 2.x and is fully independent from the original npm package.***
 
-- ***Version 2.0 has breaking changes, but no further breaking changes are expected at this time.***
+- ***Version 2.x has breaking changes, but no further breaking changes are expected at this time.***
 
 [![npm](https://img.shields.io/npm/v/node-red-contrib-onstar2.svg)](https://www.npmjs.com/package/node-red-contrib-onstar2)
 
