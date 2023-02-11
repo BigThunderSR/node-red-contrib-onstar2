@@ -5,7 +5,7 @@
   "description": "An updated Node-RED Library using OnStarJS, an unofficial client library for the OnStar Vehicle API",
   "dependencies": {
     "lodash": "^4.17.21",
-    "onstarjs": "^2.3.15"
+    "onstarjs": "^2.3.16"
   },
   "node-red": {
     "version": ">=3.0.0",
@@ -25,7 +25,7 @@
     "@babel/eslint-plugin": "7.19.1",
     "@babel/plugin-syntax-class-properties": "^7.12.13",
     "@babel/preset-env": "7.20.2",
-    "eslint": "^8.33.0"
+    "eslint": "^8.34.0"
   },
   "keywords": [
     "node-red",
