@@ -54,3 +54,10 @@ Collect the following information:
 - Get Vehicle Location
 - Get Diagnostic Information
 - Get Vehicle Capabilities
+
+
+## My other related projects
+
+- [https://github.com/BigThunderSR/onstar2mqtt](https://github.com/BigThunderSR/onstar2mqtt)
+
+- [https://github.com/BigThunderSR/homeassistant-addons-onstar2mqtt](https://github.com/BigThunderSR/homeassistant-addons-onstar2mqtt)
