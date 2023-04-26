@@ -28,6 +28,13 @@ jobs:
           node-version: 16
           registry-url: https://registry.npmjs.org/
       - run: npm ci
-      - run: npm publish
+      - id: publish
+        run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
+      - if: steps.publish.outputs.type != 'none'
+        name: Update Node-Red flow-library
+        uses: Zehir/update-package-node-red-flow-library-action@v1.0.5
+        continue-on-error: true
+        with:
+          package-name: 'node-red-contrib-onstar2'
