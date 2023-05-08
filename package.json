@@ -25,7 +25,7 @@
     "@babel/eslint-plugin": "^7.19.1",
     "@babel/plugin-syntax-class-properties": "^7.12.13",
     "@babel/preset-env": "^7.21.5",
-    "eslint": "^8.39.0"
+    "eslint": "^8.40.0"
   },
   "keywords": [
     "node-red",
