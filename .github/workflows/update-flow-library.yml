@@ -1,0 +1,11 @@
+name: Test - Update Node-Red flow-library
+on:
+ workflow_dispatch:
+ 
+jobs:
+  update-flow-library:
+    runs-on: ubuntu-latest
+    steps: 
+     - uses: BigThunderSR/update-package-node-red-flow-library-action@v1.1.2    
+       with:
+         package-name: 'node-red-contrib-onstar2'
