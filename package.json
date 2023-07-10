@@ -21,7 +21,7 @@
     "url": "git+https://github.com/BigThunderSR/node-red-contrib-onstar2"
   },
   "devDependencies": {
-    "@babel/eslint-parser": "^7.22.5",
+    "@babel/eslint-parser": "^7.22.7",
     "@babel/eslint-plugin": "^7.22.5",
     "@babel/plugin-syntax-class-properties": "^7.12.13",
     "@babel/preset-env": "^7.22.5",
