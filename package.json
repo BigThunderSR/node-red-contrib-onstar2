@@ -5,7 +5,7 @@
   "description": "An updated Node-RED Library using OnStarJS, an unofficial client library for the OnStar Vehicle API",
   "dependencies": {
     "lodash": "^4.17.21",
-    "onstarjs": "^2.3.26"
+    "onstarjs": "^2.3.27"
   },
   "node-red": {
     "version": ">=3.0.0",
