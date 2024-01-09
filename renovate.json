@@ -4,6 +4,19 @@
     "config:recommended"
   ],
   "labels": [
-    "Renovate"
+    "Renovate",
+    "dependencies"
+  ],
+  "packageRules": [
+    { 
+     "matchPackagePatterns": ["npm"],
+     "labels": ["javascript"],
+     "matchPackagePatterns": ["github-actions"],
+     "labels": ["github_actions"],
+     "matchPackagePatterns": ["dockerfile"],
+     "labels": ["dockerfile"],
+     "matchPackagePatterns": ["nvm"],
+     "labels": ["nvm"] 
+    }
   ]
 }
