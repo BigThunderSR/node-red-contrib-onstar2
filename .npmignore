@@ -1,4 +1,5 @@
 node_modules
+renovate.json
 .babelrc
 .eslintrc.yml
 .github
