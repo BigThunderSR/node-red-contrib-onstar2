@@ -7,3 +7,4 @@ renovate.json
 .bak
 .vscode
 .old
+.env
