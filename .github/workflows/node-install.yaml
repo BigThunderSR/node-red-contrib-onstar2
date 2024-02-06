@@ -61,7 +61,7 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
     #- run: npm install --omit=dev
-    - run: npm ci
+    - run: npm ci --include=dev
     - run: npm run build --if-present
     - run: npm test --if-present
     - run: npm prune --production
