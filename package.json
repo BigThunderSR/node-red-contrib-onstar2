@@ -21,7 +21,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/BigThunderSR/node-red-contrib-onstar2"
+    "url": "git+https://github.com/BigThunderSR/node-red-contrib-onstar2.git"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.23.10",
