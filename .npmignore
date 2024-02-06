@@ -1,6 +1,7 @@
 node_modules
 test
 renovate.json
+.nyc_output
 .babelrc
 .eslintrc.yml
 .github
