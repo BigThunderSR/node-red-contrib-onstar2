@@ -40,3 +40,4 @@ jobs:
         continue-on-error: true
         with:
           package-name: 'node-red-contrib-onstar2'
+          delay-run-ms: 10000
