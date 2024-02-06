@@ -8,5 +8,5 @@ jobs:
     steps: 
      - uses: BigThunderSR/update-package-node-red-flow-library-action@v1.3.0    
        with:
-         package-name: 'node-red-contrib-onstar2'
          delay-run-ms: 5000
+         package-name: 'node-red-contrib-onstar2'
