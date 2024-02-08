@@ -4,7 +4,7 @@
   "description": "An updated Node-RED Library using OnStarJS, an unofficial client library for the OnStar Vehicle API",
   "main": "onstar.js",
   "scripts": {
-    "test": "nyc mocha --timeout 10000 \"test/**/*spec.js\""
+    "test": "nyc --useSpawnWrap mocha \"test/**/*spec.js\""
   },
   "dependencies": {
     "lodash": "^4.17.21",
