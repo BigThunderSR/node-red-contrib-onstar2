@@ -64,7 +64,35 @@ module.exports = function(RED) {
 
                 let client = createClient(configNode);
                 let request = {
-                    diagnosticItem: diagnosticsArray || msg.payload.diagnosticItem || ["ENGINE AIR FILTER MONITOR STATUS", "ENGINE COOLANT TEMP", "ENGINE RPM", "OIL LIFE", "TIRE PRESSURE", "ODOMETER", "LAST TRIP DISTANCE", "LAST TRIP FUEL ECONOMY", "LIFETIME FUEL ECON", "LIFETIME FUEL USED", "FUEL TANK INFO", "VEHICLE RANGE", "INTERM VOLT BATT VOLT", "AMBIENT AIR TEMPERATURE", "HOTSPOT CONFIG", "HOTSPOT STATUS", "HANDS FREE CALLING", "GET COMMUTE SCHEDULE", "GET CHARGE MODE", "EV SCHEDULED CHARGE START", "ENERGY EFFICIENCY", "LIFETIME EV ODOMETER", "EV PLUG VOLTAGE", "EV PLUG STATE", "EV CHARGE STATE", "EV ESTIMATED CHARGE END", "EV BATTERY LEVEL"]
+                    diagnosticItem: diagnosticsArray || msg.payload.diagnosticItem || [
+                        "AMBIENT AIR TEMPERATURE",
+                        "ENGINE AIR FILTER MONITOR STATUS",
+                        "ENGINE COOLANT TEMP",
+                        "ENGINE RPM",
+                        "ENERGY EFFICIENCY",
+                        "EV BATTERY LEVEL",
+                        "EV CHARGE STATE",
+                        "EV ESTIMATED CHARGE END",
+                        "EV PLUG STATE",
+                        "EV PLUG VOLTAGE",
+                        "EV SCHEDULED CHARGE START",
+                        "FUEL TANK INFO",
+                        "GET CHARGE MODE",
+                        "GET COMMUTE SCHEDULE",
+                        "HANDS FREE CALLING",
+                        "HOTSPOT CONFIG",
+                        "HOTSPOT STATUS",
+                        "INTERM VOLT BATT VOLT",
+                        "LAST TRIP DISTANCE",
+                        "LAST TRIP FUEL ECONOMY",
+                        "LIFETIME EV ODOMETER",
+                        "LIFETIME FUEL ECON",
+                        "LIFETIME FUEL USED",
+                        "ODOMETER",
+                        "OIL LIFE",
+                        "TIRE PRESSURE",
+                        "VEHICLE RANGE"
+                    ]
                 };
 
                 let result = await client.diagnostics(request);
