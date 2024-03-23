@@ -7,7 +7,7 @@ on:
   #push:
   #  branches: [ "main" ]
   pull_request:
-    branches: [ "main" ]
+    #branches: [ "main" ]
   workflow_run:
     #workflows: ["CodeQL", "Lint Code Base"]
     workflows: ["Lint Code Base"]
