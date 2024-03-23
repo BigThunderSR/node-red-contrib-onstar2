@@ -1,7 +1,7 @@
 const assert = require('assert');
 const _ = require('lodash');
 
-const Vehicle = require('../vehicle');
+const Vehicle = require('../deps/vehicle');
 const apiResponse = require('./vehicles.sample.json');
 
 describe('Vehicle', () => {

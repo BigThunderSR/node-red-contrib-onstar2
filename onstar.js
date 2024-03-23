@@ -1,6 +1,7 @@
-const OnStar = require('onstarjs');
+const OnStar = require('./deps/index.cjs');
+//const OnStar = require('onstarjs');
 const _ = require('lodash');
-const Vehicle = require('./vehicle');
+const Vehicle = require('./deps/vehicle');
 
 function createClient(configNode) {
     return OnStar.create({
@@ -156,6 +157,66 @@ module.exports = function(RED) {
 
                 let client = createClient(configNode);
                 let result = await client.unlockDoor(request);
+                let msg1 = {payload: result.response.data.commandResponse.status};
+                let msg2 = {payload: result.response.data};
+                node.send(
+                    [(msg1), (msg2)]
+                );
+            } catch (err) {
+                let errmsg = {payload: err}
+                node.send(
+                    [errmsg, errmsg]
+                );
+            }
+        });
+    }
+
+    function LockTrunk(config) {
+        RED.nodes.createNode(this, config);
+        const node = this;
+
+        node.on('input', async function (msg) {
+            try {
+                let configNode = RED.nodes.getNode(config.onstar2);
+
+                let client = createClient(configNode);
+                let delay = config.delay;
+                let request = {
+                    //delay: msg.payload.delay || 0
+                    delay: delay || msg.payload.delay || 0
+                };
+
+                let result = await client.lockTrunk(request);
+                let msg1 = {payload: result.response.data.commandResponse.status};
+                let msg2 = {payload: result.response.data};
+                node.send(
+                    [(msg1), (msg2)]
+                );
+            } catch (err) {
+                let errmsg = {payload: err}
+                node.send(
+                    [errmsg, errmsg]
+                );
+            }
+        });
+    }
+
+    function UnlockTrunk(config) {
+        RED.nodes.createNode(this, config);
+        const node = this;
+
+        node.on('input', async function (msg) {
+            try {
+                let configNode = RED.nodes.getNode(config.onstar2);
+
+                let delay = config.delay;
+                let request = {
+                    //delay: msg.payload.delay || 0
+                    delay: delay || msg.payload.delay || 0
+                };
+
+                let client = createClient(configNode);
+                let result = await client.unlockTrunk(request);
                 let msg1 = {payload: result.response.data.commandResponse.status};
                 let msg2 = {payload: result.response.data};
                 node.send(
@@ -485,6 +546,8 @@ module.exports = function(RED) {
     RED.nodes.registerType('get-diagnostics', GetDiagnostics);
     RED.nodes.registerType('lock-myvehicle', LockVehicle);
     RED.nodes.registerType('unlock-myvehicle', UnlockVehicle);
+    RED.nodes.registerType('lock-mytrunk', LockTrunk);
+    RED.nodes.registerType('unlock-mytrunk', UnlockTrunk);
     RED.nodes.registerType('start-myvehicle', StartVehicle);
     RED.nodes.registerType('cancel-start-myvehicle', CancelStartVehicle);
     RED.nodes.registerType('alert-myvehicle', AlertVehicle);

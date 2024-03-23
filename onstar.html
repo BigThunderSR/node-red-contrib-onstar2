@@ -51,33 +51,34 @@
                         value: "diagnostics",
                         multiple: "true",
                         options: [
+                            { value: "AMBIENT AIR TEMPERATURE" },
                             { value: "ENGINE AIR FILTER MONITOR STATUS" },
                             { value: "ENGINE COOLANT TEMP" },
-                            { value: "ENGINE RPM" },                            
-                            { value: "OIL LIFE" },
-                            { value: "TIRE PRESSURE" },
-                            { value: "ODOMETER" }, 
-                            { value: "LAST TRIP DISTANCE" },
-                            { value: "LAST TRIP FUEL ECONOMY" },                        
-                            { value: "LIFETIME FUEL ECON" },                            
-                            { value: "LIFETIME FUEL USED" },                                             
-                            { value: "FUEL TANK INFO" },
-                            { value: "VEHICLE RANGE" },
-                            { value: "INTERM VOLT BATT VOLT" },
-                            { value: "AMBIENT AIR TEMPERATURE" },
-                            { value: "HOTSPOT CONFIG" }, 
-                            { value: "HOTSPOT STATUS" }, 
-                            { value: "HANDS FREE CALLING" }, 
-                            { value: "GET COMMUTE SCHEDULE" }, 
-                            { value: "GET CHARGE MODE" }, 
-                            { value: "EV SCHEDULED CHARGE START" },                             
-                            { value: "ENERGY EFFICIENCY" },                            
-                            { value: "LIFETIME EV ODOMETER" },
-                            { value: "EV PLUG VOLTAGE" }, 
-                            { value: "EV PLUG STATE" }, 
+                            { value: "ENGINE RPM" },
+                            { value: "EV BATTERY LEVEL" },
                             { value: "EV CHARGE STATE" },
-                            { value: "EV ESTIMATED CHARGE END" }, 
-                            { value: "EV BATTERY LEVEL" }                            
+                            { value: "EV ESTIMATED CHARGE END" },
+                            { value: "EV PLUG STATE" },
+                            { value: "EV PLUG VOLTAGE" },
+                            { value: "FUEL TANK INFO" },
+                            { value: "GET CHARGE MODE" },
+                            { value: "GET COMMUTE SCHEDULE" },
+                            { value: "HANDS FREE CALLING" },
+                            { value: "HOTSPOT CONFIG" },
+                            { value: "HOTSPOT STATUS" },
+                            { value: "INTERM VOLT BATT VOLT" },
+                            { value: "LAST TRIP DISTANCE" },
+                            { value: "LAST TRIP FUEL ECONOMY" },
+                            { value: "LIFETIME EV ODOMETER" },
+                            { value: "LIFETIME FUEL ECON" },
+                            { value: "LIFETIME FUEL USED" },
+                            { value: "LOCK VEHICLE" },
+                            { value: "ODOMETER" },
+                            { value: "OIL LIFE" },
+                            { value: "ONSTAR CONFIG" },
+                            { value: "TIRE PRESSURE" },
+                            { value: "UNLOCK VEHICLE" },
+                            { value: "VEHICLE RANGE" }
                         ]
                     }
                 ]
@@ -143,6 +144,62 @@
             var editNodeName = $("#node-input-name").val();
             if (editNodeName == '') {
                 $("#node-input-name").val("Unlock Vehicle");
+            }
+            $("#node-input-name").val();
+        },
+    });
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType('lock-mytrunk', {
+        category: 'onstar2',
+        color: '#7eb0ff',
+        defaults: {
+            name: { value: 'Lock Trunk' },
+            onstar2: { value: 'Onstar Config', type: 'onstar2' },
+            delay: { required: false, validate: RED.validators.regex(/^(|\d)+$/)}
+        },
+        inputs: 1,
+        outputs: 2,
+        outputLabels: ["Command Status","result.response.data"],
+        icon: 'onstar.svg',
+        label: function () {
+            //return this.name || 'lock-vehicle';
+            var configCarName = RED.nodes.node(this.onstar2);
+            return configCarName.label()+" "+this.name;
+        },
+        oneditsave: function() {            
+            var editNodeName = $("#node-input-name").val();
+            if (editNodeName == '') {
+                $("#node-input-name").val("Lock Trunk");
+            }
+            $("#node-input-name").val();
+        },
+    });
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType('unlock-mytrunk', {
+        category: 'onstar2',
+        color: '#7eb0ff',
+        defaults: {
+            name: { value: 'Unlock Trunk' },
+            onstar2: { value: 'Onstar Config', type: 'onstar2' },
+            delay: { required: false, validate: RED.validators.regex(/^(|\d)+$/)}
+        },
+        inputs: 1,
+        outputs: 2,
+        outputLabels: ["Command Status","result.response.data"],
+        icon: 'onstar.svg',
+        label: function () {
+            //return this.name || 'unlock-vehicle';
+            var configCarName = RED.nodes.node(this.onstar2);
+            return configCarName.label()+" "+this.name;
+        },
+        oneditsave: function() {            
+            var editNodeName = $("#node-input-name").val();
+            if (editNodeName == '') {
+                $("#node-input-name").val("Unlock Trunk");
             }
             $("#node-input-name").val();
         },
@@ -620,6 +677,44 @@
 
 <script type="text/html" data-help-name="unlock-myvehicle">
     <p>Unlock vehicle doors. Delay parameter is in minutes and is optional, but if not set in the config dialog, defaults to 0 (immediate/no delay) or the value sent to the input via "msg.payload.delay".</p>
+</script>
+
+<script type="text/html" data-template-name="lock-mytrunk">
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name" />
+    </div>
+    <div class="form-row">
+        <label for="node-input-onstar2"><i class="icon-tag"></i> Config</label>
+        <input type="text" id="node-input-onstar2" placeholder="Name" />
+    </div>
+    <div class="form-row">
+        <label for="node-input-delay"><i class="icon-bookmark"></i> Delay (Minutes)</label>
+        <input type="text" id="node-input-delay" />
+    </div>
+</script>
+
+<script type="text/html" data-help-name="lock-mytrunk">
+    <p>Lock vehicle trunk. Delay parameter is in minutes and is optional, but if not set in the config dialog, defaults to 0 (immediate/no delay) or the value sent to the input via "msg.payload.delay".</p>
+</script>
+
+<script type="text/html" data-template-name="unlock-mytrunk">
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name" />
+    </div>
+    <div class="form-row">
+        <label for="node-input-onstar2"><i class="icon-tag"></i> Config</label>
+        <input type="text" id="node-input-onstar2" placeholder="Name" />
+    </div>
+    <div class="form-row">
+        <label for="node-input-delay"><i class="icon-bookmark"></i> Delay (Minutes)</label>
+        <input type="text" id="node-input-delay" />
+    </div>
+</script>
+
+<script type="text/html" data-help-name="unlock-myvehicle">
+    <p>Unlock vehicle trunk. Delay parameter is in minutes and is optional, but if not set in the config dialog, defaults to 0 (immediate/no delay) or the value sent to the input via "msg.payload.delay".</p>
 </script>
 
 <script type="text/html" data-template-name="start-myvehicle">
