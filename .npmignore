@@ -4,6 +4,7 @@ renovate.json
 .nyc_output
 .babelrc
 .eslintrc.yml
+.eslintignore
 .github
 .nvmrc
 .bak
