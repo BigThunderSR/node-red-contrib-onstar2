@@ -41,10 +41,12 @@ Collect the following information:
 
 ## Supported Features
 
-- Lock
-- Unlock
+- Lock Doors
+- Unlock Doors
+- Lock Trunk
+- Unlock Trunk
 - Start
-- Stop
+- Stop (Cancel Start)
 - Set Charge Profile
 - Get Charge Profile
 - Override Charge State
