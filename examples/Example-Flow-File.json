@@ -504,6 +504,7 @@
         "z": "4675ad755acd7bf0",
         "name": "Lock Vehicle",
         "onstar2": "be898e0ea720276d",
+        "delay": "",
         "x": 500,
         "y": 220,
         "wires": [
@@ -521,6 +522,7 @@
         "z": "4675ad755acd7bf0",
         "name": "Unlock Vehicle",
         "onstar2": "be898e0ea720276d",
+        "delay": "",
         "x": 510,
         "y": 280,
         "wires": [
@@ -572,6 +574,10 @@
         "z": "4675ad755acd7bf0",
         "name": "Alert Vehicle",
         "onstar2": "be898e0ea720276d",
+        "action": "",
+        "delay": "",
+        "duration": "",
+        "override": "",
         "x": 500,
         "y": 460,
         "wires": [
@@ -682,6 +688,100 @@
             ],
             [
                 "944af7a03383e640"
+            ]
+        ]
+    },
+    {
+        "id": "d8e9a334ea39b5ed",
+        "type": "lock-mytrunk",
+        "z": "4675ad755acd7bf0",
+        "name": "Lock Trunk",
+        "onstar2": "be898e0ea720276d",
+        "delay": "",
+        "x": 500,
+        "y": 940,
+        "wires": [
+            [
+                "0a01acc5e4d92829"
+            ],
+            [
+                "944af7a03383e640"
+            ]
+        ]
+    },
+    {
+        "id": "9cf6a707daab7220",
+        "type": "unlock-mytrunk",
+        "z": "4675ad755acd7bf0",
+        "name": "Unlock Trunk",
+        "onstar2": "be898e0ea720276d",
+        "delay": "",
+        "x": 500,
+        "y": 1000,
+        "wires": [
+            [
+                "0a01acc5e4d92829"
+            ],
+            [
+                "944af7a03383e640"
+            ]
+        ]
+    },
+    {
+        "id": "90f3b9ec8ed5c354",
+        "type": "inject",
+        "z": "4675ad755acd7bf0",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 260,
+        "y": 1000,
+        "wires": [
+            [
+                "9cf6a707daab7220"
+            ]
+        ]
+    },
+    {
+        "id": "96bcbbb9ae4725e9",
+        "type": "inject",
+        "z": "4675ad755acd7bf0",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 260,
+        "y": 940,
+        "wires": [
+            [
+                "d8e9a334ea39b5ed"
             ]
         ]
     },
