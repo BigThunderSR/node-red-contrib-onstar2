@@ -6,7 +6,7 @@ jobs:
   update-flow-library:
     runs-on: ubuntu-latest
     steps: 
-     - uses: BigThunderSR/update-package-node-red-flow-library-action@v1.3.1    
+     - uses: BigThunderSR/update-package-node-red-flow-library-action@v1.3.2    
        with:         
          package-name: 'node-red-contrib-onstar2'
          #delay-run-ms: 10000
