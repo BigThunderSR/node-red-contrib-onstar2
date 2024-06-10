@@ -10,7 +10,7 @@
     "axios": "^1.7.2",
     "jsonwebtoken": "^9.0.2",
     "lodash": "^4.17.21",
-    "uuid": "^9.0.1"
+    "uuid": "^10.0.0"
   },
   "node-red": {
     "version": ">=3.0.0",
