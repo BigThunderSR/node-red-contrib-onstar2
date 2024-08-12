@@ -23,6 +23,7 @@ module.exports = [{
     languageOptions: {
         globals: {
             ...globals.node,
+            ...globals.browser,
             ...Object.fromEntries(Object.entries(globals.browser).map(([key]) => [key, "off"])),
             ...globals.commonjs,
             ...globals.mocha,
