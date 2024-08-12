@@ -30,7 +30,7 @@
     "@babel/eslint-plugin": "^7.25.1",
     "@babel/plugin-syntax-class-properties": "^7.12.13",
     "@babel/preset-env": "^7.25.3",
-    "eslint": "^8.57.0",
+    "eslint": "^9.9.0",
     "mocha": "^10.7.3",
     "node-red": "^3.1.11",
     "node-red-node-test-helper": "^0.3.4",
