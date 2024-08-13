@@ -7,7 +7,7 @@
     "test": "nyc --exclude=\"deps/index.cjs\" --exclude=\"test\" mocha"
   },
   "dependencies": {
-    "axios": "^1.7.3",
+    "axios": "^1.7.4",
     "jsonwebtoken": "^9.0.2",
     "lodash": "^4.17.21",
     "uuid": "^10.0.0"
