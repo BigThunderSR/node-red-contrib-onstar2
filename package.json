@@ -37,7 +37,7 @@
     "mocha": "^10.7.3",
     "node-red": "^3.1.11",
     "node-red-node-test-helper": "^0.3.4",
-    "nyc": "^17.0.0"
+    "nyc": "^17.1.0"
   },
   "keywords": [
     "node-red",
