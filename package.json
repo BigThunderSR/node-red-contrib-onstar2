@@ -35,7 +35,7 @@
     "eslint": "^9.10.0",
     "globals": "^15.9.0",
     "mocha": "^10.7.3",
-    "node-red": "^3.1.11",
+    "node-red": "^3.1.12",
     "node-red-node-test-helper": "^0.3.4",
     "nyc": "^17.1.0"
   },
