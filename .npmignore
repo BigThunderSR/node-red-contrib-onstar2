@@ -1,6 +1,7 @@
 node_modules
 test
 renovate.json
+eslint.config.cjs
 .nyc_output
 .babelrc
 .eslintrc.yml
