@@ -560,6 +560,7 @@
             carname: { required: true },
             username: { required: true },
             password: { required: true },
+            totp: { required: true},
             pin: { required: true, validate: RED.validators.number() },
             vin: { required: true },
             deviceid: { required: true },
@@ -923,6 +924,10 @@
     <div class="form-row">
         <label for="node-config-input-password"><i class="icon-bookmark"></i> Password</label>
         <input type="password" id="node-config-input-password" />
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-totp"><i class="icon-bookmark"></i> TOTP</label>
+        <input type="password" id="node-config-input-totp" />
     </div>
     <div class="form-row">
         <label for="node-config-input-pin"><i class="icon-bookmark"></i> PIN</label>

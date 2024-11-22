@@ -8,6 +8,7 @@ function createClient(configNode) {
         username: configNode.username,
         password: configNode.password,
         vin: configNode.vin,
+        onStarTOTP: configNode.totp,
         onStarPin: configNode.pin,
         deviceId: configNode.deviceid,
         checkRequestStatus: configNode.checkrequeststatus,
@@ -533,6 +534,7 @@ module.exports = function(RED) {
         RED.nodes.createNode(this, config);
         this.username = config.username;
         this.password = config.password;
+        this.totp = config.totp;
         this.pin = config.pin;
         this.vin = config.vin;
         this.deviceid = config.deviceid;
