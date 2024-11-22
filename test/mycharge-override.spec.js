@@ -44,7 +44,7 @@ describe('mycharge-override', function () {
       n2.on("input", function (msg) {
         try {
           flatted.stringify(msg);
-          msg.payload.should.have.property('message', 'Request Failed with status 401 - Unauthorized') ;
+          msg.payload.should.have.property('message', 'Missing required configuration parameters') ;
           done();
         } catch(err) {     
           done(err);
