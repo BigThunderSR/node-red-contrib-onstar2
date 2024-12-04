@@ -1,6 +1,6 @@
 {
   "name": "node-red-contrib-onstar2",
-  "version": "2.3.1",
+  "version": "2.3.2",
   "description": "An updated Node-RED Library using OnStarJS, an unofficial client library for the OnStar Vehicle API",
   "main": "onstar.js",
   "scripts": {
