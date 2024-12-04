@@ -1,5 +1,5 @@
-const OnStar = require('./deps/index.cjs');
-//const OnStar = require('onstarjs');
+//const OnStar = require('./deps/index.cjs');
+const OnStar = require('onstarjs2');
 const _ = require('lodash');
 const Vehicle = require('./deps/vehicle');
 
