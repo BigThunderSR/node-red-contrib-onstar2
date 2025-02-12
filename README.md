@@ -36,7 +36,7 @@ Each node is self-explanatory with hints provided wherever necessary as well as 
 Collect the following information:
 
 1. [Generate](https://www.uuidgenerator.net/version4) a v4 uuid for the device ID
-1. OnStar login: username, password, PIN
+1. OnStar login: username, password, PIN, [TOTP Key (Please click link for instructions)](https://github.com/BigThunderSR/OnStarJS?tab=readme-ov-file#new-requirement-as-of-2024-11-19)
 1. Your car's VIN. Easily found in the monthly OnStar diagnostic emails.
 
 ## Supported Features
