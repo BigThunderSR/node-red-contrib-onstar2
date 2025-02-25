@@ -11,7 +11,7 @@
     "jsonwebtoken": "^9.0.2",
     "lodash": "^4.17.21",
     "onstarjs2": "^2.6.1",
-    "uuid": "^11.0.5"
+    "uuid": "^11.1.0"
   },
   "node-red": {
     "version": ">=3.0.0",
