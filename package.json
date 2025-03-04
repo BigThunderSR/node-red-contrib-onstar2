@@ -14,13 +14,13 @@
     "uuid": "^11.1.0"
   },
   "node-red": {
-    "version": ">=3.0.0",
+    "version": ">=4.0.9",
     "nodes": {
       "onstar": "onstar.js"
     }
   },
   "engines": {
-    "node": ">=14.21.3"
+    "node": ">=18.20.6"
   },
   "repository": {
     "type": "git",
