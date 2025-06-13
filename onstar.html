@@ -564,6 +564,7 @@
             pin: { required: true, validate: RED.validators.number() },
             vin: { required: true },
             deviceid: { required: true },
+            tokenlocation: { value: '', required: false },
             checkrequeststatus: { value: true, required: true },
             requestpollingtimeoutseconds: { value: 90, required: true, validate: RED.validators.number() },
             requestpollingintervalseconds: { value: 6, required: true, validate: RED.validators.number() }
@@ -940,6 +941,10 @@
     <div class="form-row">
         <label for="node-config-input-deviceid"><i class="icon-bookmark"></i> Device ID (any valid V4 UUID)</label>
         <input type="text" id="node-config-input-deviceid" />
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-tokenlocation"><i class="icon-bookmark"></i> Token Location (Optional)</label>
+        <input type="text" id="node-config-input-tokenlocation" placeholder="Path to store token files" />
     </div>
     <div class="form-row">
         <label for="node-config-input-checkrequeststatus"><i class="icon-bookmark"></i> Set checkRequestStatus Value for OnStarJS</label>

@@ -4,7 +4,7 @@ const _ = require('lodash');
 const Vehicle = require('./deps/vehicle');
 
 function createClient(configNode) {
-    return OnStar.create({
+    let options = {
         username: configNode.username,
         password: configNode.password,
         vin: configNode.vin,
@@ -14,7 +14,14 @@ function createClient(configNode) {
         checkRequestStatus: configNode.checkrequeststatus,
         requestPollingTimeoutSeconds: configNode.requestpollingtimeoutseconds,
         requestPollingIntervalSeconds: configNode.requestpollingintervalseconds
-    });
+    };
+
+    // Add tokenLocation if configured
+    if (configNode.tokenlocation && configNode.tokenlocation.trim() !== '') {
+        options.tokenLocation = configNode.tokenlocation.trim();
+    }
+
+    return OnStar.create(options);
 }
 
 module.exports = function(RED) {
@@ -538,6 +545,7 @@ module.exports = function(RED) {
         this.pin = config.pin;
         this.vin = config.vin;
         this.deviceid = config.deviceid;
+        this.tokenlocation = config.tokenlocation;
         this.checkrequeststatus = config.checkrequeststatus;
         this.requestpollingtimeoutseconds = config.requestpollingtimeoutseconds;
         this.requestpollingintervalseconds = config.requestpollingintervalseconds;
