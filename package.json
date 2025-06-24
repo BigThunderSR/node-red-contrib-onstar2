@@ -4,7 +4,8 @@
   "description": "An updated Node-RED Library using OnStarJS, an unofficial client library for the OnStar Vehicle API",
   "main": "onstar.js",
   "scripts": {
-    "test": "nyc --exclude=\"deps/index.cjs\" --exclude=\"test\" mocha"
+    "test": "nyc --exclude=\"deps/index.cjs\" --exclude=\"test\" mocha",
+    "test:auth": "RUN_AUTH_TESTS=true nyc --exclude=\"deps/index.cjs\" --exclude=\"test\" mocha test/authentication.spec.js"
   },
   "dependencies": {
     "axios": "^1.10.0",
