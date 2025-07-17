@@ -8,7 +8,7 @@
 <!-- [![Notarize Assets with CAS](https://github.com/BigThunderSR/node-red-contrib-onstar2/actions/workflows/cas_notarize.yml/badge.svg)](https://github.com/BigThunderSR/node-red-contrib-onstar2/actions/workflows/cas_notarize.yml)
 [![Authenticate Assets with CAS](https://github.com/BigThunderSR/node-red-contrib-onstar2/actions/workflows/cas_authenticate.yml/badge.svg)](https://github.com/BigThunderSR/node-red-contrib-onstar2/actions/workflows/cas_authenticate.yml) -->
 
-A Node-RED flow for controlling GM OnStar vehicles powered by [OnStarJS](https://github.com/samrum/OnStarJS) originally written by [caseyjmorton](https://www.npmjs.com/~caseyjmorton) and published [here](https://www.npmjs.com/package/node-red-contrib-onstar). Please note that only US and Canadian OnStar accounts are known to work with this integration.
+A Node-RED node package for controlling GM OnStar vehicles powered by [OnStarJS](https://github.com/samrum/OnStarJS), originally written by [caseyjmorton](https://www.npmjs.com/~caseyjmorton) and published [in the npmjs registry here](https://www.npmjs.com/package/node-red-contrib-onstar). Please note that only US and Canadian OnStar accounts are known to work with this integration.
 
 This fork is for me to experiment with the capabilities exposed in the original version and to add custom commands as necessary.
 
@@ -38,6 +38,8 @@ Collect the following information:
 1. [Generate](https://www.uuidgenerator.net/version4) a v4 uuid for the device ID
 1. OnStar login: username, password, PIN, [TOTP Key (Please click link for instructions)](https://github.com/BigThunderSR/OnStarJS?tab=readme-ov-file#new-requirement-as-of-2024-11-19)
 1. Your car's VIN. Easily found in the monthly OnStar diagnostic emails.
+
+**Important:** [Special Instructions for Running in the official Home Assistant Node-RED Add-on](https://github.com/BigThunderSR/node-red-contrib-onstar2/discussions/430)
 
 ## Supported Features
 
