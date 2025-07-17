@@ -4,7 +4,9 @@
   "description": "An updated Node-RED Library using OnStarJS, an unofficial client library for the OnStar Vehicle API",
   "main": "onstar.js",
   "scripts": {
-    "test": "nyc --exclude=\"deps/index.cjs\" --exclude=\"test\" mocha"
+    "test": "nyc --exclude=\"deps/index.cjs\" --exclude=\"test\" mocha",
+    "test:auth": "RUN_AUTH_TESTS=true nyc --exclude=\"deps/index.cjs\" --exclude=\"test\" mocha test/authentication.spec.js",
+    "postinstall": "PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1 npx playwright install chromium --with-deps --force"
   },
   "dependencies": {
     "axios": "^1.10.0",
