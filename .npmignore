@@ -12,3 +12,4 @@ eslint.config.cjs
 .vscode
 .old
 .env
+*tokens.json

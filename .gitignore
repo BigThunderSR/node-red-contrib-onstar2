@@ -3,3 +3,4 @@ node_modules
 .bak
 .env
 temp-browser-profile
+*tokens.json
