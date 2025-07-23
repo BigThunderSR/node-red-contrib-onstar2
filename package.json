@@ -6,7 +6,9 @@
   "scripts": {
     "test": "nyc --exclude=\"deps/index.cjs\" --exclude=\"test\" mocha",
     "test:auth": "nyc --exclude=\"deps/index.cjs\" --exclude=\"test\" mocha test/authentication.spec.js",
-    "test:auth-legacy": "RUN_AUTH_TESTS=true nyc --exclude=\"deps/index.cjs\" --exclude=\"test\" mocha test/authentication.spec.js"
+    "test:auth-legacy": "RUN_AUTH_TESTS=true nyc --exclude=\"deps/index.cjs\" --exclude=\"test\" mocha test/authentication.spec.js",
+    "test:functionality": "nyc --exclude=\"deps/index.cjs\" --exclude=\"test\" mocha test/functionality-mocked.spec.js",
+    "test:mocked": "nyc --exclude=\"deps/index.cjs\" --exclude=\"test\" mocha test/authentication.spec.js test/functionality-mocked.spec.js"
   },
   "dependencies": {
     "axios": "^1.10.0",
