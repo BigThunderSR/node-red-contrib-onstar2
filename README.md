@@ -60,6 +60,41 @@ Collect the following information:
 - Get Diagnostic Information
 - Get Vehicle Capabilities
 
+## Testing
+
+This project includes comprehensive test suites that use mocked API responses instead of making real calls to OnStar servers.
+
+### Running Tests
+
+```sh
+# Run all tests
+npm test
+
+# Run only authentication tests (mocked)
+npm run test:auth
+
+# Run legacy authentication tests (requires real OnStar credentials)
+npm run test:auth-legacy
+```
+
+### Authentication Tests
+
+The authentication tests (`test/authentication.spec.js`) now use [Sinon](https://sinonjs.org/) to mock the OnStarJS API calls, providing:
+
+- **Fast execution**: No network calls or timeouts
+- **Reliable results**: Tests don't depend on external service availability
+- **Safe testing**: No risk of accidentally triggering real vehicle actions
+- **Predictable outcomes**: Controlled responses for different scenarios
+
+The mocked tests cover:
+
+- Invalid credentials scenarios
+- Missing configuration parameters
+- Invalid TOTP codes
+- Invalid VIN formats
+- Successful authentication flows
+- Configuration node validation
+
 ## My other related projects
 
 - [https://github.com/BigThunderSR/onstar2mqtt](https://github.com/BigThunderSR/onstar2mqtt)
