@@ -44,7 +44,7 @@
     "node-red": "^4.0.9",
     "node-red-node-test-helper": "^0.3.4",
     "nyc": "^17.1.0",
-    "sinon": "^19.0.2"
+    "sinon": "^19.0.5"
   },
   "keywords": [
     "node-red",
