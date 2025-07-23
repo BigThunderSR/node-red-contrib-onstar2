@@ -5,7 +5,10 @@
   "main": "onstar.js",
   "scripts": {
     "test": "nyc --exclude=\"deps/index.cjs\" --exclude=\"test\" mocha",
-    "test:auth": "RUN_AUTH_TESTS=true nyc --exclude=\"deps/index.cjs\" --exclude=\"test\" mocha test/authentication.spec.js"
+    "test:auth": "nyc --exclude=\"deps/index.cjs\" --exclude=\"test\" mocha test/authentication.spec.js",
+    "test:auth-legacy": "RUN_AUTH_TESTS=true nyc --exclude=\"deps/index.cjs\" --exclude=\"test\" mocha test/authentication.spec.js",
+    "test:functionality": "nyc --exclude=\"deps/index.cjs\" --exclude=\"test\" mocha test/functionality-mocked.spec.js",
+    "test:mocked": "nyc --exclude=\"deps/index.cjs\" --exclude=\"test\" mocha test/authentication.spec.js test/functionality-mocked.spec.js"
   },
   "dependencies": {
     "axios": "^1.10.0",
@@ -40,7 +43,8 @@
     "mocha": "^11.7.1",
     "node-red": "^4.0.9",
     "node-red-node-test-helper": "^0.3.4",
-    "nyc": "^17.1.0"
+    "nyc": "^17.1.0",
+    "sinon": "^19.0.2"
   },
   "keywords": [
     "node-red",

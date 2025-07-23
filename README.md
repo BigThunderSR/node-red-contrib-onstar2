@@ -60,6 +60,75 @@ Collect the following information:
 - Get Diagnostic Information
 - Get Vehicle Capabilities
 
+## Testing
+
+This project includes comprehensive test suites that use mocked API responses instead of making real calls to OnStar servers.
+
+### Running Tests
+
+```sh
+# Run all tests (including mocked tests)
+npm test
+
+# Run only authentication tests (mocked)
+npm run test:auth
+
+# Run only functionality tests (mocked)
+npm run test:functionality
+
+# Run all mocked tests (authentication + functionality)
+npm run test:mocked
+
+# Run legacy authentication tests (requires real OnStar credentials)
+npm run test:auth-legacy
+```
+
+### Mocked Tests
+
+The project now includes comprehensive mocked tests that cover both authentication scenarios and successful OnStar operations without making real API calls.
+
+#### Authentication Tests (`test/authentication.spec.js`)
+
+Using [Sinon](https://sinonjs.org/) to mock the OnStarJS API calls:
+
+- **Fast execution**: No network calls or timeouts
+- **Reliable results**: Tests don't depend on external service availability
+- **Safe testing**: No risk of accidentally triggering real vehicle actions
+- **Predictable outcomes**: Controlled responses for different scenarios
+
+The authentication tests cover:
+
+- Invalid credentials scenarios
+- Missing configuration parameters
+- Invalid TOTP codes
+- Invalid VIN formats
+- Successful authentication flows
+- Configuration node validation
+
+#### Functionality Tests (`test/functionality-mocked.spec.js`)
+
+Comprehensive mocked tests for OnStar operations:
+
+- **get-account-vehicles**: Mock vehicle list with multiple vehicles
+- **get-diagnostics**: Mock diagnostic data (odometer, battery, fuel, etc.)
+- **locate-vehicle**: Mock GPS coordinates and address information
+- **lock-myvehicle**: Mock successful door locking
+- **unlock-myvehicle**: Mock successful door unlocking
+- **lock-mytrunk**: Mock successful trunk locking
+- **unlock-mytrunk**: Mock successful trunk unlocking
+- **start-myvehicle**: Mock successful remote start
+- **cancel-start-myvehicle**: Mock successful remote start cancellation
+- **alert-myvehicle**: Mock successful vehicle alerts (honk/flash)
+- **get-mycharge-profile**: Mock EV charging profile data
+- **mycharge-override**: Mock charging override commands
+
+All functionality tests verify:
+
+- Correct API method calls with proper parameters
+- Expected response data structures
+- Proper error handling
+- Node.js output validation
+
 ## My other related projects
 
 - [https://github.com/BigThunderSR/onstar2mqtt](https://github.com/BigThunderSR/onstar2mqtt)
