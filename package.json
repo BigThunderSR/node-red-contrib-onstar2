@@ -4,11 +4,11 @@
   "description": "An updated Node-RED Library using OnStarJS, an unofficial client library for the OnStar Vehicle API",
   "main": "onstar.js",
   "scripts": {
-    "test": "nyc --exclude=\"deps/index.cjs\" --exclude=\"test\" mocha",
-    "test:auth": "nyc --exclude=\"deps/index.cjs\" --exclude=\"test\" mocha test/authentication.spec.js",
-    "test:auth-legacy": "RUN_AUTH_TESTS=true nyc --exclude=\"deps/index.cjs\" --exclude=\"test\" mocha test/authentication.spec.js",
-    "test:functionality": "nyc --exclude=\"deps/index.cjs\" --exclude=\"test\" mocha test/functionality-mocked.spec.js",
-    "test:mocked": "nyc --exclude=\"deps/index.cjs\" --exclude=\"test\" mocha test/authentication.spec.js test/functionality-mocked.spec.js"
+    "test": "c8 --exclude=\"deps/index.cjs\" --exclude=\"test\" mocha",
+    "test:auth": "c8 --exclude=\"deps/index.cjs\" --exclude=\"test\" mocha test/authentication.spec.js",
+    "test:auth-legacy": "RUN_AUTH_TESTS=true c8 --exclude=\"deps/index.cjs\" --exclude=\"test\" mocha test/authentication.spec.js",
+    "test:functionality": "c8 --exclude=\"deps/index.cjs\" --exclude=\"test\" mocha test/functionality-mocked.spec.js",
+    "test:mocked": "c8 --exclude=\"deps/index.cjs\" --exclude=\"test\" mocha test/authentication.spec.js test/functionality-mocked.spec.js"
   },
   "dependencies": {
     "axios": "^1.11.0",
@@ -43,7 +43,7 @@
     "mocha": "^11.7.1",
     "node-red": "^4.1.0",
     "node-red-node-test-helper": "^0.3.5",
-    "nyc": "^17.1.0",
+    "c8": "^10.1.2",
     "sinon": "^21.0.0"
   },
   "keywords": [

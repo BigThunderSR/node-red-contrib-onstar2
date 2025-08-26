@@ -3,6 +3,7 @@ test
 renovate.json
 eslint.config.cjs
 .nyc_output
+coverage
 .babelrc
 .eslintrc.yml
 .eslintignore
