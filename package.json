@@ -11,7 +11,7 @@
     "test:mocked": "c8 --exclude=\"deps/index.cjs\" --exclude=\"test\" mocha test/authentication.spec.js test/functionality-mocked.spec.js"
   },
   "dependencies": {
-    "axios": "^1.12.2",
+    "axios": "^1.13.1",
     "chromium-bidi": "^9.0.0",
     "jsonwebtoken": "^9.0.2",
     "lodash": "^4.17.21",
