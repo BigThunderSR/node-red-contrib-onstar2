@@ -92,8 +92,16 @@ Action commands (lock/unlock, start/cancel, alert) now automatically:
 - Attempt v3 API first
 - Fall back to v1 API if vehicle doesn't support v3
 - Cache the working API version for optimal performance
+- Parse both v3 and v1 response structures transparently
 
 **No configuration needed** - this happens transparently!
+
+The response parsing handles both API formats:
+
+- **v3 API**: `response.data.status` and `response.data.requestId`
+- **v1 API**: `response.data.commandResponse.status` and `response.data.commandResponse.requestId`
+
+Your flows will continue to work regardless of which API your vehicle uses.
 
 ### Enhanced EV Charging Control
 
