@@ -1,14 +1,15 @@
 {
   "name": "node-red-contrib-onstar2",
-  "version": "2.7.0",
-  "description": "An updated Node-RED Library using OnStarJS, an unofficial client library for the OnStar Vehicle API",
+  "version": "3.0.0",
+  "description": "An updated Node-RED Library using OnStarJS2, supporting both v1 and v3 OnStar APIs with automatic version detection",
   "main": "onstar.js",
   "scripts": {
-    "test": "c8 --exclude=\"deps/index.cjs\" --exclude=\"test\" mocha",
+    "test": "c8 --exclude=\"deps/index.cjs\" --exclude=\"test\" mocha --exclude test/real-api.spec.js",
     "test:auth": "c8 --exclude=\"deps/index.cjs\" --exclude=\"test\" mocha test/authentication.spec.js",
     "test:auth-legacy": "RUN_AUTH_TESTS=true c8 --exclude=\"deps/index.cjs\" --exclude=\"test\" mocha test/authentication.spec.js",
     "test:functionality": "c8 --exclude=\"deps/index.cjs\" --exclude=\"test\" mocha test/functionality-mocked.spec.js",
-    "test:mocked": "c8 --exclude=\"deps/index.cjs\" --exclude=\"test\" mocha test/authentication.spec.js test/functionality-mocked.spec.js"
+    "test:mocked": "c8 --exclude=\"deps/index.cjs\" --exclude=\"test\" mocha test/authentication.spec.js test/functionality-mocked.spec.js",
+    "test:real-safe-only": "mocha test/real-api.spec.js --grep \"Safe Read-Only\" --timeout 120000"
   },
   "dependencies": {
     "axios": "^1.13.2",
@@ -38,12 +39,13 @@
     "@babel/preset-env": "^7.28.5",
     "@eslint/eslintrc": "^3.3.1",
     "@eslint/js": "^9.39.1",
+    "c8": "^10.1.3",
+    "dotenv": "^17.2.3",
     "eslint": "^9.39.1",
     "globals": "^16.5.0",
     "mocha": "^11.7.5",
     "node-red": "^4.1.1",
     "node-red-node-test-helper": "^0.3.5",
-    "c8": "^10.1.3",
     "sinon": "^21.0.0"
   },
   "keywords": [

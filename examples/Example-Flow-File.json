@@ -642,11 +642,11 @@
     },
     {
         "id": "a4b1eb26f7c79673",
-        "type": "mycharge-override",
+        "type": "get-ev-charging-metrics",
         "z": "4675ad755acd7bf0",
-        "name": "Override Charge State",
+        "name": "Get EV Charging Metrics",
         "onstar2": "be898e0ea720276d",
-        "x": 530,
+        "x": 540,
         "y": 760,
         "wires": [
             [
@@ -659,11 +659,11 @@
     },
     {
         "id": "a5c82ef56e66f145",
-        "type": "get-mycharge-profile",
+        "type": "refresh-ev-charging-metrics",
         "z": "4675ad755acd7bf0",
-        "name": "Get Charging Profile",
+        "name": "Refresh EV Charging Metrics",
         "onstar2": "be898e0ea720276d",
-        "x": 530,
+        "x": 550,
         "y": 820,
         "wires": [
             [
@@ -676,12 +676,30 @@
     },
     {
         "id": "8e0fcf01e842e994",
-        "type": "set-mycharge-profile",
+        "type": "set-charge-level-target",
         "z": "4675ad755acd7bf0",
-        "name": "Set Charge Profile",
+        "name": "Set Charge Level Target",
         "onstar2": "be898e0ea720276d",
-        "x": 520,
+        "chargelevel": "80",
+        "x": 540,
         "y": 880,
+        "wires": [
+            [
+                "0a01acc5e4d92829"
+            ],
+            [
+                "944af7a03383e640"
+            ]
+        ]
+    },
+    {
+        "id": "f9a8b2c3d4e5f678",
+        "type": "stop-charging",
+        "z": "4675ad755acd7bf0",
+        "name": "Stop Charging",
+        "onstar2": "be898e0ea720276d",
+        "x": 500,
+        "y": 940,
         "wires": [
             [
                 "0a01acc5e4d92829"
@@ -699,7 +717,7 @@
         "onstar2": "be898e0ea720276d",
         "delay": "",
         "x": 500,
-        "y": 940,
+        "y": 1000,
         "wires": [
             [
                 "0a01acc5e4d92829"
@@ -717,13 +735,42 @@
         "onstar2": "be898e0ea720276d",
         "delay": "",
         "x": 500,
-        "y": 1000,
+        "y": 1060,
         "wires": [
             [
                 "0a01acc5e4d92829"
             ],
             [
                 "944af7a03383e640"
+            ]
+        ]
+    },
+    {
+        "id": "f8c7b6a5d4e3f210",
+        "type": "inject",
+        "z": "4675ad755acd7bf0",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 260,
+        "y": 940,
+        "wires": [
+            [
+                "f9a8b2c3d4e5f678"
             ]
         ]
     },
@@ -749,7 +796,7 @@
         "payload": "",
         "payloadType": "date",
         "x": 260,
-        "y": 1000,
+        "y": 1060,
         "wires": [
             [
                 "9cf6a707daab7220"
@@ -778,7 +825,7 @@
         "payload": "",
         "payloadType": "date",
         "x": 260,
-        "y": 940,
+        "y": 1000,
         "wires": [
             [
                 "d8e9a334ea39b5ed"

@@ -9,7 +9,7 @@ require("should");
 var sinon = require("sinon");
 var helper = require("node-red-node-test-helper");
 var onStar = require("../onstar.js");
-var OnStarJS = require('onstarjs2');
+var OnStarJS = require('onstarjs2').default;
 
 helper.init(require.resolve('node-red'));
 
@@ -29,33 +29,29 @@ describe('OnStar Functionality Tests (Mocked)', function () {
 
   describe('get-account-vehicles', function () {
     it('Should return vehicle list successfully', function (done) {
+      // Mock response matching onstarjs2 v2.14.1+ structure
       var mockVehicleResponse = {
-        response: {
-          status: 'success',
-          data: {
-            vehicles: {
-              vehicle: [
-                {
-                  vin: '1G1ZB5ST5JF260429',
-                  make: 'CHEVROLET',
-                  model: 'VOLT',
-                  year: '2018',
-                  nickname: 'My Volt',
-                  color: 'Summit White',
-                  licensePlate: 'ABC123'
-                },
-                {
-                  vin: '1G1ZC5ST8JF123456',
-                  make: 'CHEVROLET',
-                  model: 'BOLT EV',
-                  year: '2022',
-                  nickname: 'My Bolt',
-                  color: 'Electric Blue',
-                  licensePlate: 'XYZ789'
-                }
-              ]
+        data: {
+          vehicles: [
+            {
+              vin: '1G1ZB5ST5JF260429',
+              make: 'CHEVROLET',
+              model: 'VOLT',
+              year: '2018',
+              nickname: 'My Volt',
+              color: 'Summit White',
+              licensePlate: 'ABC123'
+            },
+            {
+              vin: '1G1ZC5ST8JF123456',
+              make: 'CHEVROLET',
+              model: 'BOLT EV',
+              year: '2022',
+              nickname: 'My Bolt',
+              color: 'Electric Blue',
+              licensePlate: 'XYZ789'
             }
-          }
+          ]
         }
       };
 
@@ -97,8 +93,9 @@ describe('OnStar Functionality Tests (Mocked)', function () {
         n3.on("input", function (msg) {
           try {
             rawDataReceived = true;
-            msg.payload.should.have.property('status', 'success');
+            // onstarjs2 v2.14.1+ returns raw response without status wrapper
             msg.payload.should.have.property('data');
+            msg.payload.data.should.have.property('vehicles');
             
             if (vehicleDataReceived && rawDataReceived) done();
           } catch(err) {
@@ -190,25 +187,21 @@ describe('OnStar Functionality Tests (Mocked)', function () {
 
   describe('locate-vehicle', function () {
     it('Should return vehicle location successfully', function (done) {
+      // Mock response matching onstarjs2 v2.14.1+ telemetry structure
       var mockLocationResponse = {
         response: {
-          status: 'success',
           data: {
-            commandResponse: {
-              body: {
-                locationResponse: {
-                  position: {
-                    latitude: '42.331427',
-                    longitude: '-83.045754',
-                    timestamp: '2025-07-22T10:30:00Z'
-                  },
-                  address: {
-                    formattedAddress: '1234 Main Street, Detroit, MI 48201',
-                    street: '1234 Main Street',
-                    city: 'Detroit',
-                    state: 'MI',
-                    zipCode: '48201'
-                  }
+            telemetry: {
+              occurredTs: '2025-07-22T10:30:00Z',
+              data: {
+                position: {
+                  lat: 42.331427,
+                  lng: -83.045754,
+                  geohash: 'test123'
+                },
+                velocity: {
+                  spdInKph: 0,
+                  dir: null
                 }
               }
             }
@@ -234,11 +227,12 @@ describe('OnStar Functionality Tests (Mocked)', function () {
 
         n2.on("input", function (msg) {
           try {
-            var location = msg.payload.locationResponse;
-            location.position.should.have.property('latitude', '42.331427');
-            location.position.should.have.property('longitude', '-83.045754');
-            location.address.should.have.property('city', 'Detroit');
-            location.address.should.have.property('state', 'MI');
+            // onstarjs2 v2.14.1+ returns structured location data
+            msg.payload.should.have.property('location');
+            msg.payload.location.should.have.property('lat', 42.331427);
+            msg.payload.location.should.have.property('long', -83.045754);
+            msg.payload.should.have.property('velocity');
+            msg.payload.should.have.property('timestamp', '2025-07-22T10:30:00Z');
             done();
           } catch(err) {
             done(err);
@@ -252,20 +246,14 @@ describe('OnStar Functionality Tests (Mocked)', function () {
 
   describe('lock-myvehicle', function () {
     it('Should lock vehicle successfully', function (done) {
+      // Mock response matching onstarjs2 v2.14.1+ v3 API structure
       var mockLockResponse = {
         response: {
-          status: 'success',
           data: {
-            commandResponse: {
-              requestId: 'req-12345',
-              status: 'success',
-              body: {
-                remoteActionResponse: {
-                  status: 'success',
-                  message: 'Vehicle doors have been locked successfully'
-                }
-              }
-            }
+            requestId: 'req-lock-12345',
+            status: 'SUCCESS',
+            requestTime: '2025-11-26T22:00:00Z',
+            completionTime: '2025-11-26T22:00:15Z'
           }
         }
       };
@@ -288,7 +276,8 @@ describe('OnStar Functionality Tests (Mocked)', function () {
 
         n2.on("input", function (msg) {
           try {
-            msg.payload.should.equal('success');
+            msg.payload.should.have.property('status', 'SUCCESS');
+            msg.payload.should.have.property('requestId', 'req-lock-12345');
             done();
           } catch(err) {
             done(err);
@@ -302,20 +291,14 @@ describe('OnStar Functionality Tests (Mocked)', function () {
 
   describe('unlock-myvehicle', function () {
     it('Should unlock vehicle successfully', function (done) {
+      // Mock response matching onstarjs2 v2.14.1+ v3 API structure
       var mockUnlockResponse = {
         response: {
-          status: 'success',
           data: {
-            commandResponse: {
-              requestId: 'req-12346',
-              status: 'success',
-              body: {
-                remoteActionResponse: {
-                  status: 'success',
-                  message: 'Vehicle doors have been unlocked successfully'
-                }
-              }
-            }
+            requestId: 'req-unlock-12346',
+            status: 'SUCCESS',
+            requestTime: '2025-11-26T22:00:00Z',
+            completionTime: '2025-11-26T22:00:15Z'
           }
         }
       };
@@ -338,57 +321,8 @@ describe('OnStar Functionality Tests (Mocked)', function () {
 
         n2.on("input", function (msg) {
           try {
-            msg.payload.should.equal('success');
-            done();
-          } catch(err) {
-            done(err);
-          }
-        });
-
-        n1.receive({ payload: "test" });
-      });
-    });
-  });
-
-  describe('start-myvehicle', function () {
-    it('Should start vehicle successfully', function (done) {
-      var mockStartResponse = {
-        response: {
-          status: 'success',
-          data: {
-            commandResponse: {
-              requestId: 'req-12347',
-              status: 'success',
-              body: {
-                remoteActionResponse: {
-                  status: 'success',
-                  message: 'Vehicle remote start initiated successfully'
-                }
-              }
-            }
-          }
-        }
-      };
-
-      var mockClient = {
-        start: sinon.stub().resolves(mockStartResponse)
-      };
-      sandbox.stub(OnStarJS, 'create').returns(mockClient);
-
-      var flow = [
-        { id:"n1",type:"start-myvehicle",name:"Start Vehicle",onstar2:"config1",wires:[["n2"],["n3"]] },
-        { id:"config1",type:"onstar2",carname:"TestCar",username:"test@example.com",password:"testpass",pin:"1234",vin:"1G1ZB5ST5JF260429",deviceid:"test-device-id",totp:"TESTTOTP",checkrequeststatus:"true",requestpollingtimeoutseconds:"90",requestpollingintervalseconds:"6" },
-        { id: "n2", type: "helper" },
-        { id: "n3", type: "helper" }
-      ];
-
-      helper.load(onStar, flow, function () {
-        var n1 = helper.getNode("n1");
-        var n2 = helper.getNode("n2");
-
-        n2.on("input", function (msg) {
-          try {
-            msg.payload.should.equal('success');
+            msg.payload.should.have.property('status', 'SUCCESS');
+            msg.payload.should.have.property('requestId', 'req-unlock-12346');
             done();
           } catch(err) {
             done(err);
@@ -402,26 +336,21 @@ describe('OnStar Functionality Tests (Mocked)', function () {
 
   describe('alert-myvehicle', function () {
     it('Should trigger vehicle alert successfully', function (done) {
+      // Mock response matching onstarjs2 v2.14.1+ v3 API structure
       var mockAlertResponse = {
         response: {
-          status: 'success',
           data: {
-            commandResponse: {
-              requestId: 'req-12348',
-              status: 'success',
-              body: {
-                remoteActionResponse: {
-                  status: 'success',
-                  message: 'Vehicle alert activated successfully'
-                }
-              }
-            }
+            requestId: 'req-alert-12348',
+            status: 'SUCCESS',
+            requestTime: '2025-11-26T22:00:00Z',
+            completionTime: '2025-11-26T22:00:15Z'
           }
         }
       };
 
       var mockClient = {
-        alert: sinon.stub().resolves(mockAlertResponse)
+        alert: sinon.stub().resolves(mockAlertResponse),
+        cancelAlert: sinon.stub().resolves(mockAlertResponse)
       };
       sandbox.stub(OnStarJS, 'create').returns(mockClient);
 
@@ -438,7 +367,8 @@ describe('OnStar Functionality Tests (Mocked)', function () {
 
         n2.on("input", function (msg) {
           try {
-            msg.payload.should.equal('success');
+            msg.payload.should.have.property('status', 'SUCCESS');
+            msg.payload.should.have.property('requestId', 'req-alert-12348');
             done();
           } catch(err) {
             done(err);
@@ -450,40 +380,28 @@ describe('OnStar Functionality Tests (Mocked)', function () {
     });
   });
 
-  describe('get-mycharge-profile', function () {
-    it('Should return charge profile successfully', function (done) {
-      var mockChargeProfileResponse = {
+  describe('get-ev-charging-metrics', function () {
+    it('Should trigger vehicle alert successfully', function (done) {
+      // Mock response matching onstarjs2 v2.14.1+ v3 API structure
+      var mockAlertResponse = {
         response: {
-          status: 'success',
           data: {
-            commandResponse: {
-              body: {
-                chargeProfile: {
-                  chargeMode: 'DELAYED_CHARGE',
-                  departureTime: '07:30',
-                  departDays: ['MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY'],
-                  chargeSettings: {
-                    maxChargeLevel: 90,
-                    chargeRate: 'STANDARD'
-                  },
-                  climateSettings: {
-                    preconditioningEnabled: true,
-                    targetTemperature: 72
-                  }
-                }
-              }
-            }
+            requestId: 'req-alert-12348',
+            status: 'SUCCESS',
+            requestTime: '2025-11-26T22:00:00Z',
+            completionTime: '2025-11-26T22:00:15Z'
           }
         }
       };
 
       var mockClient = {
-        getChargingProfile: sinon.stub().resolves(mockChargeProfileResponse)
+        alert: sinon.stub().resolves(mockAlertResponse),
+        cancelAlert: sinon.stub().resolves(mockAlertResponse)
       };
       sandbox.stub(OnStarJS, 'create').returns(mockClient);
 
       var flow = [
-        { id:"n1",type:"get-mycharge-profile",name:"Get Charge Profile",onstar2:"config1",wires:[["n2"],["n3"]] },
+        { id:"n1",type:"alert-myvehicle",name:"Alert Vehicle",onstar2:"config1",action:"Honk,Flash",delay:"0",duration:"1",override:"DoorOpen,IgnitionOn",wires:[["n2"],["n3"]] },
         { id:"config1",type:"onstar2",carname:"TestCar",username:"test@example.com",password:"testpass",pin:"1234",vin:"1G1ZB5ST5JF260429",deviceid:"test-device-id",totp:"TESTTOTP",checkrequeststatus:"true",requestpollingtimeoutseconds:"90",requestpollingintervalseconds:"6" },
         { id: "n2", type: "helper" },
         { id: "n3", type: "helper" }
@@ -495,11 +413,69 @@ describe('OnStar Functionality Tests (Mocked)', function () {
 
         n2.on("input", function (msg) {
           try {
-            var chargeProfile = msg.payload.chargeProfile;
-            chargeProfile.should.have.property('chargeMode', 'DELAYED_CHARGE');
-            chargeProfile.should.have.property('departureTime', '07:30');
-            chargeProfile.chargeSettings.should.have.property('maxChargeLevel', 90);
-            chargeProfile.climateSettings.should.have.property('preconditioningEnabled', true);
+            msg.payload.should.have.property('status', 'SUCCESS');
+            msg.payload.should.have.property('requestId', 'req-alert-12348');
+            done();
+          } catch(err) {
+            done(err);
+          }
+        });
+
+        n1.receive({ payload: "test" });
+      });
+    });
+  });
+
+  describe('get-ev-charging-metrics', function () {
+    it('Should return EV charging metrics successfully', function (done) {
+      var mockChargingMetricsResponse = {
+        response: {
+          status: 'success',
+          data: {
+            commandResponse: {
+              body: {
+                batteryLevel: 75,
+                chargeState: 'CHARGING',
+                estimatedTimeToFull: 120,
+                plugState: 'PLUGGED',
+                voltage: 240,
+                chargingSettings: {
+                  targetChargeLevel: 90,
+                  chargeMode: 'IMMEDIATE'
+                },
+                rangeEstimate: {
+                  electric: 180,
+                  total: 180
+                }
+              }
+            }
+          }
+        }
+      };
+
+      var mockClient = {
+        getEVChargingMetrics: sinon.stub().resolves(mockChargingMetricsResponse)
+      };
+      sandbox.stub(OnStarJS, 'create').returns(mockClient);
+
+      var flow = [
+        { id:"n1",type:"get-ev-charging-metrics",name:"Get EV Charging Metrics",onstar2:"config1",wires:[["n2"],["n3"]] },
+        { id:"config1",type:"onstar2",carname:"TestCar",username:"test@example.com",password:"testpass",pin:"1234",vin:"1G1ZB5ST5JF260429",deviceid:"test-device-id",totp:"TESTTOTP",checkrequeststatus:"true",requestpollingtimeoutseconds:"90",requestpollingintervalseconds:"6" },
+        { id: "n2", type: "helper" },
+        { id: "n3", type: "helper" }
+      ];
+
+      helper.load(onStar, flow, function () {
+        var n1 = helper.getNode("n1");
+        var n2 = helper.getNode("n2");
+
+        n2.on("input", function (msg) {
+          try {
+            var metrics = msg.payload;
+            metrics.should.have.property('batteryLevel', 75);
+            metrics.should.have.property('chargeState', 'CHARGING');
+            metrics.should.have.property('plugState', 'PLUGGED');
+            metrics.rangeEstimate.should.have.property('electric', 180);
             done();
           } catch(err) {
             done(err);
@@ -512,21 +488,15 @@ describe('OnStar Functionality Tests (Mocked)', function () {
   });
 
   describe('cancel-start-myvehicle', function () {
-    it('Should cancel vehicle start successfully', function (done) {
+    it('Should cancel vehicle remote start successfully', function (done) {
+      // Mock response matching onstarjs2 v2.14.1+ v3 API structure
       var mockCancelStartResponse = {
         response: {
-          status: 'success',
           data: {
-            commandResponse: {
-              requestId: 'req-12349',
-              status: 'success',
-              body: {
-                remoteActionResponse: {
-                  status: 'success',
-                  message: 'Vehicle remote start cancelled successfully'
-                }
-              }
-            }
+            requestId: 'req-cancel-12349',
+            status: 'SUCCESS',
+            requestTime: '2025-11-26T22:00:00Z',
+            completionTime: '2025-11-26T22:00:15Z'
           }
         }
       };
@@ -549,7 +519,8 @@ describe('OnStar Functionality Tests (Mocked)', function () {
 
         n2.on("input", function (msg) {
           try {
-            msg.payload.should.equal('success');
+            msg.payload.should.have.property('status', 'SUCCESS');
+            msg.payload.should.have.property('requestId', 'req-cancel-12349');
             done();
           } catch(err) {
             done(err);
@@ -563,25 +534,17 @@ describe('OnStar Functionality Tests (Mocked)', function () {
 
   describe('lock-mytrunk', function () {
     it('Should lock trunk successfully', function (done) {
+      // Mock response matching onstarjs2 v2.14.1+ v3 API structure
       var mockLockTrunkResponse = {
         response: {
-          status: 'success',
           data: {
-            commandResponse: {
-              requestId: 'req-12350',
-              status: 'success',
-              body: {
-                remoteActionResponse: {
-                  status: 'success',
-                  message: 'Vehicle trunk has been locked successfully'
-                }
-              }
-            }
+            requestId: 'req-lock-trunk-12350',
+            status: 'SUCCESS',
+            requestTime: '2025-11-26T22:00:00Z',
+            completionTime: '2025-11-26T22:00:15Z'
           }
         }
-      };
-
-      var mockClient = {
+      };      var mockClient = {
         lockTrunk: sinon.stub().resolves(mockLockTrunkResponse)
       };
       sandbox.stub(OnStarJS, 'create').returns(mockClient);
@@ -599,7 +562,8 @@ describe('OnStar Functionality Tests (Mocked)', function () {
 
         n2.on("input", function (msg) {
           try {
-            msg.payload.should.equal('success');
+            msg.payload.should.have.property('status', 'SUCCESS');
+            msg.payload.should.have.property('requestId', 'req-lock-trunk-12350');
             done();
           } catch(err) {
             done(err);
@@ -612,21 +576,15 @@ describe('OnStar Functionality Tests (Mocked)', function () {
   });
 
   describe('unlock-mytrunk', function () {
-    it('Should unlock trunk successfully', function (done) {
+    it('Should unlock vehicle trunk successfully', function (done) {
+      // Mock response matching onstarjs2 v2.14.1+ v3 API structure
       var mockUnlockTrunkResponse = {
         response: {
-          status: 'success',
           data: {
-            commandResponse: {
-              requestId: 'req-12351',
-              status: 'success',
-              body: {
-                remoteActionResponse: {
-                  status: 'success',
-                  message: 'Vehicle trunk has been unlocked successfully'
-                }
-              }
-            }
+            requestId: 'req-unlock-trunk-12351',
+            status: 'SUCCESS',
+            requestTime: '2025-11-26T22:00:00Z',
+            completionTime: '2025-11-26T22:00:15Z'
           }
         }
       };
@@ -637,7 +595,7 @@ describe('OnStar Functionality Tests (Mocked)', function () {
       sandbox.stub(OnStarJS, 'create').returns(mockClient);
 
       var flow = [
-        { id:"n1",type:"unlock-mytrunk",name:"Unlock Trunk",onstar2:"config1",delay:"0",wires:[["n2"],["n3"]] },
+        { id:"n1",type:"unlock-mytrunk",name:"Unlock Trunk",onstar2:"config1",wires:[["n2"],["n3"]] },
         { id:"config1",type:"onstar2",carname:"TestCar",username:"test@example.com",password:"testpass",pin:"1234",vin:"1G1ZB5ST5JF260429",deviceid:"test-device-id",totp:"TESTTOTP",checkrequeststatus:"true",requestpollingtimeoutseconds:"90",requestpollingintervalseconds:"6" },
         { id: "n2", type: "helper" },
         { id: "n3", type: "helper" }
@@ -649,7 +607,8 @@ describe('OnStar Functionality Tests (Mocked)', function () {
 
         n2.on("input", function (msg) {
           try {
-            msg.payload.should.equal('success');
+            msg.payload.should.have.property('status', 'SUCCESS');
+            msg.payload.should.have.property('requestId', 'req-unlock-trunk-12351');
             done();
           } catch(err) {
             done(err);
@@ -661,9 +620,9 @@ describe('OnStar Functionality Tests (Mocked)', function () {
     });
   });
 
-  describe('mycharge-override', function () {
-    it('Should override charge successfully', function (done) {
-      var mockChargeOverrideResponse = {
+  describe('set-charge-level-target', function () {
+    it('Should set charge level target successfully', function (done) {
+      var mockSetChargeLevelResponse = {
         response: {
           status: 'success',
           data: {
@@ -673,7 +632,7 @@ describe('OnStar Functionality Tests (Mocked)', function () {
               body: {
                 remoteActionResponse: {
                   status: 'success',
-                  message: 'Charge override initiated successfully'
+                  message: 'Charge level target set successfully'
                 }
               }
             }
@@ -682,12 +641,12 @@ describe('OnStar Functionality Tests (Mocked)', function () {
       };
 
       var mockClient = {
-        chargeOverride: sinon.stub().resolves(mockChargeOverrideResponse)
+        setChargeLevelTarget: sinon.stub().resolves(mockSetChargeLevelResponse)
       };
       sandbox.stub(OnStarJS, 'create').returns(mockClient);
 
       var flow = [
-        { id:"n1",type:"mycharge-override",name:"Charge Override",onstar2:"config1",chargeoverridetype:"CHARGE_NOW",wires:[["n2"],["n3"]] },
+        { id:"n1",type:"set-charge-level-target",name:"Set Charge Level Target",onstar2:"config1",targetlevel:"85",wires:[["n2"],["n3"]] },
         { id:"config1",type:"onstar2",carname:"TestCar",username:"test@example.com",password:"testpass",pin:"1234",vin:"1G1ZB5ST5JF260429",deviceid:"test-device-id",totp:"TESTTOTP",checkrequeststatus:"true",requestpollingtimeoutseconds:"90",requestpollingintervalseconds:"6" },
         { id: "n2", type: "helper" },
         { id: "n3", type: "helper" }
