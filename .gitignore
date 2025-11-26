@@ -7,3 +7,4 @@ coverage
 !.env.example
 temp-browser-profile
 *tokens.json
+test-lock-unlock-manual.js
