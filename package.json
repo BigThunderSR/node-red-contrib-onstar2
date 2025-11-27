@@ -1,6 +1,6 @@
 {
   "name": "node-red-contrib-onstar2",
-  "version": "2.7.0",
+  "version": "3.0.0",
   "description": "An updated Node-RED Library using OnStarJS2, supporting both v1 and v3 OnStar APIs with automatic version detection",
   "main": "onstar.js",
   "scripts": {
