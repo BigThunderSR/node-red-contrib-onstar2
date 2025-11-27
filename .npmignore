@@ -13,4 +13,8 @@ coverage
 .vscode
 .old
 .env
+.env.*
+!.env.example
 *tokens.json
+temp-browser-profile
+REAL_API_TESTING.md

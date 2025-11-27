@@ -14,7 +14,7 @@ This fork is for me to experiment with the capabilities exposed in the original 
 
 - ***Following a major re-write, this project is now at version 2.x and is fully independent from the original npm package.***
 
-- ***Version 2.x has breaking changes, but no further breaking changes are expected at this time.***
+- ***Version 3.0 introduces API modernization with breaking changes for EV charging and diagnostics nodes. See [MIGRATION.md](MIGRATION.md) for upgrade instructions.***
 
 [![npm](https://img.shields.io/npm/v/node-red-contrib-onstar2.svg)](https://www.npmjs.com/package/node-red-contrib-onstar2)
 
@@ -41,24 +41,61 @@ Collect the following information:
 
 **Important:** [Special Instructions for Running in the official Home Assistant Node-RED Add-on](https://github.com/BigThunderSR/node-red-contrib-onstar2/discussions/430)
 
+## OnStar API Version Support
+
+This project now uses the modernized [onstarjs2](https://github.com/BigThunderSR/OnStarJS) library which supports both v1 and v3 OnStar APIs:
+
+### Automatic API Version Detection
+
+- **Action Commands** (lock/unlock doors/trunk, start/cancel, alert): Automatically use v3 API with fallback to v1 API if needed. The library intelligently detects which API version your vehicle supports and caches this for optimal performance.
+
+- **Diagnostic Commands**: Use v3 API exclusively (returns all available diagnostics automatically)
+
+- **EV Charging Commands**: Use v3 API exclusively with new enhanced methods
+
+### v3 API Benefits
+
+The v3 API provides:
+
+- More reliable command execution
+- Enhanced EV charging control
+- Comprehensive diagnostic data
+- Better error handling
+- Improved performance
+
 ## Supported Features
+
+### Vehicle Control
 
 - Lock Doors
 - Unlock Doors
 - Lock Trunk
 - Unlock Trunk
-- Start
-- Stop (Cancel Start)
-- Set Charge Profile
-- Get Charge Profile
-- Override Charge State
+- Remote Start
+- Cancel Remote Start (Stop)
 - Vehicle Alert (Lights and Horn)
 - Vehicle Alert (Lights Only)
 - Vehicle Alert (Horn Only)
 - Cancel Vehicle Alert
+
+### Vehicle Information
+
 - Get Vehicle Location
-- Get Diagnostic Information
+- Get Diagnostic Information (v3 API - returns all diagnostics)
 - Get Vehicle Capabilities
+
+### EV Charging Control (v3 API)
+
+- **Set Charge Level Target** - Set desired battery percentage (0-100%)
+- **Stop Charging** - Stop current charging session
+- **Get EV Charging Metrics** - Retrieve current charging status and metrics
+- **Refresh EV Charging Metrics** - Force-refresh live data from vehicle
+
+> **Note:** The following v1 API charging commands are deprecated and replaced:
+>
+> - `chargeOverride` → Use `Set Charge Level Target` or `Stop Charging`
+> - `getChargingProfile` → Use `Get EV Charging Metrics`
+> - `setChargingProfile` → Use `Set Charge Level Target`
 
 ## Testing
 
@@ -128,6 +165,45 @@ All functionality tests verify:
 - Expected response data structures
 - Proper error handling
 - Node.js output validation
+
+### Running Tests with Real API Credentials (Optional)
+
+By default, all tests use mocked API responses to prevent account lockouts. However, you can optionally test against the real OnStar API:
+
+**⚠️ WARNING: Real API testing will:**
+
+- Make actual calls to your OnStar account
+- May trigger real actions on your vehicle
+- Could lead to account lockout if run too frequently
+- Should NEVER be used in CI/CD pipelines
+
+**To run real API tests:**
+
+1. Copy the example environment file:
+
+   ```bash
+   cp .env.example .env
+   ```
+
+2. Edit `.env` and fill in your real credentials:
+
+   ```bash
+   RUN_REAL_API_TESTS=true
+   ONSTAR_USERNAME=your.email@example.com
+   ONSTAR_PASSWORD=YourPassword
+   ONSTAR_PIN=1234
+   ONSTAR_VIN=YOUR17DIGITVIN
+   ONSTAR_DEVICEID=your-device-id-uuid
+   ONSTAR_TOTP=YOURBASE32TOTPSECRET
+   ```
+
+3. Run the safe real API tests:
+
+   ```bash
+   npm run test:real-safe-only
+   ```
+
+**Note:** The `.env` file is automatically excluded from git via `.gitignore` to protect your credentials.
 
 ## My other related projects
 

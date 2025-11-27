@@ -1,17 +1,21 @@
-//var should = require("should");
+var sinon = require("sinon");
 var flatted = require("flatted");
 var helper = require("node-red-node-test-helper");
 var onStar = require("../onstar.js");
+var OnStarJS = require('onstarjs2').default;
 
 helper.init(require.resolve('node-red'));
 
 describe('get-diagnostics Node', function () {
+  let sandbox;
 
   beforeEach(function (done) {
+      sandbox = sinon.createSandbox();
       helper.startServer(done);
   });
 
   afterEach(function (done) {
+      sandbox.restore();
       helper.unload();
       helper.stopServer(done);
   });
@@ -32,19 +36,27 @@ describe('get-diagnostics Node', function () {
     });
   });
 
-  it('Should output 401 error due to not having valid credentials', function (done) {
+  it('Should output error with mocked authentication failure', function (done) {
+    var mockClient = {
+      diagnostics: sinon.stub().rejects(new Error('Unauthorized'))
+    };
+    sandbox.stub(OnStarJS, 'create').returns(mockClient);
+
     var flow = [
-      { id:"n1",type:"get-diagnostics",name:"Get Diagnostics",onstar2:"17dfaade45168b46",diagnostics:"",wires:[["n2"],["n3"]] },
-      { id:"17dfaade45168b46",type:"onstar2",carname:"TestCar1",username:"homer@simpson.com",password:"Doh!",pin:"1234",vin:"3N1AB6AP7BL687841",deviceid:"90892463-2243-4cd7-9144-3492df757ff2",checkrequeststatus:"true",requestpollingtimeoutseconds:"90",requestpollingintervalseconds:"6" },
-      { id: "n2", type: "helper" }
+      { id:"n1",type:"get-diagnostics",name:"Test Node",onstar2:"17dfaade45168b46",wires:[["n2"],["n3"]] },
+      { id:"17dfaade45168b46",type:"onstar2",carname:"TestCar1",username:"test@example.com",password:"testpass",pin:"1234",vin:"1G1ZB5ST5JF260429",deviceid:"test-device-id",totp:"TESTTOTP",checkrequeststatus:"true",requestpollingtimeoutseconds:"90",requestpollingintervalseconds:"6" },
+      { id: "n2", type: "helper" },
+      { id: "n3", type: "helper" }
     ];
     helper.load(onStar, flow, function () {
-      var n2 = helper.getNode("n2");
+      var n3 = helper.getNode("n3");
       var n1 = helper.getNode("n1");
-      n2.on("input", function (msg) {
+      n3.on("input", function (msg) {
         try {
           flatted.stringify(msg);
-          msg.payload.should.have.property('message', 'Missing required configuration parameters') ;
+          msg.should.have.property('payload');
+          msg.payload.should.have.property('message');
+          msg.payload.message.should.match(/Unauthorized/);
           done();
         } catch(err) {     
           done(err);

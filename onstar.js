@@ -1,5 +1,5 @@
 //const OnStar = require('./deps/index.cjs');
-const OnStar = require('onstarjs2');
+const OnStar = require('onstarjs2').default;
 const _ = require('lodash');
 const Vehicle = require('./deps/vehicle');
 
@@ -36,12 +36,14 @@ module.exports = function(RED) {
 
                 let client = createClient(configNode);
                 const vehiclesRes = await client.getAccountVehicles();
+                // onstarjs2 v2.14.1+ returns vehicles at data.vehicles (not response.data.vehicles.vehicle)
                 const vehicles = _.map(
-                    _.get(vehiclesRes, 'response.data.vehicles.vehicle'),
+                    _.get(vehiclesRes, 'data.vehicles'),
                     v => new Vehicle(v)
                 );
                 let msg1 = {payload: vehicles};
-                let msg2 = {payload: vehiclesRes.response};
+                // Send full response for debugging/raw access
+                let msg2 = {payload: vehiclesRes};
                 node.send(
                     [(msg1), (msg2)]
                 );
@@ -58,53 +60,14 @@ module.exports = function(RED) {
         RED.nodes.createNode(this, config);                
         const node = this;
 
-        node.on('input', async function (msg) {            
+        node.on('input', async function () {            
             try {
                 let configNode = RED.nodes.getNode(config.onstar2);
 
-                let diagnostics = config.diagnostics;
-                let diagnosticsArray = undefined;                
-                if (diagnostics == '') {
-                    diagnosticsArray = undefined;
-                }
-                if (diagnostics !== '') {
-                    diagnosticsArray = diagnostics.split(',');
-                }                
-
+                // v3 API: diagnostics() no longer accepts diagnosticItem parameter
+                // It automatically returns all available diagnostic data
                 let client = createClient(configNode);
-                let request = {
-                    diagnosticItem: diagnosticsArray || msg.payload.diagnosticItem || [
-                        "AMBIENT AIR TEMPERATURE",
-                        "ENGINE AIR FILTER MONITOR STATUS",
-                        "ENGINE COOLANT TEMP",
-                        "ENGINE RPM",
-                        "ENERGY EFFICIENCY",
-                        "EV BATTERY LEVEL",
-                        "EV CHARGE STATE",
-                        "EV ESTIMATED CHARGE END",
-                        "EV PLUG STATE",
-                        "EV PLUG VOLTAGE",
-                        "EV SCHEDULED CHARGE START",
-                        "FUEL TANK INFO",
-                        "GET CHARGE MODE",
-                        "GET COMMUTE SCHEDULE",
-                        "HANDS FREE CALLING",
-                        "HOTSPOT CONFIG",
-                        "HOTSPOT STATUS",
-                        "INTERM VOLT BATT VOLT",
-                        "LAST TRIP DISTANCE",
-                        "LAST TRIP FUEL ECONOMY",
-                        "LIFETIME EV ODOMETER",
-                        "LIFETIME FUEL ECON",
-                        "LIFETIME FUEL USED",
-                        "ODOMETER",
-                        "OIL LIFE",
-                        "TIRE PRESSURE",
-                        "VEHICLE RANGE"
-                    ]
-                };
-
-                let result = await client.diagnostics(request);
+                let result = await client.diagnostics();
                 let msg1 = {payload: result.response.data.commandResponse.body};
                 let msg2 = {payload: result.response.data};
                 node.send(
@@ -135,7 +98,11 @@ module.exports = function(RED) {
                 };
 
                 let result = await client.lockDoor(request);
-                let msg1 = {payload: result.response.data.commandResponse.status};
+                // onstarjs2 v2.14.1+ supports v3 API with v1 fallback
+                // v3: response.data.status, v1: response.data.commandResponse.status
+                const status = result.response.data.status || result.response.data.commandResponse?.status;
+                const requestId = result.response.data.requestId || result.response.data.commandResponse?.requestId;
+                let msg1 = {payload: {status, requestId}};
                 let msg2 = {payload: result.response.data};
                 node.send(
                     [(msg1), (msg2)]
@@ -165,7 +132,11 @@ module.exports = function(RED) {
 
                 let client = createClient(configNode);
                 let result = await client.unlockDoor(request);
-                let msg1 = {payload: result.response.data.commandResponse.status};
+                // onstarjs2 v2.14.1+ supports v3 API with v1 fallback
+                // v3: response.data.status, v1: response.data.commandResponse.status
+                const status = result.response.data.status || result.response.data.commandResponse?.status;
+                const requestId = result.response.data.requestId || result.response.data.commandResponse?.requestId;
+                let msg1 = {payload: {status, requestId}};
                 let msg2 = {payload: result.response.data};
                 node.send(
                     [(msg1), (msg2)]
@@ -195,7 +166,11 @@ module.exports = function(RED) {
                 };
 
                 let result = await client.lockTrunk(request);
-                let msg1 = {payload: result.response.data.commandResponse.status};
+                // onstarjs2 v2.14.1+ supports v3 API with v1 fallback
+                // v3: response.data.status, v1: response.data.commandResponse.status
+                const status = result.response.data.status || result.response.data.commandResponse?.status;
+                const requestId = result.response.data.requestId || result.response.data.commandResponse?.requestId;
+                let msg1 = {payload: {status, requestId}};
                 let msg2 = {payload: result.response.data};
                 node.send(
                     [(msg1), (msg2)]
@@ -225,7 +200,11 @@ module.exports = function(RED) {
 
                 let client = createClient(configNode);
                 let result = await client.unlockTrunk(request);
-                let msg1 = {payload: result.response.data.commandResponse.status};
+                // onstarjs2 v2.14.1+ supports v3 API with v1 fallback
+                // v3: response.data.status, v1: response.data.commandResponse.status
+                const status = result.response.data.status || result.response.data.commandResponse?.status;
+                const requestId = result.response.data.requestId || result.response.data.commandResponse?.requestId;
+                let msg1 = {payload: {status, requestId}};
                 let msg2 = {payload: result.response.data};
                 node.send(
                     [(msg1), (msg2)]
@@ -250,7 +229,11 @@ module.exports = function(RED) {
 
                 let client = createClient(configNode);
                 let result = await client.start();
-                let msg1 = {payload: result.response.data.commandResponse.status};
+                // onstarjs2 v2.14.1+ supports v3 API with v1 fallback
+                // v3: response.data.status, v1: response.data.commandResponse.status
+                const status = result.response.data.status || result.response.data.commandResponse?.status;
+                const requestId = result.response.data.requestId || result.response.data.commandResponse?.requestId;
+                let msg1 = {payload: {status, requestId}};
                 let msg2 = {payload: result.response.data};
                 node.send(
                     [(msg1), (msg2)]
@@ -275,7 +258,11 @@ module.exports = function(RED) {
 
                 let client = createClient(configNode);
                 let result = await client.cancelStart();
-                let msg1 = {payload: result.response.data.commandResponse.status};
+                // onstarjs2 v2.14.1+ supports v3 API with v1 fallback
+                // v3: response.data.status, v1: response.data.commandResponse.status
+                const status = result.response.data.status || result.response.data.commandResponse?.status;
+                const requestId = result.response.data.requestId || result.response.data.commandResponse?.requestId;
+                let msg1 = {payload: {status, requestId}};
                 let msg2 = {payload: result.response.data};
                 node.send(
                     [(msg1), (msg2)]
@@ -325,8 +312,9 @@ module.exports = function(RED) {
                     override: overrideArray || msg.payload.override || ["DoorOpen", "IgnitionOn"]
                 };
 
-                let result = await client.alert(request);
-                let msg1 = {payload: result.response.data.commandResponse.status};
+                let result = await client.cancelAlert(request);
+                // onstarjs2 v2.14.1+ v3 API returns status directly in response.data
+                let msg1 = {payload: {status: result.response.data.status, requestId: result.response.data.requestId}};
                 let msg2 = {payload: result.response.data};
                 node.send(
                     [(msg1), (msg2)]
@@ -357,7 +345,11 @@ module.exports = function(RED) {
                 };
 
                 let result = await client.alert(request);
-                let msg1 = {payload: result.response.data.commandResponse.status};
+                // onstarjs2 v2.14.1+ supports v3 API with v1 fallback
+                // v3: response.data.status, v1: response.data.commandResponse.status
+                const status = result.response.data.status || result.response.data.commandResponse?.status;
+                const requestId = result.response.data.requestId || result.response.data.commandResponse?.requestId;
+                let msg1 = {payload: {status, requestId}};
                 let msg2 = {payload: result.response.data};
                 node.send(
                     [(msg1), (msg2)]
@@ -388,7 +380,11 @@ module.exports = function(RED) {
                 };
 
                 let result = await client.alert(request);
-                let msg1 = {payload: result.response.data.commandResponse.status};
+                // onstarjs2 v2.14.1+ supports v3 API with v1 fallback
+                // v3: response.data.status, v1: response.data.commandResponse.status
+                const status = result.response.data.status || result.response.data.commandResponse?.status;
+                const requestId = result.response.data.requestId || result.response.data.commandResponse?.requestId;
+                let msg1 = {payload: {status, requestId}};
                 let msg2 = {payload: result.response.data};
                 node.send(
                     [(msg1), (msg2)]
@@ -413,7 +409,11 @@ module.exports = function(RED) {
 
                 let client = createClient(configNode);
                 let result = await client.cancelAlert();
-                let msg1 = {payload: result.response.data.commandResponse.status};
+                // onstarjs2 v2.14.1+ supports v3 API with v1 fallback
+                // v3: response.data.status, v1: response.data.commandResponse.status
+                const status = result.response.data.status || result.response.data.commandResponse?.status;
+                const requestId = result.response.data.requestId || result.response.data.commandResponse?.requestId;
+                let msg1 = {payload: {status, requestId}};
                 let msg2 = {payload: result.response.data};
                 node.send(
                     [(msg1), (msg2)]
@@ -438,7 +438,18 @@ module.exports = function(RED) {
 
                 let client = createClient(configNode);
                 let result = await client.location();
-                let msg1 = {payload: result.response.data.commandResponse.body};
+                // onstarjs2 v2.14.1+ returns location data in telemetry structure
+                const locationData = {
+                    location: {
+                        lat: _.get(result, 'response.data.telemetry.data.position.lat'),
+                        long: _.get(result, 'response.data.telemetry.data.position.lng'),
+                        elv: _.get(result, 'response.data.telemetry.data.position.elv'),
+                        geohash: _.get(result, 'response.data.telemetry.data.position.geohash')
+                    },
+                    velocity: _.get(result, 'response.data.telemetry.data.velocity'),
+                    timestamp: _.get(result, 'response.data.telemetry.occurredTs')
+                };
+                let msg1 = {payload: locationData};
                 let msg2 = {payload: result.response.data};
                 node.send(
                     [(msg1), (msg2)]
@@ -452,22 +463,33 @@ module.exports = function(RED) {
         });
     }
 
-    function ChargeOverride(config) {
+    function SetChargeLevelTarget(config) {
         RED.nodes.createNode(this, config);
         const node = this;
 
         node.on('input', async function (msg) {
             try {
                 let configNode = RED.nodes.getNode(config.onstar2);
-                let mode = config.mode;
+                let targetLevel = config.targetlevel;
                 let client = createClient(configNode);
-                let request = {
-                    mode: mode || msg.payload.mode || "CHARGE_NOW"
+                
+                // Target charge level (tcl) - percentage value 0-100
+                let tcl = parseInt(targetLevel || msg.payload.targetLevel || msg.payload.tcl || 80);
+                
+                // Optional parameters
+                let opts = {
+                    noMetricsRefresh: msg.payload.noMetricsRefresh,
+                    clientRequestId: msg.payload.clientRequestId,
+                    clientVersion: msg.payload.clientVersion,
+                    os: msg.payload.os
                 };
+                
+                // Remove undefined properties
+                Object.keys(opts).forEach(key => opts[key] === undefined && delete opts[key]);
 
-                let result = await client.chargeOverride(request);
-                let msg1 = {payload: result.response.data.commandResponse.status};
-                let msg2 = {payload: result.response.data};
+                let result = await client.setChargeLevelTarget(tcl, Object.keys(opts).length > 0 ? opts : undefined);
+                let msg1 = {payload: result.response?.data?.commandResponse?.status || result.status};
+                let msg2 = {payload: result.response?.data || result};
                 node.send(
                     [(msg1), (msg2)]
                 );
@@ -480,51 +502,95 @@ module.exports = function(RED) {
         });
     }
 
-    function GetChargeProfile(config) {
-        RED.nodes.createNode(this, config);
-        const node = this;
-
-        //node.on('input', async function (msg) 
-        node.on('input', async function () {
-            try {
-                let configNode = RED.nodes.getNode(config.onstar2);
-
-                let client = createClient(configNode);
-                let result = await client.getChargingProfile();
-                let msg1 = {payload: result.response.data.commandResponse.body};
-                let msg2 = {payload: result.response.data};
-                node.send(
-                    [(msg1), (msg2)]
-                );
-            } catch (err) {
-                let errmsg = {payload: err}
-                node.send(
-                    [errmsg, errmsg]
-                );
-            }
-        });
-    }
-
-    function SetChargeProfile(config) {
+    function StopCharging(config) {
         RED.nodes.createNode(this, config);
         const node = this;
 
         node.on('input', async function (msg) {
             try {
                 let configNode = RED.nodes.getNode(config.onstar2);
-
-                let chargemode = config.chargemode;
-                let ratetype = config.ratetype;
-
                 let client = createClient(configNode);
-                let request = {
-                    chargeMode: chargemode || msg.payload.chargeMode || "IMMEDIATE",
-                    rateType: ratetype || msg.payload.rateType || "MIDPEAK"
+                
+                // Optional parameters
+                let opts = {
+                    noMetricsRefresh: msg.payload.noMetricsRefresh,
+                    clientRequestId: msg.payload.clientRequestId,
+                    clientVersion: msg.payload.clientVersion,
+                    os: msg.payload.os
                 };
+                
+                // Remove undefined properties
+                Object.keys(opts).forEach(key => opts[key] === undefined && delete opts[key]);
 
-                let result = await client.setChargingProfile(request);
-                let msg1 = {payload: result.response.data.commandResponse.status};
-                let msg2 = {payload: result.response.data};
+                let result = await client.stopCharging(Object.keys(opts).length > 0 ? opts : undefined);
+                let msg1 = {payload: result.response?.data?.commandResponse?.status || result.status};
+                let msg2 = {payload: result.response?.data || result};
+                node.send(
+                    [(msg1), (msg2)]
+                );
+            } catch (err) {
+                let errmsg = {payload: err}
+                node.send(
+                    [errmsg, errmsg]
+                );
+            }
+        });
+    }
+
+    function GetEVChargingMetrics(config) {
+        RED.nodes.createNode(this, config);
+        const node = this;
+
+        node.on('input', async function (msg) {
+            try {
+                let configNode = RED.nodes.getNode(config.onstar2);
+                let client = createClient(configNode);
+                
+                // Optional parameters
+                let opts = {
+                    clientVersion: msg.payload.clientVersion,
+                    os: msg.payload.os
+                };
+                
+                // Remove undefined properties
+                Object.keys(opts).forEach(key => opts[key] === undefined && delete opts[key]);
+
+                let result = await client.getEVChargingMetrics(Object.keys(opts).length > 0 ? opts : undefined);
+                let msg1 = {payload: result.response?.data?.commandResponse?.body || result.response?.data};
+                let msg2 = {payload: result.response?.data || result};
+                node.send(
+                    [(msg1), (msg2)]
+                );
+            } catch (err) {
+                let errmsg = {payload: err}
+                node.send(
+                    [errmsg, errmsg]
+                );
+            }
+        });
+    }
+
+    function RefreshEVChargingMetrics(config) {
+        RED.nodes.createNode(this, config);
+        const node = this;
+
+        node.on('input', async function (msg) {
+            try {
+                let configNode = RED.nodes.getNode(config.onstar2);
+                let client = createClient(configNode);
+                
+                // Optional parameters
+                let opts = {
+                    clientVersion: msg.payload.clientVersion,
+                    os: msg.payload.os
+                };
+                
+                // Remove undefined properties
+                Object.keys(opts).forEach(key => opts[key] === undefined && delete opts[key]);
+
+                let result = await client.refreshEVChargingMetrics(Object.keys(opts).length > 0 ? opts : undefined);
+                let msg1 = {payload: result.response?.data?.commandResponse?.body || result.response?.data};
+                let msg2 = {payload: result.response?.data || result};
                 node.send(
                     [(msg1), (msg2)]
                 );
@@ -565,7 +631,8 @@ module.exports = function(RED) {
     RED.nodes.registerType('alert-myvehicle-horn', AlertVehicleHorn);
     RED.nodes.registerType('cancel-alert-myvehicle', CancelAlertVehicle);
     RED.nodes.registerType('locate-vehicle', LocateVehicle);
-    RED.nodes.registerType('mycharge-override', ChargeOverride);
-    RED.nodes.registerType('get-mycharge-profile', GetChargeProfile);
-    RED.nodes.registerType('set-mycharge-profile', SetChargeProfile);
+    RED.nodes.registerType('set-charge-level-target', SetChargeLevelTarget);
+    RED.nodes.registerType('stop-charging', StopCharging);
+    RED.nodes.registerType('get-ev-charging-metrics', GetEVChargingMetrics);
+    RED.nodes.registerType('refresh-ev-charging-metrics', RefreshEVChargingMetrics);
 }

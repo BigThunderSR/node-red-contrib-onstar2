@@ -9,7 +9,7 @@ var sinon = require("sinon");
 var flatted = require("flatted");
 var helper = require("node-red-node-test-helper");
 var onStar = require("../onstar.js");
-var OnStarJS = require('onstarjs2');
+var OnStarJS = require('onstarjs2').default;
 
 helper.init(require.resolve('node-red'));
 
@@ -273,21 +273,18 @@ describe('OnStar Authentication (Mocked)', function () {
 
   it('Should successfully authenticate with valid credentials', function (done) {
     // Mock OnStar.create to return a client that succeeds
+    // Mock response matching onstarjs2 v2.14.1+ structure
     var mockVehicleResponse = {
-      response: {
-        data: {
-          vehicles: {
-            vehicle: [
-              {
-                vin: '1G1ZB5ST5JF260429',
-                make: 'CHEVROLET',
-                model: 'VOLT',
-                year: '2018',
-                nickname: 'TestCar1'
-              }
-            ]
+      data: {
+        vehicles: [
+          {
+            vin: '1G1ZB5ST5JF260429',
+            make: 'CHEVROLET',
+            model: 'VOLT',
+            year: '2018',
+            nickname: 'TestCar1'
           }
-        }
+        ]
       }
     };
     

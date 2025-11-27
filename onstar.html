@@ -32,55 +32,15 @@
         color: '#7eb0ff',
         defaults: {
             name: { value: 'Diagnostics' },
-            onstar2: { value: 'Onstar Config', type: 'onstar2' },
-            diagnostics: { required: false }
+            onstar2: { value: 'Onstar Config', type: 'onstar2' }
         },
         inputs: 1,
         outputs: 2,
         outputLabels: ["Diagnostics","result.response.data"],
         icon: 'onstar.svg',
         label: function () {
-            //return this.name || 'diagnostics';
             var configCarName = RED.nodes.node(this.onstar2);
             return configCarName.label()+" "+this.name;
-        },
-        oneditprepare: function() { 
-            $("#node-input-diagnostics").typedInput({                
-                types: [
-                    {
-                        value: "diagnostics",
-                        multiple: "true",
-                        options: [
-                            { value: "AMBIENT AIR TEMPERATURE" },
-                            { value: "ENGINE AIR FILTER MONITOR STATUS" },
-                            { value: "ENGINE COOLANT TEMP" },
-                            { value: "ENGINE RPM" },
-                            { value: "EV BATTERY LEVEL" },
-                            { value: "EV CHARGE STATE" },
-                            { value: "EV ESTIMATED CHARGE END" },
-                            { value: "EV PLUG STATE" },
-                            { value: "EV PLUG VOLTAGE" },
-                            { value: "FUEL TANK INFO" },
-                            { value: "GET CHARGE MODE" },
-                            { value: "GET COMMUTE SCHEDULE" },
-                            { value: "HANDS FREE CALLING" },
-                            { value: "HOTSPOT CONFIG" },
-                            { value: "HOTSPOT STATUS" },
-                            { value: "INTERM VOLT BATT VOLT" },
-                            { value: "LAST TRIP DISTANCE" },
-                            { value: "LAST TRIP FUEL ECONOMY" },
-                            { value: "LIFETIME EV ODOMETER" },
-                            { value: "LIFETIME FUEL ECON" },
-                            { value: "LIFETIME FUEL USED" },                      
-                            { value: "ODOMETER" },
-                            { value: "OIL LIFE" },
-                            { value: "ONSTAR CONFIG" },
-                            { value: "TIRE PRESSURE" },
-                            { value: "VEHICLE RANGE" }
-                        ]
-                    }
-                ]
-            })
         },
         oneditsave: function() {            
             var editNodeName = $("#node-input-name").val();
@@ -426,41 +386,26 @@
 </script>
 
 <script type="text/javascript">
-    RED.nodes.registerType('mycharge-override', {
+    RED.nodes.registerType('set-charge-level-target', {
         category: 'onstar2',
         color: '#7eb0ff',
         defaults: {
-            name: { value: 'Override Charge State' },
+            name: { value: 'Set Charge Level Target' },
             onstar2: { value: 'Onstar Config', type: 'onstar2' },
-            mode: { value: '', required: false }
+            targetlevel: { value: '80', required: false, validate: RED.validators.regex(/^(|[0-9]|[1-9][0-9]|100)$/) }
         },
         inputs: 1,
         outputs: 2,
         outputLabels: ["Command Status","result.response.data"],
         icon: 'onstar.svg',
         label: function () {
-            //return this.name || 'charge-override';
             var configCarName = RED.nodes.node(this.onstar2);
             return configCarName.label()+" "+this.name;
-        },
-        oneditprepare: function() {
-            $("#node-input-mode").typedInput({
-                types: [
-                    {
-                        value: "mode",
-                        options: [
-                            { value: '', label: "-- Use Default or Select Option from List --"},
-                            { value: "CHARGE_NOW" },
-                            { value: "CANCEL_OVERRIDE" }
-                        ]
-                    }
-                ]
-            })                       
         },
         oneditsave: function() {
             var editNodeName = $("#node-input-name").val();
             if (editNodeName == '') {
-                $("#node-input-name").val("Override Charge State");
+                $("#node-input-name").val("Set Charge Level Target");
             }
             $("#node-input-name").val();
         },
@@ -468,26 +413,25 @@
 </script>
 
 <script type="text/javascript">
-    RED.nodes.registerType('get-mycharge-profile', {
+    RED.nodes.registerType('stop-charging', {
         category: 'onstar2',
         color: '#7eb0ff',
         defaults: {
-            name: { value: 'Get Charging Profile' },
+            name: { value: 'Stop Charging' },
             onstar2: { value: 'Onstar Config', type: 'onstar2' }
         },
         inputs: 1,
         outputs: 2,
-        outputLabels: ["Get Charging Profile","result.response.data"],
+        outputLabels: ["Command Status","result.response.data"],
         icon: 'onstar.svg',
         label: function () {
-            //return this.name || 'get-charge-profile';
             var configCarName = RED.nodes.node(this.onstar2);
             return configCarName.label()+" "+this.name;
         },
         oneditsave: function() {
             var editNodeName = $("#node-input-name").val();
             if (editNodeName == '') {
-                $("#node-input-name").val("Get Charging Profile");
+                $("#node-input-name").val("Stop Charging");
             }
             $("#node-input-name").val();
         },
@@ -495,58 +439,51 @@
 </script>
 
 <script type="text/javascript">
-    RED.nodes.registerType('set-mycharge-profile', {
+    RED.nodes.registerType('get-ev-charging-metrics', {
         category: 'onstar2',
         color: '#7eb0ff',
         defaults: {
-            name: { value: 'Set Charging Profile' },
-            onstar2: { value: 'Onstar Config', type: 'onstar2' },
-            chargemode: { value: '', required: false },
-            ratetype: { value: '', required: false }
+            name: { value: 'Get EV Charging Metrics' },
+            onstar2: { value: 'Onstar Config', type: 'onstar2' }
         },
         inputs: 1,
         outputs: 2,
-        outputLabels: ["Command Status","result.response.data"],
+        outputLabels: ["Charging Metrics","result.response.data"],
         icon: 'onstar.svg',
         label: function () {
-            //return this.name || 'set-charge-profile';
             var configCarName = RED.nodes.node(this.onstar2);
             return configCarName.label()+" "+this.name;
-        },
-        oneditprepare: function() {
-            $("#node-input-chargemode").typedInput({
-                types: [
-                    {
-                        value: "chargemode",
-                        options: [
-                            { value: '', label: "-- Use Default or Select Option from List --"},
-                            { value: "DEFAULT_IMMEDIATE" },
-                            { value: "IMMEDIATE" },
-                            { value: "DEPARTURE_BASED" },
-                            { value: "RATE_BASED" },
-                            { value: "PHEV_AFTER_MIDNIGHT" }
-                        ]
-                    }
-                ]
-            })
-            $("#node-input-ratetype").typedInput({
-                types: [
-                    {
-                        value: "ratetype",
-                        options: [
-                            { value: '', label: "-- Use Default or Select Option from List --"},
-                            { value: "OFFPEAK" },
-                            { value: "MIDPEAK" },
-                            { value: "PEAK" }
-                        ]
-                    }
-                ]
-            })                       
         },
         oneditsave: function() {
             var editNodeName = $("#node-input-name").val();
             if (editNodeName == '') {
-                $("#node-input-name").val("Set Charging Profile");
+                $("#node-input-name").val("Get EV Charging Metrics");
+            }
+            $("#node-input-name").val();
+        },
+    });
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType('refresh-ev-charging-metrics', {
+        category: 'onstar2',
+        color: '#7eb0ff',
+        defaults: {
+            name: { value: 'Refresh EV Charging Metrics' },
+            onstar2: { value: 'Onstar Config', type: 'onstar2' }
+        },
+        inputs: 1,
+        outputs: 2,
+        outputLabels: ["Charging Metrics","result.response.data"],
+        icon: 'onstar.svg',
+        label: function () {
+            var configCarName = RED.nodes.node(this.onstar2);
+            return configCarName.label()+" "+this.name;
+        },
+        oneditsave: function() {
+            var editNodeName = $("#node-input-name").val();
+            if (editNodeName == '') {
+                $("#node-input-name").val("Refresh EV Charging Metrics");
             }
             $("#node-input-name").val();
         },
@@ -631,14 +568,14 @@
         <label for="node-input-onstar2"><i class="icon-tag"></i> Config</label>
         <input type="text" id="node-input-onstar2" placeholder="Name" />
     </div>
-    <div class="form-row">
-        <label for="node-input-diagnostics"><i class="icon-bookmark"></i> Diagnostic Items to Query</label>
-        <input type="text" id="node-input-diagnostics" />
-    </div>
 </script>
 
 <script type="text/html" data-help-name="get-diagnostics">
-    <p>Get diagnostic information for the vehicle. Diagnostics parameter is optional, but if not set in the config dialog, defaults to ALL known diagnostics or the value sent to the input via "msg.payload.diagnosticItem".</p>
+    <p>Get diagnostic information for the vehicle (v3 API).
+        <br><br>The v3 API automatically returns all available diagnostic data for your vehicle. 
+        Individual diagnostic item selection is no longer supported.
+        <br><br>Returns comprehensive health status including battery, fuel, oil, tire pressure, odometer, and other vehicle-specific diagnostics.
+    </p>
 </script>
 
 <script type="text/html" data-template-name="lock-myvehicle">
@@ -847,7 +784,7 @@
     <p>Get vehicle location information.</p>
 </script>
 
-<script type="text/html" data-template-name="mycharge-override">
+<script type="text/html" data-template-name="set-charge-level-target">
     <div class="form-row">
         <label for="node-input-name"><i class="icon-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Name" />
@@ -857,18 +794,20 @@
         <input type="text" id="node-input-onstar2" placeholder="Name" />
     </div>
     <div class="form-row">
-        <label for="node-input-mode"><i class="icon-tag"></i> Mode</label>
-        <input type="text" id="node-input-mode" placeholder="Name" />
+        <label for="node-input-targetlevel"><i class="icon-bookmark"></i> Target Charge Level (%)</label>
+        <input type="text" id="node-input-targetlevel" placeholder="80" />
     </div>
 </script>
 
-<script type="text/html" data-help-name="mycharge-override">    
-    <p>Override charging state. 
-        <br>&bull; <b>Mode</b> parameter is optional, but if not set in the config dialog, defaults to "CHARGE_NOW" (OnStarJS Default) or the value sent to the input via "msg.payload.mode".
+<script type="text/html" data-help-name="set-charge-level-target">    
+    <p>Set EV charging target level (v3 API).
+        <br>&bull; <b>Target Charge Level</b> parameter is the desired battery percentage (0-100). Defaults to 80% if not specified.
+        <br>&bull; Can also be sent via <code>msg.payload.targetLevel</code> or <code>msg.payload.tcl</code>.
+        <br><br><b>Note:</b> This replaces the deprecated <code>chargeOverride</code> method from v1 API.
     </p>
 </script>
 
-<script type="text/html" data-template-name="set-mycharge-profile">
+<script type="text/html" data-template-name="stop-charging">
     <div class="form-row">
         <label for="node-input-name"><i class="icon-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Name" />
@@ -877,24 +816,15 @@
         <label for="node-input-onstar2"><i class="icon-tag"></i> Config</label>
         <input type="text" id="node-input-onstar2" placeholder="Name" />
     </div>
-    <div class="form-row">
-        <label for="node-input-chargemode"><i class="icon-tag"></i> Charge Mode</label>
-        <input type="text" id="node-input-chargemode" placeholder="Name" />
-    </div>
-    <div class="form-row">
-        <label for="node-input-ratetype"><i class="icon-tag"></i> Rate Type</label>
-        <input type="text" id="node-input-ratetype" placeholder="Name" />
-    </div>
 </script>
 
-<script type="text/html" data-help-name="set-mycharge-profile">
-    <p>Set the charging profile.
-        <br>&bull; <b>Charge Mode</b> parameter is optional, but if not set in the config dialog, defaults to "IMMEDIATE" (OnStarJS Default) or the value sent to the input via "msg.payload.chargeMode".
-        <br>&bull; <b>Rate Type</b> parameter is optional, but if not set in the config dialog, defaults to "MIDPEAK" (OnStarJS Default) or the value sent to the input via "msg.payload.rateType".
+<script type="text/html" data-help-name="stop-charging">
+    <p>Stop the current EV charging session (v3 API).
+        <br><br><b>Note:</b> This provides functionality previously available via <code>chargeOverride</code> with CANCEL_OVERRIDE mode.
     </p>
 </script>
 
-<script type="text/html" data-template-name="get-mycharge-profile">
+<script type="text/html" data-template-name="get-ev-charging-metrics">
     <div class="form-row">
         <label for="node-input-name"><i class="icon-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Name" />
@@ -905,8 +835,29 @@
     </div>
 </script>
 
-<script type="text/html" data-help-name="get-mycharge-profile">
-    <p>Get the charging profile.</p>
+<script type="text/html" data-help-name="get-ev-charging-metrics">
+    <p>Retrieve current EV charging metrics (v3 API).
+        <br><br>Returns charging status, current battery level, estimated time to full charge, and other EV-specific data.
+        <br><br><b>Note:</b> This replaces the deprecated <code>getChargingProfile</code> method from v1 API.
+    </p>
+</script>
+
+<script type="text/html" data-template-name="refresh-ev-charging-metrics">
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name" />
+    </div>
+    <div class="form-row">
+        <label for="node-input-onstar2"><i class="icon-tag"></i> Config</label>
+        <input type="text" id="node-input-onstar2" placeholder="Name" />
+    </div>
+</script>
+
+<script type="text/html" data-help-name="refresh-ev-charging-metrics">
+    <p>Force-refresh and retrieve live EV charging metrics from the vehicle (v3 API).
+        <br><br>This queries the vehicle for current data rather than using cached metrics. Use this when you need the most up-to-date information.
+        <br><br><b>Note:</b> May take longer than <code>get-ev-charging-metrics</code> as it actively queries the vehicle.
+    </p>
 </script>
 
 <script type="text/html" data-template-name="onstar2">

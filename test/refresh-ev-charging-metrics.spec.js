@@ -6,7 +6,7 @@ var OnStarJS = require('onstarjs2').default;
 
 helper.init(require.resolve('node-red'));
 
-describe('alert-myvehicle-horn Node', function () {
+describe('refresh-ev-charging-metrics', function () {
   let sandbox;
 
   beforeEach(function (done) {
@@ -22,13 +22,13 @@ describe('alert-myvehicle-horn Node', function () {
 
   it('Should be loaded', function (done) {
     var flow = [
-      { id:"n1",type:"alert-myvehicle-horn",name:"Alert Vehicle Horn Only",onstar2:"Onstar Config",wires:[["n2"],["n3"]] }
+      { id:"n1",type:"refresh-ev-charging-metrics",name:"Refresh EV Charging Metrics",onstar2:"Onstar Config",wires:[["n2"],["n3"]] }
     ];
     helper.load(onStar, flow, function () {
       var n1 = helper.getNode("n1");
       try {
-        n1.should.have.property('name', 'Alert Vehicle Horn Only');
-        n1.should.have.property('type', 'alert-myvehicle-horn');
+        n1.should.have.property('name', 'Refresh EV Charging Metrics');
+        n1.should.have.property('type', 'refresh-ev-charging-metrics');
         done();
       } catch(err) {
         done(err);
@@ -38,12 +38,12 @@ describe('alert-myvehicle-horn Node', function () {
 
   it('Should output error with mocked authentication failure', function (done) {
     var mockClient = {
-      alert: sinon.stub().rejects(new Error('Unauthorized'))
+      refreshEVChargingMetrics: sinon.stub().rejects(new Error('Unauthorized'))
     };
     sandbox.stub(OnStarJS, 'create').returns(mockClient);
 
     var flow = [
-      { id:"n1",type:"alert-myvehicle-horn",name:"Alert Vehicle Horn Only",onstar2:"17dfaade45168b46",wires:[["n2"],["n3"]] },
+      { id:"n1",type:"refresh-ev-charging-metrics",name:"Test Node",onstar2:"17dfaade45168b46",wires:[["n2"],["n3"]] },
       { id:"17dfaade45168b46",type:"onstar2",carname:"TestCar1",username:"test@example.com",password:"testpass",pin:"1234",vin:"1G1ZB5ST5JF260429",deviceid:"test-device-id",totp:"TESTTOTP",checkrequeststatus:"true",requestpollingtimeoutseconds:"90",requestpollingintervalseconds:"6" },
       { id: "n2", type: "helper" },
       { id: "n3", type: "helper" }
@@ -62,7 +62,7 @@ describe('alert-myvehicle-horn Node', function () {
           done(err);
         }
       });
-      n1.receive({ payload: { action: "horn" } });
+      n1.receive({ payload: "timestamp" });
     });
   });
 });
