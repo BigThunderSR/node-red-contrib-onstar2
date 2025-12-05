@@ -5,6 +5,7 @@
 [![Lint Code Base](https://github.com/BigThunderSR/node-red-contrib-onstar2/actions/workflows/super-linter.yml/badge.svg)](https://github.com/BigThunderSR/node-red-contrib-onstar2/actions/workflows/super-linter.yml)
 [![Node.js CI](https://github.com/BigThunderSR/node-red-contrib-onstar2/actions/workflows/node.js.yml/badge.svg)](https://github.com/BigThunderSR/node-red-contrib-onstar2/actions/workflows/node.js.yml)
 [![Node.js Package](https://github.com/BigThunderSR/node-red-contrib-onstar2/actions/workflows/npm-publish.yml/badge.svg)](https://github.com/BigThunderSR/node-red-contrib-onstar2/actions/workflows/npm-publish.yml)
+
 <!-- [![Notarize Assets with CAS](https://github.com/BigThunderSR/node-red-contrib-onstar2/actions/workflows/cas_notarize.yml/badge.svg)](https://github.com/BigThunderSR/node-red-contrib-onstar2/actions/workflows/cas_notarize.yml)
 [![Authenticate Assets with CAS](https://github.com/BigThunderSR/node-red-contrib-onstar2/actions/workflows/cas_authenticate.yml/badge.svg)](https://github.com/BigThunderSR/node-red-contrib-onstar2/actions/workflows/cas_authenticate.yml) -->
 
@@ -12,13 +13,14 @@ A Node-RED node package for controlling GM OnStar vehicles powered by [OnStarJS]
 
 This fork is for me to experiment with the capabilities exposed in the original version and to add custom commands as necessary.
 
-- ***Following a major re-write, this project is now at version 2.x and is fully independent from the original npm package.***
+- **_Following a major re-write, this project was moved to version 2.x and was made fully independent from the original npm package._**
 
-- ***Version 3.0 introduces API modernization with breaking changes for EV charging and diagnostics nodes. See [MIGRATION.md](MIGRATION.md) for upgrade instructions.***
+- **_Version 3.0 introduces API modernization with breaking changes for EV charging and diagnostics nodes. See [MIGRATION.md](MIGRATION.md) for upgrade instructions._**
 
 [![npm](https://img.shields.io/npm/v/node-red-contrib-onstar2.svg)](https://www.npmjs.com/package/node-red-contrib-onstar2)
 
 <!-- ![node-red-contrib-onstar2-sample_s](https://user-images.githubusercontent.com/17056173/205470439-c27a5fc0-2ec3-4043-bef3-408042f78d29.png) -->
+
 ![Nodes_node-red-contrib-onstar2](https://github.com/BigThunderSR/node-red-contrib-onstar2/assets/17056173/dc0a0993-5e64-4445-b38e-f24a90c2256c)
 
 ## Install
@@ -26,6 +28,14 @@ This fork is for me to experiment with the capabilities exposed in the original 
 ```sh
 npm install node-red-contrib-onstar2
 ```
+
+On Linux, macOS, or Windows, you may also need to install browser binaries (and system dependencies) for authentication:
+
+```sh
+npx patchright install --with-deps chromium
+```
+
+> **⚠️ Alpine Linux users (including Home Assistant Node-RED Add-on):** Patchright is not supported on Alpine. See [Special Instructions](https://github.com/BigThunderSR/node-red-contrib-onstar2/discussions/430) for the workaround.
 
 ## Documentation
 
