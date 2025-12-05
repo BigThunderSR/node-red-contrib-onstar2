@@ -14,7 +14,7 @@
   "dependencies": {
     "axios": "^1.13.2",
     "chromium-bidi": "^11.0.1",
-    "jsonwebtoken": "^9.0.3",
+    "jsonwebtoken": "^9.0.2",
     "lodash": "^4.17.21",
     "onstarjs2": "^2.14.1",
     "uuid": "^11.1.0"
