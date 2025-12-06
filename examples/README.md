@@ -98,7 +98,9 @@ Contains the complete, unmodified response from the OnStar API, useful for debug
   "requestTime": "2025-11-26T22:32:26.746Z",
   "completionTime": "2025-11-26T22:33:42.018Z",
   "url": "https://api.gm.com/...",
-  "payload": { /* original request */ },
+  "payload": {
+    /* original request */
+  },
   "error": null
 }
 ```
@@ -110,6 +112,9 @@ The example flow includes all available nodes:
 #### Vehicle Information
 
 - **Get Account Vehicles** - Lists all vehicles on your OnStar account
+- **Get Vehicle Details** - Returns comprehensive vehicle information (make, model, year, RPO codes, etc.)
+- **Get OnStar Plan** - Returns current OnStar subscription plan information
+- **Get Vehicle Recall Info** - Check for any active recalls on your vehicle
 - **Diagnostics** - Returns comprehensive vehicle diagnostic data (v3 API)
 - **Get Vehicle Location** - Returns GPS coordinates, velocity, and timestamp
 
@@ -123,6 +128,7 @@ The example flow includes all available nodes:
 - **Alert Vehicle Lights Only** - Flashes lights without horn
 - **Alert Vehicle Horn Only** - Honks horn without flashing lights
 - **Cancel Alert Vehicle** - Cancels an active alert
+- **Stop Lights** - Stop flashing vehicle lights
 
 #### Trunk Control
 

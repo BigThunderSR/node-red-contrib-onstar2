@@ -85,6 +85,17 @@ type: "refresh-ev-charging-metrics";
 
 ## New Features
 
+### New Nodes (v3 API)
+
+The following new nodes have been added to access additional v3 API capabilities:
+
+| Node                      | Description                                                                          |
+| ------------------------- | ------------------------------------------------------------------------------------ |
+| `get-vehicle-details`     | Retrieve comprehensive vehicle information (make, model, year, RPO codes, image URL) |
+| `get-onstar-plan`         | Get current OnStar subscription plan details and available offers                    |
+| `get-vehicle-recall-info` | Check for any active recalls on your vehicle                                         |
+| `stop-lights`             | Stop flashing vehicle lights (cancel an active lights alert)                         |
+
 ### Automatic API Version Detection
 
 Action commands (lock/unlock, start/cancel, alert) now automatically:

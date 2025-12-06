@@ -89,12 +89,16 @@ The v3 API provides:
 - Vehicle Alert (Lights Only)
 - Vehicle Alert (Horn Only)
 - Cancel Vehicle Alert
+- Stop Lights
 
 ### Vehicle Information
 
 - Get Vehicle Location
 - Get Diagnostic Information (v3 API - returns all diagnostics)
 - Get Vehicle Capabilities
+- Get Vehicle Details
+- Get OnStar Plan
+- Get Vehicle Recall Info
 
 ### EV Charging Control (v3 API)
 
