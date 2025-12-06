@@ -32,8 +32,8 @@ jobs:
       - run: npm ci
       - id: publish
         run: npm publish --provenance
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.npm_token}}        
+        #env:
+        #  NODE_AUTH_TOKEN: ${{secrets.npm_token}}        
       - if: steps.publish.outputs.type != 'none'
         name: Update Node-Red flow-library
         uses: BigThunderSR/update-package-node-red-flow-library-action@v1.3.16
