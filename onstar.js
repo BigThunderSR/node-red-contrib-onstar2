@@ -68,8 +68,15 @@ module.exports = function(RED) {
                 // It automatically returns all available diagnostic data
                 let client = createClient(configNode);
                 let result = await client.diagnostics();
-                let msg1 = {payload: result.response.data.commandResponse.body};
-                let msg2 = {payload: result.response.data};
+                
+                // v3 API returns data directly in response.data (healthstatus endpoint)
+                // v1 API returned data in response.data.commandResponse.body
+                // Support both formats for backward compatibility
+                let data = result.response?.data;
+                let body = data?.commandResponse?.body || data;
+                
+                let msg1 = {payload: body};
+                let msg2 = {payload: data};
                 node.send(
                     [(msg1), (msg2)]
                 );
@@ -100,10 +107,10 @@ module.exports = function(RED) {
                 let result = await client.lockDoor(request);
                 // onstarjs2 v2.14.1+ supports v3 API with v1 fallback
                 // v3: response.data.status, v1: response.data.commandResponse.status
-                const status = result.response.data.status || result.response.data.commandResponse?.status;
-                const requestId = result.response.data.requestId || result.response.data.commandResponse?.requestId;
+                const status = result.response?.data?.status || result.response?.data?.commandResponse?.status;
+                const requestId = result.response?.data?.requestId || result.response?.data?.commandResponse?.requestId;
                 let msg1 = {payload: {status, requestId}};
-                let msg2 = {payload: result.response.data};
+                let msg2 = {payload: result.response?.data};
                 node.send(
                     [(msg1), (msg2)]
                 );
@@ -134,10 +141,10 @@ module.exports = function(RED) {
                 let result = await client.unlockDoor(request);
                 // onstarjs2 v2.14.1+ supports v3 API with v1 fallback
                 // v3: response.data.status, v1: response.data.commandResponse.status
-                const status = result.response.data.status || result.response.data.commandResponse?.status;
-                const requestId = result.response.data.requestId || result.response.data.commandResponse?.requestId;
+                const status = result.response?.data?.status || result.response?.data?.commandResponse?.status;
+                const requestId = result.response?.data?.requestId || result.response?.data?.commandResponse?.requestId;
                 let msg1 = {payload: {status, requestId}};
-                let msg2 = {payload: result.response.data};
+                let msg2 = {payload: result.response?.data};
                 node.send(
                     [(msg1), (msg2)]
                 );
@@ -168,10 +175,10 @@ module.exports = function(RED) {
                 let result = await client.lockTrunk(request);
                 // onstarjs2 v2.14.1+ supports v3 API with v1 fallback
                 // v3: response.data.status, v1: response.data.commandResponse.status
-                const status = result.response.data.status || result.response.data.commandResponse?.status;
-                const requestId = result.response.data.requestId || result.response.data.commandResponse?.requestId;
+                const status = result.response?.data?.status || result.response?.data?.commandResponse?.status;
+                const requestId = result.response?.data?.requestId || result.response?.data?.commandResponse?.requestId;
                 let msg1 = {payload: {status, requestId}};
-                let msg2 = {payload: result.response.data};
+                let msg2 = {payload: result.response?.data};
                 node.send(
                     [(msg1), (msg2)]
                 );
@@ -202,10 +209,10 @@ module.exports = function(RED) {
                 let result = await client.unlockTrunk(request);
                 // onstarjs2 v2.14.1+ supports v3 API with v1 fallback
                 // v3: response.data.status, v1: response.data.commandResponse.status
-                const status = result.response.data.status || result.response.data.commandResponse?.status;
-                const requestId = result.response.data.requestId || result.response.data.commandResponse?.requestId;
+                const status = result.response?.data?.status || result.response?.data?.commandResponse?.status;
+                const requestId = result.response?.data?.requestId || result.response?.data?.commandResponse?.requestId;
                 let msg1 = {payload: {status, requestId}};
-                let msg2 = {payload: result.response.data};
+                let msg2 = {payload: result.response?.data};
                 node.send(
                     [(msg1), (msg2)]
                 );
@@ -231,10 +238,10 @@ module.exports = function(RED) {
                 let result = await client.start();
                 // onstarjs2 v2.14.1+ supports v3 API with v1 fallback
                 // v3: response.data.status, v1: response.data.commandResponse.status
-                const status = result.response.data.status || result.response.data.commandResponse?.status;
-                const requestId = result.response.data.requestId || result.response.data.commandResponse?.requestId;
+                const status = result.response?.data?.status || result.response?.data?.commandResponse?.status;
+                const requestId = result.response?.data?.requestId || result.response?.data?.commandResponse?.requestId;
                 let msg1 = {payload: {status, requestId}};
-                let msg2 = {payload: result.response.data};
+                let msg2 = {payload: result.response?.data};
                 node.send(
                     [(msg1), (msg2)]
                 );
@@ -260,10 +267,10 @@ module.exports = function(RED) {
                 let result = await client.cancelStart();
                 // onstarjs2 v2.14.1+ supports v3 API with v1 fallback
                 // v3: response.data.status, v1: response.data.commandResponse.status
-                const status = result.response.data.status || result.response.data.commandResponse?.status;
-                const requestId = result.response.data.requestId || result.response.data.commandResponse?.requestId;
+                const status = result.response?.data?.status || result.response?.data?.commandResponse?.status;
+                const requestId = result.response?.data?.requestId || result.response?.data?.commandResponse?.requestId;
                 let msg1 = {payload: {status, requestId}};
-                let msg2 = {payload: result.response.data};
+                let msg2 = {payload: result.response?.data};
                 node.send(
                     [(msg1), (msg2)]
                 );
@@ -314,8 +321,8 @@ module.exports = function(RED) {
 
                 let result = await client.cancelAlert(request);
                 // onstarjs2 v2.14.1+ v3 API returns status directly in response.data
-                let msg1 = {payload: {status: result.response.data.status, requestId: result.response.data.requestId}};
-                let msg2 = {payload: result.response.data};
+                let msg1 = {payload: {status: result.response?.data?.status, requestId: result.response?.data?.requestId}};
+                let msg2 = {payload: result.response?.data};
                 node.send(
                     [(msg1), (msg2)]
                 );
@@ -347,10 +354,10 @@ module.exports = function(RED) {
                 let result = await client.alert(request);
                 // onstarjs2 v2.14.1+ supports v3 API with v1 fallback
                 // v3: response.data.status, v1: response.data.commandResponse.status
-                const status = result.response.data.status || result.response.data.commandResponse?.status;
-                const requestId = result.response.data.requestId || result.response.data.commandResponse?.requestId;
+                const status = result.response?.data?.status || result.response?.data?.commandResponse?.status;
+                const requestId = result.response?.data?.requestId || result.response?.data?.commandResponse?.requestId;
                 let msg1 = {payload: {status, requestId}};
-                let msg2 = {payload: result.response.data};
+                let msg2 = {payload: result.response?.data};
                 node.send(
                     [(msg1), (msg2)]
                 );
@@ -382,10 +389,10 @@ module.exports = function(RED) {
                 let result = await client.alert(request);
                 // onstarjs2 v2.14.1+ supports v3 API with v1 fallback
                 // v3: response.data.status, v1: response.data.commandResponse.status
-                const status = result.response.data.status || result.response.data.commandResponse?.status;
-                const requestId = result.response.data.requestId || result.response.data.commandResponse?.requestId;
+                const status = result.response?.data?.status || result.response?.data?.commandResponse?.status;
+                const requestId = result.response?.data?.requestId || result.response?.data?.commandResponse?.requestId;
                 let msg1 = {payload: {status, requestId}};
-                let msg2 = {payload: result.response.data};
+                let msg2 = {payload: result.response?.data};
                 node.send(
                     [(msg1), (msg2)]
                 );
@@ -411,10 +418,10 @@ module.exports = function(RED) {
                 let result = await client.cancelAlert();
                 // onstarjs2 v2.14.1+ supports v3 API with v1 fallback
                 // v3: response.data.status, v1: response.data.commandResponse.status
-                const status = result.response.data.status || result.response.data.commandResponse?.status;
-                const requestId = result.response.data.requestId || result.response.data.commandResponse?.requestId;
+                const status = result.response?.data?.status || result.response?.data?.commandResponse?.status;
+                const requestId = result.response?.data?.requestId || result.response?.data?.commandResponse?.requestId;
                 let msg1 = {payload: {status, requestId}};
-                let msg2 = {payload: result.response.data};
+                let msg2 = {payload: result.response?.data};
                 node.send(
                     [(msg1), (msg2)]
                 );
@@ -450,7 +457,7 @@ module.exports = function(RED) {
                     timestamp: _.get(result, 'response.data.telemetry.occurredTs')
                 };
                 let msg1 = {payload: locationData};
-                let msg2 = {payload: result.response.data};
+                let msg2 = {payload: result.response?.data};
                 node.send(
                     [(msg1), (msg2)]
                 );

@@ -109,41 +109,38 @@ describe('OnStar Functionality Tests (Mocked)', function () {
   });
 
   describe('get-diagnostics', function () {
-    it('Should return diagnostic information successfully', function (done) {
+    it('Should return diagnostic information successfully with v3 API format', function (done) {
+      // v3 API returns data directly without commandResponse.body wrapper
       var mockDiagnosticsResponse = {
         response: {
           status: 'success',
           data: {
-            commandResponse: {
-              body: {
-                diagnosticResponse: [
-                  {
-                    diagnosticElement: 'ODOMETER',
-                    value: '45230',
-                    unit: 'miles',
-                    timestamp: '2025-07-22T10:30:00Z'
-                  },
-                  {
-                    diagnosticElement: 'FUEL TANK INFO',
-                    value: '85',
-                    unit: 'percent',
-                    timestamp: '2025-07-22T10:30:00Z'
-                  },
-                  {
-                    diagnosticElement: 'EV BATTERY LEVEL',
-                    value: '92',
-                    unit: 'percent',
-                    timestamp: '2025-07-22T10:30:00Z'
-                  },
-                  {
-                    diagnosticElement: 'ENGINE RPM',
-                    value: '0',
-                    unit: 'rpm',
-                    timestamp: '2025-07-22T10:30:00Z'
-                  }
-                ]
+            diagnosticResponse: [
+              {
+                diagnosticElement: 'ODOMETER',
+                value: '45230',
+                unit: 'miles',
+                timestamp: '2025-07-22T10:30:00Z'
+              },
+              {
+                diagnosticElement: 'FUEL TANK INFO',
+                value: '85',
+                unit: 'percent',
+                timestamp: '2025-07-22T10:30:00Z'
+              },
+              {
+                diagnosticElement: 'EV BATTERY LEVEL',
+                value: '92',
+                unit: 'percent',
+                timestamp: '2025-07-22T10:30:00Z'
+              },
+              {
+                diagnosticElement: 'ENGINE RPM',
+                value: '0',
+                unit: 'rpm',
+                timestamp: '2025-07-22T10:30:00Z'
               }
-            }
+            ]
           }
         }
       };
@@ -181,6 +178,60 @@ describe('OnStar Functionality Tests (Mocked)', function () {
         });
 
         n1.receive({ payload: { diagnosticItem: ['ODOMETER', 'FUEL TANK INFO', 'EV BATTERY LEVEL', 'ENGINE RPM'] } });
+      });
+    });
+
+            it('Should handle legacy v1 API format with commandResponse.body', function (done) {
+      // Legacy v1 API returns data in commandResponse.body wrapper
+      var mockDiagnosticsResponse = {
+        response: {
+          status: 'success',
+          data: {
+            commandResponse: {
+              body: {
+                diagnosticResponse: [
+                  {
+                    diagnosticElement: 'ODOMETER',
+                    value: '45230',
+                    unit: 'miles',
+                    timestamp: '2025-07-22T10:30:00Z'
+                  }
+                ]
+              }
+            }
+          }
+        }
+      };
+
+      var mockClient = {
+        diagnostics: sinon.stub().resolves(mockDiagnosticsResponse)
+      };
+      sandbox.stub(OnStarJS, 'create').returns(mockClient);
+
+      var flow = [
+        { id:"n1",type:"get-diagnostics",name:"Get Diagnostics",onstar2:"config1",wires:[["n2"],["n3"]] },
+        { id:"config1",type:"onstar2",carname:"TestCar",username:"test@example.com",password:"testpass",pin:"1234",vin:"1G1ZB5ST5JF260429",deviceid:"test-device-id",totp:"TESTTOTP",checkrequeststatus:"true",requestpollingtimeoutseconds:"90",requestpollingintervalseconds:"6" },
+        { id: "n2", type: "helper" },
+        { id: "n3", type: "helper" }
+      ];
+
+      helper.load(onStar, flow, function () {
+        var n1 = helper.getNode("n1");
+        var n2 = helper.getNode("n2");
+
+        n2.on("input", function (msg) {
+          try {
+            msg.payload.should.have.property('diagnosticResponse');
+            msg.payload.diagnosticResponse.should.be.an.Array();
+            msg.payload.diagnosticResponse.length.should.equal(1);
+            
+            done();
+          } catch(err) {
+            done(err);
+          }
+        });
+
+        n1.receive({ payload: {} });
       });
     });
   });
