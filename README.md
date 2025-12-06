@@ -23,7 +23,7 @@ This fork is for me to experiment with the capabilities exposed in the original 
 
 <!-- ![Nodes_node-red-contrib-onstar2](https://github.com/BigThunderSR/node-red-contrib-onstar2/assets/17056173/dc0a0993-5e64-4445-b38e-f24a90c2256c) -->
 
-![v3_Nodes_node-red-contrib-onstar2](nodes_v3.png)
+![v3_Nodes_node-red-contrib-onstar2](nr_nodes_v3.png)
 
 ## Install
 
