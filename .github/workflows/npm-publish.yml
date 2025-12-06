@@ -31,6 +31,8 @@ jobs:
           node-version: 22.x
           registry-url: https://registry.npmjs.org/
       - run: npm ci
+      - name: Update npm for trusted publishing
+        run: npm install -g npm@latest
       - id: publish
         run: npm publish --provenance
         #env:
