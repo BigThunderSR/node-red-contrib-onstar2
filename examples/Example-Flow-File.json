@@ -833,6 +833,190 @@
         ]
     },
     {
+        "id": "a1b2c3d4e5f61234",
+        "type": "get-vehicle-details",
+        "z": "4675ad755acd7bf0",
+        "name": "Get Vehicle Details",
+        "onstar2": "be898e0ea720276d",
+        "x": 530,
+        "y": 1120,
+        "wires": [
+            [
+                "0a01acc5e4d92829"
+            ],
+            [
+                "944af7a03383e640"
+            ]
+        ]
+    },
+    {
+        "id": "b2c3d4e5f6a12345",
+        "type": "inject",
+        "z": "4675ad755acd7bf0",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 260,
+        "y": 1120,
+        "wires": [
+            [
+                "a1b2c3d4e5f61234"
+            ]
+        ]
+    },
+    {
+        "id": "c3d4e5f6a1b23456",
+        "type": "get-onstar-plan",
+        "z": "4675ad755acd7bf0",
+        "name": "Get OnStar Plan",
+        "onstar2": "be898e0ea720276d",
+        "x": 520,
+        "y": 1180,
+        "wires": [
+            [
+                "0a01acc5e4d92829"
+            ],
+            [
+                "944af7a03383e640"
+            ]
+        ]
+    },
+    {
+        "id": "d4e5f6a1b2c34567",
+        "type": "inject",
+        "z": "4675ad755acd7bf0",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 260,
+        "y": 1180,
+        "wires": [
+            [
+                "c3d4e5f6a1b23456"
+            ]
+        ]
+    },
+    {
+        "id": "e5f6a1b2c3d45678",
+        "type": "get-vehicle-recall-info",
+        "z": "4675ad755acd7bf0",
+        "name": "Get Vehicle Recall Info",
+        "onstar2": "be898e0ea720276d",
+        "x": 540,
+        "y": 1240,
+        "wires": [
+            [
+                "0a01acc5e4d92829"
+            ],
+            [
+                "944af7a03383e640"
+            ]
+        ]
+    },
+    {
+        "id": "f6a1b2c3d4e56789",
+        "type": "inject",
+        "z": "4675ad755acd7bf0",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 260,
+        "y": 1240,
+        "wires": [
+            [
+                "e5f6a1b2c3d45678"
+            ]
+        ]
+    },
+    {
+        "id": "a1b2c3d4e5f6abcd",
+        "type": "stop-lights",
+        "z": "4675ad755acd7bf0",
+        "name": "Stop Lights",
+        "onstar2": "be898e0ea720276d",
+        "x": 510,
+        "y": 1300,
+        "wires": [
+            [
+                "0a01acc5e4d92829"
+            ],
+            [
+                "944af7a03383e640"
+            ]
+        ]
+    },
+    {
+        "id": "b2c3d4e5f6a1bcde",
+        "type": "inject",
+        "z": "4675ad755acd7bf0",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 260,
+        "y": 1300,
+        "wires": [
+            [
+                "a1b2c3d4e5f6abcd"
+            ]
+        ]
+    },
+    {
         "id": "be898e0ea720276d",
         "type": "onstar2",
         "carname": "My Car 1",

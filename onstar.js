@@ -603,6 +603,100 @@ module.exports = function(RED) {
         });
     }
 
+    function GetVehicleDetails(config) {
+        RED.nodes.createNode(this, config);
+        const node = this;
+
+        node.on('input', async function () {
+            try {
+                let configNode = RED.nodes.getNode(config.onstar2);
+                let client = createClient(configNode);
+                let result = await client.getVehicleDetails();
+                let msg1 = {payload: result.data || result};
+                let msg2 = {payload: result};
+                node.send(
+                    [(msg1), (msg2)]
+                );
+            } catch (err) {
+                let errmsg = {payload: err}
+                node.send(
+                    [errmsg, errmsg]
+                );
+            }
+        });
+    }
+
+    function GetOnstarPlan(config) {
+        RED.nodes.createNode(this, config);
+        const node = this;
+
+        node.on('input', async function () {
+            try {
+                let configNode = RED.nodes.getNode(config.onstar2);
+                let client = createClient(configNode);
+                let result = await client.getOnstarPlan();
+                let msg1 = {payload: result.data || result};
+                let msg2 = {payload: result};
+                node.send(
+                    [(msg1), (msg2)]
+                );
+            } catch (err) {
+                let errmsg = {payload: err}
+                node.send(
+                    [errmsg, errmsg]
+                );
+            }
+        });
+    }
+
+    function GetVehicleRecallInfo(config) {
+        RED.nodes.createNode(this, config);
+        const node = this;
+
+        node.on('input', async function () {
+            try {
+                let configNode = RED.nodes.getNode(config.onstar2);
+                let client = createClient(configNode);
+                let result = await client.getVehicleRecallInfo();
+                let msg1 = {payload: result.data || result};
+                let msg2 = {payload: result};
+                node.send(
+                    [(msg1), (msg2)]
+                );
+            } catch (err) {
+                let errmsg = {payload: err}
+                node.send(
+                    [errmsg, errmsg]
+                );
+            }
+        });
+    }
+
+    function StopLights(config) {
+        RED.nodes.createNode(this, config);
+        const node = this;
+
+        node.on('input', async function () {
+            try {
+                let configNode = RED.nodes.getNode(config.onstar2);
+                let client = createClient(configNode);
+                let result = await client.stopLights();
+                const status = result.response?.data?.status || result.response?.data?.commandResponse?.status;
+                const requestId = result.response?.data?.requestId || result.response?.data?.commandResponse?.requestId;
+                let msg1 = {payload: {status, requestId}};
+                let msg2 = {payload: result.response?.data || result};
+                node.send(
+                    [(msg1), (msg2)]
+                );
+            } catch (err) {
+                let errmsg = {payload: err}
+                node.send(
+                    [errmsg, errmsg]
+                );
+            }
+        });
+    }
+
     function OnStarNode(config) {
         RED.nodes.createNode(this, config);
         this.username = config.username;
@@ -635,4 +729,8 @@ module.exports = function(RED) {
     RED.nodes.registerType('stop-charging', StopCharging);
     RED.nodes.registerType('get-ev-charging-metrics', GetEVChargingMetrics);
     RED.nodes.registerType('refresh-ev-charging-metrics', RefreshEVChargingMetrics);
+    RED.nodes.registerType('get-vehicle-details', GetVehicleDetails);
+    RED.nodes.registerType('get-onstar-plan', GetOnstarPlan);
+    RED.nodes.registerType('get-vehicle-recall-info', GetVehicleRecallInfo);
+    RED.nodes.registerType('stop-lights', StopLights);
 }
