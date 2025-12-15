@@ -16,7 +16,7 @@
     "chromium-bidi": "^12.0.0",
     "jsonwebtoken": "^9.0.3",
     "lodash": "^4.17.21",
-    "onstarjs2": "^2.14.3",
+    "onstarjs2": "^2.15.0",
     "uuid": "^11.1.0"
   },
   "node-red": {
