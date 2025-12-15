@@ -9,7 +9,8 @@
     "test:auth-legacy": "RUN_AUTH_TESTS=true c8 --exclude=\"deps/index.cjs\" --exclude=\"test\" mocha test/authentication.spec.js",
     "test:functionality": "c8 --exclude=\"deps/index.cjs\" --exclude=\"test\" mocha test/functionality-mocked.spec.js",
     "test:mocked": "c8 --exclude=\"deps/index.cjs\" --exclude=\"test\" mocha test/authentication.spec.js test/functionality-mocked.spec.js",
-    "test:real-safe-only": "mocha test/real-api.spec.js --grep \"Safe Read-Only\" --timeout 120000"
+    "test:real-safe-only": "mocha test/real-api.spec.js --grep \"Safe Read-Only\" --timeout 120000",
+    "validate": "npx node-red-dev validate"
   },
   "dependencies": {
     "axios": "^1.13.2",
