@@ -1,6 +1,5 @@
 //const OnStar = require('./deps/index.cjs');
 const OnStar = require('onstarjs2').default;
-const _ = require('lodash');
 const Vehicle = require('./deps/vehicle');
 
 function createClient(configNode) {
@@ -37,8 +36,7 @@ module.exports = function(RED) {
                 let client = createClient(configNode);
                 const vehiclesRes = await client.getAccountVehicles();
                 // onstarjs2 v2.14.1+ returns vehicles at data.vehicles (not response.data.vehicles.vehicle)
-                const vehicles = _.map(
-                    _.get(vehiclesRes, 'data.vehicles'),
+                const vehicles = (vehiclesRes?.data?.vehicles || []).map(
                     v => new Vehicle(v)
                 );
                 let msg1 = {payload: vehicles};
@@ -448,13 +446,13 @@ module.exports = function(RED) {
                 // onstarjs2 v2.14.1+ returns location data in telemetry structure
                 const locationData = {
                     location: {
-                        lat: _.get(result, 'response.data.telemetry.data.position.lat'),
-                        long: _.get(result, 'response.data.telemetry.data.position.lng'),
-                        elv: _.get(result, 'response.data.telemetry.data.position.elv'),
-                        geohash: _.get(result, 'response.data.telemetry.data.position.geohash')
+                        lat: result?.response?.data?.telemetry?.data?.position?.lat,
+                        long: result?.response?.data?.telemetry?.data?.position?.lng,
+                        elv: result?.response?.data?.telemetry?.data?.position?.elv,
+                        geohash: result?.response?.data?.telemetry?.data?.position?.geohash
                     },
-                    velocity: _.get(result, 'response.data.telemetry.data.velocity'),
-                    timestamp: _.get(result, 'response.data.telemetry.occurredTs')
+                    velocity: result?.response?.data?.telemetry?.data?.velocity,
+                    timestamp: result?.response?.data?.telemetry?.occurredTs
                 };
                 let msg1 = {payload: locationData};
                 let msg2 = {payload: result.response?.data};

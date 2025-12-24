@@ -1,5 +1,3 @@
-const _ = require('lodash');
-
 class Vehicle {
     constructor(vehicle) {
         this.make = vehicle.make;
@@ -7,25 +5,23 @@ class Vehicle {
         this.vin = vehicle.vin;
         this.year = vehicle.year;
 
-        const diagCmd = _.find(
-            _.get(vehicle, 'commands.command'),
+        const diagCmd = (vehicle.commands?.command || []).find(
             cmd => cmd.name === 'diagnostics'
         );
-        this.supportedDiagnostics = _.get(diagCmd,
-            'commandData.supportedDiagnostics.supportedDiagnostic');
+        this.supportedDiagnostics = diagCmd?.commandData?.supportedDiagnostics?.supportedDiagnostic;
 
-        this.supportedCommands = _.get(vehicle, 'commands.command');
+        this.supportedCommands = vehicle.commands?.command;
     }
 
     isSupported(diag) {
-        return _.includes(this.supportedDiagnostics, diag);
+        return (this.supportedDiagnostics || []).includes(diag);
     }
 
     getSupported(diags = []) {
         if (diags.length === 0) {
             return this.supportedDiagnostics;
         }
-        return _.intersection(this.supportedDiagnostics, diags);
+        return (this.supportedDiagnostics || []).filter(item => diags.includes(item));
     }
 
     toString() {
