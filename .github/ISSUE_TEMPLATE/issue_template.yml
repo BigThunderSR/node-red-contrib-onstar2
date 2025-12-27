@@ -1,0 +1,172 @@
+name: Submit an Issue
+description: Open an issue to report a bug or request a feature.
+title: "[Issue]: <Please replace with a clear and concise title>"
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for taking the time to fill out this request for your issue! 
+
+        **Please search [existing issues](https://github.com/BigThunderSR/node-red-contrib-onstar2/issues) first to avoid duplicates.**
+
+        For general questions or help, please use the [Discussions](https://github.com/BigThunderSR/node-red-contrib-onstar2/discussions) tab.
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Describe the Issue
+      description: A clear and concise description of what the issue is. Include which node(s) are affected if applicable.
+      placeholder: Describe the issue
+    validations:
+      required: true
+
+  - type: dropdown
+    id: type
+    attributes:
+      label: Type of Issue
+      description: What type of issue are you reporting?
+      multiple: false
+      options:
+        - --- Please select an option ---
+        - Bug (regression - was working before)
+        - Bug (never worked)
+        - Feature request
+        - Enhancement
+        - Other
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: node-red-contrib-onstar2 Version
+      description: Which version are you using? Check package.json or Node-RED palette manager
+      placeholder: e.g., 3.0.2
+    validations:
+      required: true
+
+  - type: input
+    id: nodered_version
+    attributes:
+      label: Node-RED Version
+      description: Which Node-RED version are you running? (Check Settings menu or `node-red --version`)
+      placeholder: e.g., 3.1.0, 4.0.0
+    validations:
+      required: true
+
+  - type: dropdown
+    id: deployment
+    attributes:
+      label: Node-RED Installation Method
+      description: How did you install Node-RED?
+      multiple: false
+      options:
+        - --- Please select an option ---
+        - npm (global install)
+        - npm (local install)
+        - Docker
+        - Pre-installed (e.g., Raspberry Pi)
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: To Reproduce
+      description: |
+        Steps to reproduce the behavior (**Note: these are generic steps, please replace with your own steps**)
+      placeholder: |
+        1. Configure OnStar node with...
+        2. Deploy flow
+        3. Send message with payload...
+        4. Observe error/behavior
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected Behavior
+      description: A clear and concise description of what you expected to happen.
+      placeholder: Expected result
+    validations:
+      required: true
+
+  - type: textarea
+    id: debug_output
+    attributes:
+      label: Debug Output / Logs
+      description: |
+        If applicable, add debug output or log output to help explain your problem.
+
+        **TIP**: Connect a debug node to BOTH outputs of the OnStar node and set to show "complete msg object"
+
+        **⚠️ IMPORTANT: Remove all sensitive data before posting:**
+        - VIN (vehicle identification number)
+        - Username/email
+        - Password
+        - PIN
+        - Authentication tokens
+        - GPS coordinates/location data
+        - Device IDs
+      placeholder: Debug output from Node-RED or sanitized logs
+
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots
+      description: If applicable, add screenshots to help explain your problem.
+      placeholder: Add screenshots
+
+  - type: markdown
+    attributes:
+      value: |
+        ## Environment Information
+
+  - type: input
+    id: os
+    attributes:
+      label: Operating System
+      description: e.g., Windows, macOS, Linux
+      placeholder: Operating System
+    validations:
+      required: true
+
+  - type: input
+    id: node_version
+    attributes:
+      label: Node.js Version
+      description: Run `node --version` in terminal
+      placeholder: e.g., v18.20.0, v20.11.0
+    validations:
+      required: true
+
+  - type: input
+    id: xvfb_chromium
+    attributes:
+      label: Xvfb and Chromium Installation Status
+      description: |
+        **🔴 CRITICAL for Linux/Docker users**: This package requires Xvfb and Chromium browser binaries.
+
+        1. Did you run `npx patchright install --with-deps chromium` after installing this package?
+        2. Is Xvfb installed? (Run `which Xvfb`)
+
+        **⚠️ Alpine Linux users** (including Home Assistant Node-RED Add-on): Patchright is not supported on Alpine. See [Special Instructions](https://github.com/BigThunderSR/node-red-contrib-onstar2/discussions/430) for the workaround.
+      placeholder: e.g., "Yes - both installed" or "Chromium installed, Xvfb not found" or "N/A (Windows/macOS)"
+
+  - type: textarea
+    id: other_environment_details
+    attributes:
+      label: Other Environment Details
+      description: |
+        Any other relevant environment details (e.g., Docker version, architecture, reverse proxy, firewall settings)
+      placeholder: Other environment details
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional Context
+      description: Add any other context about the problem here.
+      placeholder: Additional context
