@@ -58,4 +58,59 @@ describe('Vehicle', () => {
         assert.strictEqual(result[0], 'existing');
         assert.ok(result.includes('diagnostics'));
     });
+
+    it('should handle missing commands data gracefully', () => {
+        const minimalVehicle = new Vehicle({
+            make: 'Test',
+            model: 'Car',
+            vin: 'TEST123',
+            year: '2020'
+            // No commands property
+        });
+        assert.strictEqual(minimalVehicle.supportedCommands, undefined);
+        assert.strictEqual(minimalVehicle.supportedDiagnostics, undefined);
+    });
+
+    it('should handle null diagnostics when checking support', () => {
+        const vehicleNoCommands = new Vehicle({
+            make: 'Test',
+            model: 'Car',
+            vin: 'TEST123',
+            year: '2020'
+        });
+        // Should not throw and should return false
+        assert.strictEqual(vehicleNoCommands.isSupported('ODOMETER'), false);
+    });
+
+    it('should handle null diagnostics when getting supported list', () => {
+        const vehicleNoCommands = new Vehicle({
+            make: 'Test',
+            model: 'Car',
+            vin: 'TEST123',
+            year: '2020'
+        });
+        // Should return undefined (no diagnostics available)
+        assert.strictEqual(vehicleNoCommands.getSupported(), undefined);
+        // With requested diags, should return empty array (intersection of undefined and array)
+        const result = vehicleNoCommands.getSupported(['ODOMETER']);
+        assert.ok(Array.isArray(result));
+        assert.strictEqual(result.length, 0);
+    });
+
+    it('should handle vehicle with commands but no diagnostics command', () => {
+        const vehicleNoDiagCmd = new Vehicle({
+            make: 'Test',
+            model: 'Car',
+            vin: 'TEST123',
+            year: '2020',
+            commands: {
+                command: [
+                    { name: 'lockDoor' },
+                    { name: 'unlockDoor' }
+                ]
+            }
+        });
+        assert.strictEqual(vehicleNoDiagCmd.supportedDiagnostics, undefined);
+        assert.strictEqual(vehicleNoDiagCmd.isSupported('ODOMETER'), false);
+    });
 });
