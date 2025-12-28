@@ -37,7 +37,32 @@ On Linux, macOS, or Windows, you may also need to install browser binaries (and 
 npx patchright install --with-deps chromium
 ```
 
-> **⚠️ Alpine Linux users (including Home Assistant Node-RED Add-on):** Patchright is not supported on Alpine. See [Special Instructions](https://github.com/BigThunderSR/node-red-contrib-onstar2/discussions/430) for the workaround.
+> **⚠️ Alpine Linux users (including Home Assistant Node-RED Add-on):** Patchright is not supported on Alpine. Use the [token workaround method](https://github.com/BigThunderSR/node-red-contrib-onstar2/discussions/430).
+>
+> **⚠️ Debian Trixie users:** Xvfb compatibility issues have been reported on Debian Trixie-based Docker containers and direct installations. Use Debian Bookworm-based containers or the [token workaround method](https://github.com/BigThunderSR/node-red-contrib-onstar2/discussions/430).
+
+### Docker Installation
+
+If running Node-RED in Docker, you'll need to install Xvfb and Chromium browser binaries inside the container:
+
+#### Option 1: Install Dependencies in Container
+
+```sh
+# Enter your Node-RED container
+docker exec -it <container-name> /bin/bash
+
+# Install Xvfb (for headless browser automation)
+apt-get update && apt-get install -y xvfb
+
+# Install Chromium browser binaries
+npx patchright install --with-deps chromium
+```
+
+**Note:** These changes will be lost when the container restarts. For a permanent solution, consider creating a custom Dockerfile that extends your Node-RED image with Xvfb and Chromium dependencies.
+
+#### Option 2: Use Token Workaround (Recommended for Docker)
+
+If you encounter issues with Xvfb/Chromium in Docker, or are using an unsupported platform, use the [token workaround method](https://github.com/BigThunderSR/node-red-contrib-onstar2/discussions/430) to generate tokens on your host system and map them into the container.
 
 ## Documentation
 
