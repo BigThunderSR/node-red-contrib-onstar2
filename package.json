@@ -13,7 +13,7 @@
     "validate": "npx node-red-dev validate"
   },
   "dependencies": {
-    "axios": "^1.13.2",
+    "axios": "^1.13.3",
     "chromium-bidi": "^13.0.1",
     "jsonwebtoken": "^9.0.3",
     "onstarjs2": "^2.15.1",
