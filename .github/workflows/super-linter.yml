@@ -5,6 +5,7 @@
 # For more information, see:
 # https://github.com/github/super-linter
 name: Lint Code Base
+run-name: "${{ github.event.workflow_run.head_commit.message || format('{0} - {1}', github.ref_name, github.event_name) }}"
 
 on:
   workflow_dispatch:
@@ -37,14 +38,13 @@ jobs:
       
       - name: Lint Code Base
         #uses: github/super-linter@v6
-        uses: github/super-linter@latest
+        uses: super-linter/super-linter@v8
         env:
           VALIDATE_ALL_CODEBASE: true
-          DEFAULT_BRANCH: "main"
+          USE_FIND_ALGORITHM: true
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           #FILTER_REGEX_EXCLUDE: (onstar.js|onstar.html|vehicle.js)
           LINTER_RULES_PATH: /          
           #JAVASCRIPT_ES_CONFIG_FILE: .eslintrc.yml #Prior to ESLint V9
-          #JAVASCRIPT_ES_CONFIG_FILE: eslint.config.cjs
+          JAVASCRIPT_ES_CONFIG_FILE: eslint.config.cjs
           VALIDATE_JAVASCRIPT_ES: true
-          ESLINT_USE_FLAT_CONFIG: false
