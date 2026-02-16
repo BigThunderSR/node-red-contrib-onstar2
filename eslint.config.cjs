@@ -18,6 +18,7 @@ module.exports = [
         },
         rules: {
             "no-useless-assignment": "off",
+            "no-unused-vars": "warn",
         },
     },
 ];
