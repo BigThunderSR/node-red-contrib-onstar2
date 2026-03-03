@@ -53,6 +53,243 @@
 </script>
 
 <script type="text/javascript">
+    RED.nodes.registerType('get-ev-charging-metrics', {
+        category: 'onstar2',
+        color: '#7eb0ff',
+        defaults: {
+            name: { value: 'Get EV Charging Metrics' },
+            onstar2: { value: 'Onstar Config', type: 'onstar2' }
+        },
+        inputs: 1,
+        outputs: 2,
+        outputLabels: ["Charging Metrics","result.response.data"],
+        icon: 'onstar.svg',
+        label: function () {
+            var configCarName = RED.nodes.node(this.onstar2);
+            return configCarName.label()+" "+this.name;
+        },
+        oneditsave: function() {
+            var editNodeName = $("#node-input-name").val();
+            if (editNodeName == '') {
+                $("#node-input-name").val("Get EV Charging Metrics");
+            }
+            $("#node-input-name").val();
+        },
+    });
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType('get-onstar-plan', {
+        category: 'onstar2',
+        color: '#7eb0ff',
+        defaults: {
+            name: { value: 'Get OnStar Plan' },
+            onstar2: { value: 'Onstar Config', type: 'onstar2' }
+        },
+        inputs: 1,
+        outputs: 2,
+        outputLabels: ["OnStar Plan","result"],
+        icon: 'onstar.svg',
+        label: function () {
+            var configCarName = RED.nodes.node(this.onstar2);
+            return configCarName.label()+" "+this.name;
+        },
+        oneditsave: function() {
+            var editNodeName = $("#node-input-name").val();
+            if (editNodeName == '') {
+                $("#node-input-name").val("Get OnStar Plan");
+            }
+            $("#node-input-name").val();
+        },
+    });
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType('get-sxm-subscription-info', {
+        category: 'onstar2',
+        color: '#7eb0ff',
+        defaults: {
+            name: { value: 'Get SXM Subscription Info' },
+            onstar2: { value: 'Onstar Config', type: 'onstar2' }
+        },
+        inputs: 1,
+        outputs: 2,
+        outputLabels: ["SXM Subscription Info","result"],
+        icon: 'onstar.svg',
+        label: function () {
+            var configCarName = RED.nodes.node(this.onstar2);
+            return configCarName.label()+" "+this.name;
+        },
+        oneditsave: function() {
+            var editNodeName = $("#node-input-name").val();
+            if (editNodeName == '') {
+                $("#node-input-name").val("Get SXM Subscription Info");
+            }
+            $("#node-input-name").val();
+        },
+    });
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType('get-vehicle-details', {
+        category: 'onstar2',
+        color: '#7eb0ff',
+        defaults: {
+            name: { value: 'Get Vehicle Details' },
+            onstar2: { value: 'Onstar Config', type: 'onstar2' }
+        },
+        inputs: 1,
+        outputs: 2,
+        outputLabels: ["Vehicle Details","result"],
+        icon: 'onstar.svg',
+        label: function () {
+            var configCarName = RED.nodes.node(this.onstar2);
+            return configCarName.label()+" "+this.name;
+        },
+        oneditsave: function() {
+            var editNodeName = $("#node-input-name").val();
+            if (editNodeName == '') {
+                $("#node-input-name").val("Get Vehicle Details");
+            }
+            $("#node-input-name").val();
+        },
+    });
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType('get-vehicle-recall-info', {
+        category: 'onstar2',
+        color: '#7eb0ff',
+        defaults: {
+            name: { value: 'Get Vehicle Recall Info' },
+            onstar2: { value: 'Onstar Config', type: 'onstar2' }
+        },
+        inputs: 1,
+        outputs: 2,
+        outputLabels: ["Recall Info","result"],
+        icon: 'onstar.svg',
+        label: function () {
+            var configCarName = RED.nodes.node(this.onstar2);
+            return configCarName.label()+" "+this.name;
+        },
+        oneditsave: function() {
+            var editNodeName = $("#node-input-name").val();
+            if (editNodeName == '') {
+                $("#node-input-name").val("Get Vehicle Recall Info");
+            }
+            $("#node-input-name").val();
+        },
+    });
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType('get-warranty-info', {
+        category: 'onstar2',
+        color: '#7eb0ff',
+        defaults: {
+            name: { value: 'Get Warranty Info' },
+            onstar2: { value: 'Onstar Config', type: 'onstar2' }
+        },
+        inputs: 1,
+        outputs: 2,
+        outputLabels: ["Warranty Info","result"],
+        icon: 'onstar.svg',
+        label: function () {
+            var configCarName = RED.nodes.node(this.onstar2);
+            return configCarName.label()+" "+this.name;
+        },
+        oneditsave: function() {
+            var editNodeName = $("#node-input-name").val();
+            if (editNodeName == '') {
+                $("#node-input-name").val("Get Warranty Info");
+            }
+            $("#node-input-name").val();
+        },
+    });
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType('locate-vehicle', {
+        category: 'onstar2',
+        color: '#7eb0ff',
+        defaults: {
+            name: { value: 'Get Vehicle Location' },
+            onstar2: { value: 'Onstar Config', type: 'onstar2' }
+        },
+        inputs: 1,
+        outputs: 2,
+        outputLabels: ["Location Information","result.response.data"],
+        icon: 'onstar.svg',
+        label: function () {
+            //return this.name || 'location';
+            var configCarName = RED.nodes.node(this.onstar2);
+            return configCarName.label()+" "+this.name;
+        },
+        oneditsave: function() {
+            var editNodeName = $("#node-input-name").val();
+            if (editNodeName == '') {
+                $("#node-input-name").val("Get Vehicle Location");
+            }
+            $("#node-input-name").val();
+        },
+    });
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType('start-myvehicle', {
+        category: 'onstar2',
+        color: '#7eb0ff',
+        defaults: {
+            name: { value: 'Start Vehicle' },
+            onstar2: { value: 'Onstar Config', type: 'onstar2' }
+        },
+        inputs: 1,
+        outputs: 2,
+        outputLabels: ["Command Status","result.response.data"],
+        icon: 'onstar.svg',
+        label: function () {
+            //return this.name || 'start-vehicle';
+            var configCarName = RED.nodes.node(this.onstar2);
+            return configCarName.label()+" "+this.name;
+        },
+        oneditsave: function() {            
+            var editNodeName = $("#node-input-name").val();
+            if (editNodeName == '') {
+                $("#node-input-name").val("Start Vehicle");
+            }
+            $("#node-input-name").val();
+        },
+    });
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType('cancel-start-myvehicle', {
+        category: 'onstar2',
+        color: '#7eb0ff',
+        defaults: {
+            name: { value: 'Cancel Start Vehicle' },
+            onstar2: { value: 'Onstar Config', type: 'onstar2' }
+        },
+        inputs: 1,
+        outputs: 2,
+        outputLabels: ["Command Status","result.response.data"],
+        icon: 'onstar.svg',
+        label: function () {
+            //return this.name || 'cancel-start-vehicle';
+            var configCarName = RED.nodes.node(this.onstar2);
+            return configCarName.label()+" "+this.name;
+        },
+        oneditsave: function() {            
+            var editNodeName = $("#node-input-name").val();
+            if (editNodeName == '') {
+                $("#node-input-name").val("Cancel Start Vehicle");
+            }
+            $("#node-input-name").val();
+        },
+    });
+</script>
+
+<script type="text/javascript">
     RED.nodes.registerType('lock-myvehicle', {
         category: 'onstar2',
         color: '#7eb0ff',
@@ -164,62 +401,6 @@
     });
 </script>
 
-
-<script type="text/javascript">
-    RED.nodes.registerType('start-myvehicle', {
-        category: 'onstar2',
-        color: '#7eb0ff',
-        defaults: {
-            name: { value: 'Start Vehicle' },
-            onstar2: { value: 'Onstar Config', type: 'onstar2' }
-        },
-        inputs: 1,
-        outputs: 2,
-        outputLabels: ["Command Status","result.response.data"],
-        icon: 'onstar.svg',
-        label: function () {
-            //return this.name || 'start-vehicle';
-            var configCarName = RED.nodes.node(this.onstar2);
-            return configCarName.label()+" "+this.name;
-        },
-        oneditsave: function() {            
-            var editNodeName = $("#node-input-name").val();
-            if (editNodeName == '') {
-                $("#node-input-name").val("Start Vehicle");
-            }
-            $("#node-input-name").val();
-        },
-    });
-</script>
-
-<script type="text/javascript">
-    RED.nodes.registerType('cancel-start-myvehicle', {
-        category: 'onstar2',
-        color: '#7eb0ff',
-        defaults: {
-            name: { value: 'Cancel Start Vehicle' },
-            onstar2: { value: 'Onstar Config', type: 'onstar2' }
-        },
-        inputs: 1,
-        outputs: 2,
-        outputLabels: ["Command Status","result.response.data"],
-        icon: 'onstar.svg',
-        label: function () {
-            //return this.name || 'cancel-start-vehicle';
-            var configCarName = RED.nodes.node(this.onstar2);
-            return configCarName.label()+" "+this.name;
-        },
-        oneditsave: function() {            
-            var editNodeName = $("#node-input-name").val();
-            if (editNodeName == '') {
-                $("#node-input-name").val("Cancel Start Vehicle");
-            }
-            $("#node-input-name").val();
-        },
-    });
-</script>
-
-
 <script type="text/javascript">
     RED.nodes.registerType('alert-myvehicle', {
         category: 'onstar2',
@@ -278,33 +459,6 @@
 </script>
 
 <script type="text/javascript">
-    RED.nodes.registerType('alert-myvehicle-lights', {
-        category: 'onstar2',
-        color: '#7eb0ff',
-        defaults: {
-            name: { value: 'Alert Vehicle Lights Only' },
-            onstar2: { value: 'Onstar Config', type: 'onstar2' }
-        },
-        inputs: 1,
-        outputs: 2,
-        outputLabels: ["Command Status","result.response.data"],
-        icon: 'onstar.svg',
-        label: function () {
-            //return this.name || 'alert-vehicle';
-            var configCarName = RED.nodes.node(this.onstar2);
-            return configCarName.label()+" "+this.name;
-        },
-        oneditsave: function() {            
-            var editNodeName = $("#node-input-name").val();
-            if (editNodeName == '') {
-                $("#node-input-name").val("Alert Vehicle Lights Only");
-            }
-            $("#node-input-name").val();
-        },
-    });
-</script>
-
-<script type="text/javascript">
     RED.nodes.registerType('alert-myvehicle-horn', {
         category: 'onstar2',
         color: '#7eb0ff',
@@ -325,6 +479,33 @@
             var editNodeName = $("#node-input-name").val();
             if (editNodeName == '') {
                 $("#node-input-name").val("Alert Vehicle Horn Only");
+            }
+            $("#node-input-name").val();
+        },
+    });
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType('alert-myvehicle-lights', {
+        category: 'onstar2',
+        color: '#7eb0ff',
+        defaults: {
+            name: { value: 'Alert Vehicle Lights Only' },
+            onstar2: { value: 'Onstar Config', type: 'onstar2' }
+        },
+        inputs: 1,
+        outputs: 2,
+        outputLabels: ["Command Status","result.response.data"],
+        icon: 'onstar.svg',
+        label: function () {
+            //return this.name || 'alert-vehicle';
+            var configCarName = RED.nodes.node(this.onstar2);
+            return configCarName.label()+" "+this.name;
+        },
+        oneditsave: function() {            
+            var editNodeName = $("#node-input-name").val();
+            if (editNodeName == '') {
+                $("#node-input-name").val("Alert Vehicle Lights Only");
             }
             $("#node-input-name").val();
         },
@@ -359,26 +540,25 @@
 </script>
 
 <script type="text/javascript">
-    RED.nodes.registerType('locate-vehicle', {
+    RED.nodes.registerType('stop-lights', {
         category: 'onstar2',
         color: '#7eb0ff',
         defaults: {
-            name: { value: 'Get Vehicle Location' },
+            name: { value: 'Stop Lights' },
             onstar2: { value: 'Onstar Config', type: 'onstar2' }
         },
         inputs: 1,
         outputs: 2,
-        outputLabels: ["Location Information","result.response.data"],
+        outputLabels: ["Command Status","result.response.data"],
         icon: 'onstar.svg',
         label: function () {
-            //return this.name || 'location';
             var configCarName = RED.nodes.node(this.onstar2);
             return configCarName.label()+" "+this.name;
         },
         oneditsave: function() {
             var editNodeName = $("#node-input-name").val();
             if (editNodeName == '') {
-                $("#node-input-name").val("Get Vehicle Location");
+                $("#node-input-name").val("Stop Lights");
             }
             $("#node-input-name").val();
         },
@@ -439,32 +619,6 @@
 </script>
 
 <script type="text/javascript">
-    RED.nodes.registerType('get-ev-charging-metrics', {
-        category: 'onstar2',
-        color: '#7eb0ff',
-        defaults: {
-            name: { value: 'Get EV Charging Metrics' },
-            onstar2: { value: 'Onstar Config', type: 'onstar2' }
-        },
-        inputs: 1,
-        outputs: 2,
-        outputLabels: ["Charging Metrics","result.response.data"],
-        icon: 'onstar.svg',
-        label: function () {
-            var configCarName = RED.nodes.node(this.onstar2);
-            return configCarName.label()+" "+this.name;
-        },
-        oneditsave: function() {
-            var editNodeName = $("#node-input-name").val();
-            if (editNodeName == '') {
-                $("#node-input-name").val("Get EV Charging Metrics");
-            }
-            $("#node-input-name").val();
-        },
-    });
-</script>
-
-<script type="text/javascript">
     RED.nodes.registerType('refresh-ev-charging-metrics', {
         category: 'onstar2',
         color: '#7eb0ff',
@@ -484,162 +638,6 @@
             var editNodeName = $("#node-input-name").val();
             if (editNodeName == '') {
                 $("#node-input-name").val("Refresh EV Charging Metrics");
-            }
-            $("#node-input-name").val();
-        },
-    });
-</script>
-
-<script type="text/javascript">
-    RED.nodes.registerType('get-vehicle-details', {
-        category: 'onstar2',
-        color: '#7eb0ff',
-        defaults: {
-            name: { value: 'Get Vehicle Details' },
-            onstar2: { value: 'Onstar Config', type: 'onstar2' }
-        },
-        inputs: 1,
-        outputs: 2,
-        outputLabels: ["Vehicle Details","result"],
-        icon: 'onstar.svg',
-        label: function () {
-            var configCarName = RED.nodes.node(this.onstar2);
-            return configCarName.label()+" "+this.name;
-        },
-        oneditsave: function() {
-            var editNodeName = $("#node-input-name").val();
-            if (editNodeName == '') {
-                $("#node-input-name").val("Get Vehicle Details");
-            }
-            $("#node-input-name").val();
-        },
-    });
-</script>
-
-<script type="text/javascript">
-    RED.nodes.registerType('get-onstar-plan', {
-        category: 'onstar2',
-        color: '#7eb0ff',
-        defaults: {
-            name: { value: 'Get OnStar Plan' },
-            onstar2: { value: 'Onstar Config', type: 'onstar2' }
-        },
-        inputs: 1,
-        outputs: 2,
-        outputLabels: ["OnStar Plan","result"],
-        icon: 'onstar.svg',
-        label: function () {
-            var configCarName = RED.nodes.node(this.onstar2);
-            return configCarName.label()+" "+this.name;
-        },
-        oneditsave: function() {
-            var editNodeName = $("#node-input-name").val();
-            if (editNodeName == '') {
-                $("#node-input-name").val("Get OnStar Plan");
-            }
-            $("#node-input-name").val();
-        },
-    });
-</script>
-
-<script type="text/javascript">
-    RED.nodes.registerType('get-vehicle-recall-info', {
-        category: 'onstar2',
-        color: '#7eb0ff',
-        defaults: {
-            name: { value: 'Get Vehicle Recall Info' },
-            onstar2: { value: 'Onstar Config', type: 'onstar2' }
-        },
-        inputs: 1,
-        outputs: 2,
-        outputLabels: ["Recall Info","result"],
-        icon: 'onstar.svg',
-        label: function () {
-            var configCarName = RED.nodes.node(this.onstar2);
-            return configCarName.label()+" "+this.name;
-        },
-        oneditsave: function() {
-            var editNodeName = $("#node-input-name").val();
-            if (editNodeName == '') {
-                $("#node-input-name").val("Get Vehicle Recall Info");
-            }
-            $("#node-input-name").val();
-        },
-    });
-</script>
-
-<script type="text/javascript">
-    RED.nodes.registerType('get-warranty-info', {
-        category: 'onstar2',
-        color: '#7eb0ff',
-        defaults: {
-            name: { value: 'Get Warranty Info' },
-            onstar2: { value: 'Onstar Config', type: 'onstar2' }
-        },
-        inputs: 1,
-        outputs: 2,
-        outputLabels: ["Warranty Info","result"],
-        icon: 'onstar.svg',
-        label: function () {
-            var configCarName = RED.nodes.node(this.onstar2);
-            return configCarName.label()+" "+this.name;
-        },
-        oneditsave: function() {
-            var editNodeName = $("#node-input-name").val();
-            if (editNodeName == '') {
-                $("#node-input-name").val("Get Warranty Info");
-            }
-            $("#node-input-name").val();
-        },
-    });
-</script>
-
-<script type="text/javascript">
-    RED.nodes.registerType('get-sxm-subscription-info', {
-        category: 'onstar2',
-        color: '#7eb0ff',
-        defaults: {
-            name: { value: 'Get SXM Subscription Info' },
-            onstar2: { value: 'Onstar Config', type: 'onstar2' }
-        },
-        inputs: 1,
-        outputs: 2,
-        outputLabels: ["SXM Subscription Info","result"],
-        icon: 'onstar.svg',
-        label: function () {
-            var configCarName = RED.nodes.node(this.onstar2);
-            return configCarName.label()+" "+this.name;
-        },
-        oneditsave: function() {
-            var editNodeName = $("#node-input-name").val();
-            if (editNodeName == '') {
-                $("#node-input-name").val("Get SXM Subscription Info");
-            }
-            $("#node-input-name").val();
-        },
-    });
-</script>
-
-<script type="text/javascript">
-    RED.nodes.registerType('stop-lights', {
-        category: 'onstar2',
-        color: '#7eb0ff',
-        defaults: {
-            name: { value: 'Stop Lights' },
-            onstar2: { value: 'Onstar Config', type: 'onstar2' }
-        },
-        inputs: 1,
-        outputs: 2,
-        outputLabels: ["Command Status","result.response.data"],
-        icon: 'onstar.svg',
-        label: function () {
-            var configCarName = RED.nodes.node(this.onstar2);
-            return configCarName.label()+" "+this.name;
-        },
-        oneditsave: function() {
-            var editNodeName = $("#node-input-name").val();
-            if (editNodeName == '') {
-                $("#node-input-name").val("Stop Lights");
             }
             $("#node-input-name").val();
         },
@@ -734,6 +732,155 @@
     </p>
 </script>
 
+<script type="text/html" data-template-name="get-ev-charging-metrics">
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name" />
+    </div>
+    <div class="form-row">
+        <label for="node-input-onstar2"><i class="icon-tag"></i> Config</label>
+        <input type="text" id="node-input-onstar2" placeholder="Name" />
+    </div>
+</script>
+
+<script type="text/html" data-help-name="get-ev-charging-metrics">
+    <p>Retrieve current EV charging metrics (v3 API).
+        <br><br>Returns charging status, current battery level, estimated time to full charge, and other EV-specific data.
+        <br><br><b>Note:</b> This replaces the deprecated <code>getChargingProfile</code> method from v1 API.
+    </p>
+</script>
+
+<script type="text/html" data-template-name="get-onstar-plan">
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name" />
+    </div>
+    <div class="form-row">
+        <label for="node-input-onstar2"><i class="icon-tag"></i> Config</label>
+        <input type="text" id="node-input-onstar2" placeholder="Name" />
+    </div>
+</script>
+
+<script type="text/html" data-help-name="get-onstar-plan">
+    <p>Retrieve current OnStar subscription plan information (v3 API).
+        <br><br>Returns details about your active OnStar subscription including offers, active plans, orders, plan expiry info, and OnStar account status.
+    </p>
+    <p><strong>Note:</strong> The OnStar API only returns plan detail fields (<code>planInfo</code>, <code>planExpiryInfo</code>, <code>activePlans</code>, <code>orders</code>, <code>offers</code>) for primary account holders. Shared accounts will receive <code>onstarInfo</code> with the active status but plan details will be empty or may return partial errors that are handled gracefully.</p>
+</script>
+
+<script type="text/html" data-template-name="get-sxm-subscription-info">
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name" />
+    </div>
+    <div class="form-row">
+        <label for="node-input-onstar2"><i class="icon-tag"></i> Config</label>
+        <input type="text" id="node-input-onstar2" placeholder="Name" />
+    </div>
+</script>
+
+<script type="text/html" data-help-name="get-sxm-subscription-info">
+    <p>Retrieve SiriusXM satellite radio subscription information (v3 API).
+        <br><br>Returns subscription details including device ID, subscription status, channel account details, and deactivation info.
+    </p>
+</script>
+
+<script type="text/html" data-template-name="get-vehicle-details">
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name" />
+    </div>
+    <div class="form-row">
+        <label for="node-input-onstar2"><i class="icon-tag"></i> Config</label>
+        <input type="text" id="node-input-onstar2" placeholder="Name" />
+    </div>
+</script>
+
+<script type="text/html" data-help-name="get-vehicle-details">
+    <p>Retrieve detailed vehicle information (v3 API).
+        <br><br>Returns comprehensive details about the vehicle including model year, make, model, trim, and other vehicle specifications.
+    </p>
+</script>
+
+<script type="text/html" data-template-name="get-vehicle-recall-info">
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name" />
+    </div>
+    <div class="form-row">
+        <label for="node-input-onstar2"><i class="icon-tag"></i> Config</label>
+        <input type="text" id="node-input-onstar2" placeholder="Name" />
+    </div>
+</script>
+
+<script type="text/html" data-help-name="get-vehicle-recall-info">
+    <p>Check for any active recalls on your vehicle (v3 API).
+        <br><br>Returns information about any open recalls for your vehicle including recall descriptions and status.
+    </p>
+</script>
+
+<script type="text/html" data-template-name="get-warranty-info">
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name" />
+    </div>
+    <div class="form-row">
+        <label for="node-input-onstar2"><i class="icon-tag"></i> Config</label>
+        <input type="text" id="node-input-onstar2" placeholder="Name" />
+    </div>
+</script>
+
+<script type="text/html" data-help-name="get-warranty-info">
+    <p>Retrieve vehicle warranty information (v3 API).
+        <br><br>Returns warranty coverage details including warranty types (powertrain, bumper-to-bumper, corrosion, emissions, etc.), coverage dates, mileage limits, and current status.
+    </p>
+</script>
+
+<script type="text/html" data-template-name="locate-vehicle">
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name" />
+    </div>
+    <div class="form-row">
+        <label for="node-input-onstar2"><i class="icon-tag"></i> Config</label>
+        <input type="text" id="node-input-onstar2" placeholder="Name" />
+    </div>
+</script>
+
+<script type="text/html" data-help-name="locate-vehicle">
+    <p>Get vehicle location information.</p>
+</script>
+
+<script type="text/html" data-template-name="start-myvehicle">
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name" />
+    </div>
+    <div class="form-row">
+        <label for="node-input-onstar2"><i class="icon-tag"></i> Config</label>
+        <input type="text" id="node-input-onstar2" placeholder="Name" />
+    </div>
+</script>
+
+<script type="text/html" data-help-name="start-myvehicle">
+    <p>Start the vehicle remotely.</p>
+</script>
+
+<script type="text/html" data-template-name="cancel-start-myvehicle">
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name" />
+    </div>
+    <div class="form-row">
+        <label for="node-input-onstar2"><i class="icon-tag"></i> Config</label>
+        <input type="text" id="node-input-onstar2" placeholder="Name" />
+    </div>
+</script>
+
+<script type="text/html" data-help-name="cancel-start-myvehicle">
+    <p>Stop the vehicle if it was started remotely.</p>
+</script>
+
 <script type="text/html" data-template-name="lock-myvehicle">
     <div class="form-row">
         <label for="node-input-name"><i class="icon-tag"></i> Name</label>
@@ -810,36 +957,6 @@
     <p>Unlock vehicle trunk. Unlocks the trunk but doesn't automatically open it. All doors remain locked. Delay parameter is in minutes and is optional, but if not set in the config dialog, defaults to 0 (immediate/no delay) or the value sent to the input via "msg.payload.delay".</p>
 </script>
 
-<script type="text/html" data-template-name="start-myvehicle">
-    <div class="form-row">
-        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
-        <input type="text" id="node-input-name" placeholder="Name" />
-    </div>
-    <div class="form-row">
-        <label for="node-input-onstar2"><i class="icon-tag"></i> Config</label>
-        <input type="text" id="node-input-onstar2" placeholder="Name" />
-    </div>
-</script>
-
-<script type="text/html" data-help-name="start-myvehicle">
-    <p>Start the vehicle remotely.</p>
-</script>
-
-<script type="text/html" data-template-name="cancel-start-myvehicle">
-    <div class="form-row">
-        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
-        <input type="text" id="node-input-name" placeholder="Name" />
-    </div>
-    <div class="form-row">
-        <label for="node-input-onstar2"><i class="icon-tag"></i> Config</label>
-        <input type="text" id="node-input-onstar2" placeholder="Name" />
-    </div>
-</script>
-
-<script type="text/html" data-help-name="cancel-start-myvehicle">
-    <p>Stop the vehicle if it was started remotely.</p>
-</script>
-
 <script type="text/html" data-template-name="alert-myvehicle">
     <div class="form-row">
         <label for="node-input-name"><i class="icon-tag"></i> Name</label>
@@ -879,21 +996,6 @@
     </p>
 </script>
 
-<script type="text/html" data-template-name="alert-myvehicle-lights">
-    <div class="form-row">
-        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
-        <input type="text" id="node-input-name" placeholder="Name" />
-    </div>
-    <div class="form-row">
-        <label for="node-input-onstar2"><i class="icon-tag"></i> Config</label>
-        <input type="text" id="node-input-onstar2" placeholder="Name" />
-    </div>
-</script>
-
-<script type="text/html" data-help-name="alert-myvehicle-lights">
-    <p>Turn on vehicle alert (lights only).</p>
-</script>
-
 <script type="text/html" data-template-name="alert-myvehicle-horn">
     <div class="form-row">
         <label for="node-input-name"><i class="icon-tag"></i> Name</label>
@@ -909,6 +1011,20 @@
     <p>Turn on vehicle alert (horn only).</p>
 </script>
 
+<script type="text/html" data-template-name="alert-myvehicle-lights">
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name" />
+    </div>
+    <div class="form-row">
+        <label for="node-input-onstar2"><i class="icon-tag"></i> Config</label>
+        <input type="text" id="node-input-onstar2" placeholder="Name" />
+    </div>
+</script>
+
+<script type="text/html" data-help-name="alert-myvehicle-lights">
+    <p>Turn on vehicle alert (lights only).</p>
+</script>
 
 <script type="text/html" data-template-name="cancel-alert-myvehicle">
     <div class="form-row">
@@ -925,7 +1041,7 @@
     <p>Stop the vehicle alert.</p>
 </script>
 
-<script type="text/html" data-template-name="locate-vehicle">
+<script type="text/html" data-template-name="stop-lights">
     <div class="form-row">
         <label for="node-input-name"><i class="icon-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Name" />
@@ -936,8 +1052,10 @@
     </div>
 </script>
 
-<script type="text/html" data-help-name="locate-vehicle">
-    <p>Get vehicle location information.</p>
+<script type="text/html" data-help-name="stop-lights">
+    <p>Stop flashing vehicle lights (v3 API).
+        <br><br>Use this to cancel an active lights alert that was started with the Alert Vehicle Lights node.
+    </p>
 </script>
 
 <script type="text/html" data-template-name="set-charge-level-target">
@@ -980,24 +1098,6 @@
     </p>
 </script>
 
-<script type="text/html" data-template-name="get-ev-charging-metrics">
-    <div class="form-row">
-        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
-        <input type="text" id="node-input-name" placeholder="Name" />
-    </div>
-    <div class="form-row">
-        <label for="node-input-onstar2"><i class="icon-tag"></i> Config</label>
-        <input type="text" id="node-input-onstar2" placeholder="Name" />
-    </div>
-</script>
-
-<script type="text/html" data-help-name="get-ev-charging-metrics">
-    <p>Retrieve current EV charging metrics (v3 API).
-        <br><br>Returns charging status, current battery level, estimated time to full charge, and other EV-specific data.
-        <br><br><b>Note:</b> This replaces the deprecated <code>getChargingProfile</code> method from v1 API.
-    </p>
-</script>
-
 <script type="text/html" data-template-name="refresh-ev-charging-metrics">
     <div class="form-row">
         <label for="node-input-name"><i class="icon-tag"></i> Name</label>
@@ -1013,109 +1113,6 @@
     <p>Force-refresh and retrieve live EV charging metrics from the vehicle (v3 API).
         <br><br>This queries the vehicle for current data rather than using cached metrics. Use this when you need the most up-to-date information.
         <br><br><b>Note:</b> May take longer than <code>get-ev-charging-metrics</code> as it actively queries the vehicle.
-    </p>
-</script>
-
-<script type="text/html" data-template-name="get-vehicle-details">
-    <div class="form-row">
-        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
-        <input type="text" id="node-input-name" placeholder="Name" />
-    </div>
-    <div class="form-row">
-        <label for="node-input-onstar2"><i class="icon-tag"></i> Config</label>
-        <input type="text" id="node-input-onstar2" placeholder="Name" />
-    </div>
-</script>
-
-<script type="text/html" data-help-name="get-vehicle-details">
-    <p>Retrieve detailed vehicle information (v3 API).
-        <br><br>Returns comprehensive details about the vehicle including model year, make, model, trim, and other vehicle specifications.
-    </p>
-</script>
-
-<script type="text/html" data-template-name="get-onstar-plan">
-    <div class="form-row">
-        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
-        <input type="text" id="node-input-name" placeholder="Name" />
-    </div>
-    <div class="form-row">
-        <label for="node-input-onstar2"><i class="icon-tag"></i> Config</label>
-        <input type="text" id="node-input-onstar2" placeholder="Name" />
-    </div>
-</script>
-
-<script type="text/html" data-help-name="get-onstar-plan">
-    <p>Retrieve current OnStar subscription plan information (v3 API).
-        <br><br>Returns details about your active OnStar subscription including offers, active plans, orders, plan expiry info, and OnStar account status.
-    </p>
-    <p><strong>Note:</strong> The OnStar API only returns plan detail fields (<code>planInfo</code>, <code>planExpiryInfo</code>, <code>activePlans</code>, <code>orders</code>, <code>offers</code>) for primary account holders. Shared accounts will receive <code>onstarInfo</code> with the active status but plan details will be empty or may return partial errors that are handled gracefully.</p>
-</script>
-
-<script type="text/html" data-template-name="get-vehicle-recall-info">
-    <div class="form-row">
-        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
-        <input type="text" id="node-input-name" placeholder="Name" />
-    </div>
-    <div class="form-row">
-        <label for="node-input-onstar2"><i class="icon-tag"></i> Config</label>
-        <input type="text" id="node-input-onstar2" placeholder="Name" />
-    </div>
-</script>
-
-<script type="text/html" data-help-name="get-vehicle-recall-info">
-    <p>Check for any active recalls on your vehicle (v3 API).
-        <br><br>Returns information about any open recalls for your vehicle including recall descriptions and status.
-    </p>
-</script>
-
-<script type="text/html" data-template-name="stop-lights">
-    <div class="form-row">
-        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
-        <input type="text" id="node-input-name" placeholder="Name" />
-    </div>
-    <div class="form-row">
-        <label for="node-input-onstar2"><i class="icon-tag"></i> Config</label>
-        <input type="text" id="node-input-onstar2" placeholder="Name" />
-    </div>
-</script>
-
-<script type="text/html" data-help-name="stop-lights">
-    <p>Stop flashing vehicle lights (v3 API).
-        <br><br>Use this to cancel an active lights alert that was started with the Alert Vehicle Lights node.
-    </p>
-</script>
-
-<script type="text/html" data-template-name="get-warranty-info">
-    <div class="form-row">
-        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
-        <input type="text" id="node-input-name" placeholder="Name" />
-    </div>
-    <div class="form-row">
-        <label for="node-input-onstar2"><i class="icon-tag"></i> Config</label>
-        <input type="text" id="node-input-onstar2" placeholder="Name" />
-    </div>
-</script>
-
-<script type="text/html" data-help-name="get-warranty-info">
-    <p>Retrieve vehicle warranty information (v3 API).
-        <br><br>Returns warranty coverage details including warranty types (powertrain, bumper-to-bumper, corrosion, emissions, etc.), coverage dates, mileage limits, and current status.
-    </p>
-</script>
-
-<script type="text/html" data-template-name="get-sxm-subscription-info">
-    <div class="form-row">
-        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
-        <input type="text" id="node-input-name" placeholder="Name" />
-    </div>
-    <div class="form-row">
-        <label for="node-input-onstar2"><i class="icon-tag"></i> Config</label>
-        <input type="text" id="node-input-onstar2" placeholder="Name" />
-    </div>
-</script>
-
-<script type="text/html" data-help-name="get-sxm-subscription-info">
-    <p>Retrieve SiriusXM satellite radio subscription information (v3 API).
-        <br><br>Returns subscription details including device ID, subscription status, channel account details, and deactivation info.
     </p>
 </script>
 
