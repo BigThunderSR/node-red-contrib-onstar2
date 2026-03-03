@@ -53,7 +53,6 @@ module.exports = function(RED) {
             }
         });
     }
-    
     function GetDiagnostics(config) {
         RED.nodes.createNode(this, config);                
         const node = this;
@@ -86,7 +85,239 @@ module.exports = function(RED) {
             }
         });
     }
+    function GetEVChargingMetrics(config) {
+        RED.nodes.createNode(this, config);
+        const node = this;
 
+        node.on('input', async function (msg) {
+            try {
+                let configNode = RED.nodes.getNode(config.onstar2);
+                let client = createClient(configNode);
+                
+                // Optional parameters
+                let opts = {
+                    clientVersion: msg.payload.clientVersion,
+                    os: msg.payload.os
+                };
+                
+                // Remove undefined properties
+                Object.keys(opts).forEach(key => opts[key] === undefined && delete opts[key]);
+
+                let result = await client.getEVChargingMetrics(Object.keys(opts).length > 0 ? opts : undefined);
+                let msg1 = {payload: result.response?.data?.commandResponse?.body || result.response?.data};
+                let msg2 = {payload: result.response?.data || result};
+                node.send(
+                    [(msg1), (msg2)]
+                );
+            } catch (err) {
+                let errmsg = {payload: err}
+                node.send(
+                    [errmsg, errmsg]
+                );
+            }
+        });
+    }
+    function GetOnstarPlan(config) {
+        RED.nodes.createNode(this, config);
+        const node = this;
+
+        node.on('input', async function () {
+            try {
+                let configNode = RED.nodes.getNode(config.onstar2);
+                let client = createClient(configNode);
+                let result = await client.getOnstarPlan();
+                let msg1 = {payload: result.data || result};
+                let msg2 = {payload: result};
+                node.send(
+                    [(msg1), (msg2)]
+                );
+            } catch (err) {
+                let errmsg = {payload: err}
+                node.send(
+                    [errmsg, errmsg]
+                );
+            }
+        });
+    }
+    function GetSxmSubscriptionInfo(config) {
+        RED.nodes.createNode(this, config);
+        const node = this;
+
+        node.on('input', async function () {
+            try {
+                let configNode = RED.nodes.getNode(config.onstar2);
+                let client = createClient(configNode);
+                let result = await client.getSxmSubscriptionInfo();
+                let msg1 = {payload: result.data || result};
+                let msg2 = {payload: result};
+                node.send(
+                    [(msg1), (msg2)]
+                );
+            } catch (err) {
+                let errmsg = {payload: err}
+                node.send(
+                    [errmsg, errmsg]
+                );
+            }
+        });
+    }
+    function GetVehicleDetails(config) {
+        RED.nodes.createNode(this, config);
+        const node = this;
+
+        node.on('input', async function () {
+            try {
+                let configNode = RED.nodes.getNode(config.onstar2);
+                let client = createClient(configNode);
+                let result = await client.getVehicleDetails();
+                let msg1 = {payload: result.data || result};
+                let msg2 = {payload: result};
+                node.send(
+                    [(msg1), (msg2)]
+                );
+            } catch (err) {
+                let errmsg = {payload: err}
+                node.send(
+                    [errmsg, errmsg]
+                );
+            }
+        });
+    }
+    function GetVehicleRecallInfo(config) {
+        RED.nodes.createNode(this, config);
+        const node = this;
+
+        node.on('input', async function () {
+            try {
+                let configNode = RED.nodes.getNode(config.onstar2);
+                let client = createClient(configNode);
+                let result = await client.getVehicleRecallInfo();
+                let msg1 = {payload: result.data || result};
+                let msg2 = {payload: result};
+                node.send(
+                    [(msg1), (msg2)]
+                );
+            } catch (err) {
+                let errmsg = {payload: err}
+                node.send(
+                    [errmsg, errmsg]
+                );
+            }
+        });
+    }
+    function GetWarrantyInfo(config) {
+        RED.nodes.createNode(this, config);
+        const node = this;
+
+        node.on('input', async function () {
+            try {
+                let configNode = RED.nodes.getNode(config.onstar2);
+                let client = createClient(configNode);
+                let result = await client.getWarrantyInfo();
+                let msg1 = {payload: result.data || result};
+                let msg2 = {payload: result};
+                node.send(
+                    [(msg1), (msg2)]
+                );
+            } catch (err) {
+                let errmsg = {payload: err}
+                node.send(
+                    [errmsg, errmsg]
+                );
+            }
+        });
+    }
+    function LocateVehicle(config) {
+        RED.nodes.createNode(this, config);
+        const node = this;
+
+        //node.on('input', async function (msg) 
+        node.on('input', async function () {
+            try {
+                let configNode = RED.nodes.getNode(config.onstar2);
+
+                let client = createClient(configNode);
+                let result = await client.location();
+                // onstarjs2 v2.14.1+ returns location data in telemetry structure
+                const locationData = {
+                    location: {
+                        lat: result?.response?.data?.telemetry?.data?.position?.lat,
+                        long: result?.response?.data?.telemetry?.data?.position?.lng,
+                        elv: result?.response?.data?.telemetry?.data?.position?.elv,
+                        geohash: result?.response?.data?.telemetry?.data?.position?.geohash
+                    },
+                    velocity: result?.response?.data?.telemetry?.data?.velocity,
+                    timestamp: result?.response?.data?.telemetry?.occurredTs
+                };
+                let msg1 = {payload: locationData};
+                let msg2 = {payload: result.response?.data};
+                node.send(
+                    [(msg1), (msg2)]
+                );
+            } catch (err) {
+                let errmsg = {payload: err}
+                node.send(
+                    [errmsg, errmsg]
+                );
+            }
+        });
+    }
+    function StartVehicle(config) {
+        RED.nodes.createNode(this, config);
+        const node = this;
+
+        //node.on('input', async function (msg) 
+        node.on('input', async function () {
+            try {
+                let configNode = RED.nodes.getNode(config.onstar2);
+
+                let client = createClient(configNode);
+                let result = await client.start();
+                // onstarjs2 v2.14.1+ supports v3 API with v1 fallback
+                // v3: response.data.status, v1: response.data.commandResponse.status
+                const status = result.response?.data?.status || result.response?.data?.commandResponse?.status;
+                const requestId = result.response?.data?.requestId || result.response?.data?.commandResponse?.requestId;
+                let msg1 = {payload: {status, requestId}};
+                let msg2 = {payload: result.response?.data};
+                node.send(
+                    [(msg1), (msg2)]
+                );
+            } catch (err) {
+                let errmsg = {payload: err}
+                node.send(
+                    [errmsg, errmsg]
+                );
+            }
+        });
+    }
+    function CancelStartVehicle(config) {
+        RED.nodes.createNode(this, config);
+        const node = this;
+
+        //node.on('input', async function (msg) 
+        node.on('input', async function () {
+            try {
+                let configNode = RED.nodes.getNode(config.onstar2);
+
+                let client = createClient(configNode);
+                let result = await client.cancelStart();
+                // onstarjs2 v2.14.1+ supports v3 API with v1 fallback
+                // v3: response.data.status, v1: response.data.commandResponse.status
+                const status = result.response?.data?.status || result.response?.data?.commandResponse?.status;
+                const requestId = result.response?.data?.requestId || result.response?.data?.commandResponse?.requestId;
+                let msg1 = {payload: {status, requestId}};
+                let msg2 = {payload: result.response?.data};
+                node.send(
+                    [(msg1), (msg2)]
+                );
+            } catch (err) {
+                let errmsg = {payload: err}
+                node.send(
+                    [errmsg, errmsg]
+                );
+            }
+        });
+    }
     function LockVehicle(config) {
         RED.nodes.createNode(this, config);
         const node = this;
@@ -120,7 +351,6 @@ module.exports = function(RED) {
             }
         });
     }
-
     function UnlockVehicle(config) {
         RED.nodes.createNode(this, config);
         const node = this;
@@ -154,7 +384,6 @@ module.exports = function(RED) {
             }
         });
     }
-
     function LockTrunk(config) {
         RED.nodes.createNode(this, config);
         const node = this;
@@ -188,7 +417,6 @@ module.exports = function(RED) {
             }
         });
     }
-
     function UnlockTrunk(config) {
         RED.nodes.createNode(this, config);
         const node = this;
@@ -222,65 +450,6 @@ module.exports = function(RED) {
             }
         });
     }
-
-    function StartVehicle(config) {
-        RED.nodes.createNode(this, config);
-        const node = this;
-
-        //node.on('input', async function (msg) 
-        node.on('input', async function () {
-            try {
-                let configNode = RED.nodes.getNode(config.onstar2);
-
-                let client = createClient(configNode);
-                let result = await client.start();
-                // onstarjs2 v2.14.1+ supports v3 API with v1 fallback
-                // v3: response.data.status, v1: response.data.commandResponse.status
-                const status = result.response?.data?.status || result.response?.data?.commandResponse?.status;
-                const requestId = result.response?.data?.requestId || result.response?.data?.commandResponse?.requestId;
-                let msg1 = {payload: {status, requestId}};
-                let msg2 = {payload: result.response?.data};
-                node.send(
-                    [(msg1), (msg2)]
-                );
-            } catch (err) {
-                let errmsg = {payload: err}
-                node.send(
-                    [errmsg, errmsg]
-                );
-            }
-        });
-    }
-
-    function CancelStartVehicle(config) {
-        RED.nodes.createNode(this, config);
-        const node = this;
-
-        //node.on('input', async function (msg) 
-        node.on('input', async function () {
-            try {
-                let configNode = RED.nodes.getNode(config.onstar2);
-
-                let client = createClient(configNode);
-                let result = await client.cancelStart();
-                // onstarjs2 v2.14.1+ supports v3 API with v1 fallback
-                // v3: response.data.status, v1: response.data.commandResponse.status
-                const status = result.response?.data?.status || result.response?.data?.commandResponse?.status;
-                const requestId = result.response?.data?.requestId || result.response?.data?.commandResponse?.requestId;
-                let msg1 = {payload: {status, requestId}};
-                let msg2 = {payload: result.response?.data};
-                node.send(
-                    [(msg1), (msg2)]
-                );
-            } catch (err) {
-                let errmsg = {payload: err}
-                node.send(
-                    [errmsg, errmsg]
-                );
-            }
-        });
-    }
-
     function AlertVehicle(config) {
         RED.nodes.createNode(this, config);
         const node = this;
@@ -332,42 +501,6 @@ module.exports = function(RED) {
             }
         });
     }
-
-    function AlertVehicleLights(config) {
-        RED.nodes.createNode(this, config);
-        const node = this;
-
-        node.on('input', async function (msg) {
-            try {
-                let configNode = RED.nodes.getNode(config.onstar2);
-
-                let client = createClient(configNode);
-                let request = {
-                    action: msg.payload.action || ["Flash"],
-                    delay: msg.payload.delay || 0,
-                    duration: msg.payload.duration || 1,
-                    override: msg.payload.override || ["DoorOpen", "IgnitionOn"]
-                };
-
-                let result = await client.alert(request);
-                // onstarjs2 v2.14.1+ supports v3 API with v1 fallback
-                // v3: response.data.status, v1: response.data.commandResponse.status
-                const status = result.response?.data?.status || result.response?.data?.commandResponse?.status;
-                const requestId = result.response?.data?.requestId || result.response?.data?.commandResponse?.requestId;
-                let msg1 = {payload: {status, requestId}};
-                let msg2 = {payload: result.response?.data};
-                node.send(
-                    [(msg1), (msg2)]
-                );
-            } catch (err) {
-                let errmsg = {payload: err}
-                node.send(
-                    [errmsg, errmsg]
-                );
-            }
-        });
-    }
-
     function AlertVehicleHorn(config) {
         RED.nodes.createNode(this, config);
         const node = this;
@@ -402,7 +535,40 @@ module.exports = function(RED) {
             }
         });
     }
-    
+    function AlertVehicleLights(config) {
+        RED.nodes.createNode(this, config);
+        const node = this;
+
+        node.on('input', async function (msg) {
+            try {
+                let configNode = RED.nodes.getNode(config.onstar2);
+
+                let client = createClient(configNode);
+                let request = {
+                    action: msg.payload.action || ["Flash"],
+                    delay: msg.payload.delay || 0,
+                    duration: msg.payload.duration || 1,
+                    override: msg.payload.override || ["DoorOpen", "IgnitionOn"]
+                };
+
+                let result = await client.alert(request);
+                // onstarjs2 v2.14.1+ supports v3 API with v1 fallback
+                // v3: response.data.status, v1: response.data.commandResponse.status
+                const status = result.response?.data?.status || result.response?.data?.commandResponse?.status;
+                const requestId = result.response?.data?.requestId || result.response?.data?.commandResponse?.requestId;
+                let msg1 = {payload: {status, requestId}};
+                let msg2 = {payload: result.response?.data};
+                node.send(
+                    [(msg1), (msg2)]
+                );
+            } catch (err) {
+                let errmsg = {payload: err}
+                node.send(
+                    [errmsg, errmsg]
+                );
+            }
+        });
+    }
     function CancelAlertVehicle(config) {
         RED.nodes.createNode(this, config);
         const node = this;
@@ -431,31 +597,19 @@ module.exports = function(RED) {
             }
         });
     }
-
-    function LocateVehicle(config) {
+    function StopLights(config) {
         RED.nodes.createNode(this, config);
         const node = this;
 
-        //node.on('input', async function (msg) 
         node.on('input', async function () {
             try {
                 let configNode = RED.nodes.getNode(config.onstar2);
-
                 let client = createClient(configNode);
-                let result = await client.location();
-                // onstarjs2 v2.14.1+ returns location data in telemetry structure
-                const locationData = {
-                    location: {
-                        lat: result?.response?.data?.telemetry?.data?.position?.lat,
-                        long: result?.response?.data?.telemetry?.data?.position?.lng,
-                        elv: result?.response?.data?.telemetry?.data?.position?.elv,
-                        geohash: result?.response?.data?.telemetry?.data?.position?.geohash
-                    },
-                    velocity: result?.response?.data?.telemetry?.data?.velocity,
-                    timestamp: result?.response?.data?.telemetry?.occurredTs
-                };
-                let msg1 = {payload: locationData};
-                let msg2 = {payload: result.response?.data};
+                let result = await client.stopLights();
+                const status = result.response?.data?.status || result.response?.data?.commandResponse?.status;
+                const requestId = result.response?.data?.requestId || result.response?.data?.commandResponse?.requestId;
+                let msg1 = {payload: {status, requestId}};
+                let msg2 = {payload: result.response?.data || result};
                 node.send(
                     [(msg1), (msg2)]
                 );
@@ -467,7 +621,6 @@ module.exports = function(RED) {
             }
         });
     }
-
     function SetChargeLevelTarget(config) {
         RED.nodes.createNode(this, config);
         const node = this;
@@ -506,7 +659,6 @@ module.exports = function(RED) {
             }
         });
     }
-
     function StopCharging(config) {
         RED.nodes.createNode(this, config);
         const node = this;
@@ -541,40 +693,6 @@ module.exports = function(RED) {
             }
         });
     }
-
-    function GetEVChargingMetrics(config) {
-        RED.nodes.createNode(this, config);
-        const node = this;
-
-        node.on('input', async function (msg) {
-            try {
-                let configNode = RED.nodes.getNode(config.onstar2);
-                let client = createClient(configNode);
-                
-                // Optional parameters
-                let opts = {
-                    clientVersion: msg.payload.clientVersion,
-                    os: msg.payload.os
-                };
-                
-                // Remove undefined properties
-                Object.keys(opts).forEach(key => opts[key] === undefined && delete opts[key]);
-
-                let result = await client.getEVChargingMetrics(Object.keys(opts).length > 0 ? opts : undefined);
-                let msg1 = {payload: result.response?.data?.commandResponse?.body || result.response?.data};
-                let msg2 = {payload: result.response?.data || result};
-                node.send(
-                    [(msg1), (msg2)]
-                );
-            } catch (err) {
-                let errmsg = {payload: err}
-                node.send(
-                    [errmsg, errmsg]
-                );
-            }
-        });
-    }
-
     function RefreshEVChargingMetrics(config) {
         RED.nodes.createNode(this, config);
         const node = this;
@@ -607,147 +725,6 @@ module.exports = function(RED) {
             }
         });
     }
-
-    function GetVehicleDetails(config) {
-        RED.nodes.createNode(this, config);
-        const node = this;
-
-        node.on('input', async function () {
-            try {
-                let configNode = RED.nodes.getNode(config.onstar2);
-                let client = createClient(configNode);
-                let result = await client.getVehicleDetails();
-                let msg1 = {payload: result.data || result};
-                let msg2 = {payload: result};
-                node.send(
-                    [(msg1), (msg2)]
-                );
-            } catch (err) {
-                let errmsg = {payload: err}
-                node.send(
-                    [errmsg, errmsg]
-                );
-            }
-        });
-    }
-
-    function GetOnstarPlan(config) {
-        RED.nodes.createNode(this, config);
-        const node = this;
-
-        node.on('input', async function () {
-            try {
-                let configNode = RED.nodes.getNode(config.onstar2);
-                let client = createClient(configNode);
-                let result = await client.getOnstarPlan();
-                let msg1 = {payload: result.data || result};
-                let msg2 = {payload: result};
-                node.send(
-                    [(msg1), (msg2)]
-                );
-            } catch (err) {
-                let errmsg = {payload: err}
-                node.send(
-                    [errmsg, errmsg]
-                );
-            }
-        });
-    }
-
-    function GetVehicleRecallInfo(config) {
-        RED.nodes.createNode(this, config);
-        const node = this;
-
-        node.on('input', async function () {
-            try {
-                let configNode = RED.nodes.getNode(config.onstar2);
-                let client = createClient(configNode);
-                let result = await client.getVehicleRecallInfo();
-                let msg1 = {payload: result.data || result};
-                let msg2 = {payload: result};
-                node.send(
-                    [(msg1), (msg2)]
-                );
-            } catch (err) {
-                let errmsg = {payload: err}
-                node.send(
-                    [errmsg, errmsg]
-                );
-            }
-        });
-    }
-
-    function GetWarrantyInfo(config) {
-        RED.nodes.createNode(this, config);
-        const node = this;
-
-        node.on('input', async function () {
-            try {
-                let configNode = RED.nodes.getNode(config.onstar2);
-                let client = createClient(configNode);
-                let result = await client.getWarrantyInfo();
-                let msg1 = {payload: result.data || result};
-                let msg2 = {payload: result};
-                node.send(
-                    [(msg1), (msg2)]
-                );
-            } catch (err) {
-                let errmsg = {payload: err}
-                node.send(
-                    [errmsg, errmsg]
-                );
-            }
-        });
-    }
-
-    function GetSxmSubscriptionInfo(config) {
-        RED.nodes.createNode(this, config);
-        const node = this;
-
-        node.on('input', async function () {
-            try {
-                let configNode = RED.nodes.getNode(config.onstar2);
-                let client = createClient(configNode);
-                let result = await client.getSxmSubscriptionInfo();
-                let msg1 = {payload: result.data || result};
-                let msg2 = {payload: result};
-                node.send(
-                    [(msg1), (msg2)]
-                );
-            } catch (err) {
-                let errmsg = {payload: err}
-                node.send(
-                    [errmsg, errmsg]
-                );
-            }
-        });
-    }
-
-    function StopLights(config) {
-        RED.nodes.createNode(this, config);
-        const node = this;
-
-        node.on('input', async function () {
-            try {
-                let configNode = RED.nodes.getNode(config.onstar2);
-                let client = createClient(configNode);
-                let result = await client.stopLights();
-                const status = result.response?.data?.status || result.response?.data?.commandResponse?.status;
-                const requestId = result.response?.data?.requestId || result.response?.data?.commandResponse?.requestId;
-                let msg1 = {payload: {status, requestId}};
-                let msg2 = {payload: result.response?.data || result};
-                node.send(
-                    [(msg1), (msg2)]
-                );
-            } catch (err) {
-                let errmsg = {payload: err}
-                node.send(
-                    [errmsg, errmsg]
-                );
-            }
-        });
-    }
-
     function OnStarNode(config) {
         RED.nodes.createNode(this, config);
         this.username = config.username;
@@ -765,25 +742,25 @@ module.exports = function(RED) {
     RED.nodes.registerType('onstar2', OnStarNode);
     RED.nodes.registerType('get-account-vehicles', GetAccountVehicles);
     RED.nodes.registerType('get-diagnostics', GetDiagnostics);
+    RED.nodes.registerType('get-ev-charging-metrics', GetEVChargingMetrics);
+    RED.nodes.registerType('get-onstar-plan', GetOnstarPlan);
+    RED.nodes.registerType('get-sxm-subscription-info', GetSxmSubscriptionInfo);
+    RED.nodes.registerType('get-vehicle-details', GetVehicleDetails);
+    RED.nodes.registerType('get-vehicle-recall-info', GetVehicleRecallInfo);
+    RED.nodes.registerType('get-warranty-info', GetWarrantyInfo);
+    RED.nodes.registerType('locate-vehicle', LocateVehicle);
+    RED.nodes.registerType('start-myvehicle', StartVehicle);
+    RED.nodes.registerType('cancel-start-myvehicle', CancelStartVehicle);
     RED.nodes.registerType('lock-myvehicle', LockVehicle);
     RED.nodes.registerType('unlock-myvehicle', UnlockVehicle);
     RED.nodes.registerType('lock-mytrunk', LockTrunk);
     RED.nodes.registerType('unlock-mytrunk', UnlockTrunk);
-    RED.nodes.registerType('start-myvehicle', StartVehicle);
-    RED.nodes.registerType('cancel-start-myvehicle', CancelStartVehicle);
     RED.nodes.registerType('alert-myvehicle', AlertVehicle);
-    RED.nodes.registerType('alert-myvehicle-lights', AlertVehicleLights);
     RED.nodes.registerType('alert-myvehicle-horn', AlertVehicleHorn);
+    RED.nodes.registerType('alert-myvehicle-lights', AlertVehicleLights);
     RED.nodes.registerType('cancel-alert-myvehicle', CancelAlertVehicle);
-    RED.nodes.registerType('locate-vehicle', LocateVehicle);
+    RED.nodes.registerType('stop-lights', StopLights);
     RED.nodes.registerType('set-charge-level-target', SetChargeLevelTarget);
     RED.nodes.registerType('stop-charging', StopCharging);
-    RED.nodes.registerType('get-ev-charging-metrics', GetEVChargingMetrics);
     RED.nodes.registerType('refresh-ev-charging-metrics', RefreshEVChargingMetrics);
-    RED.nodes.registerType('get-vehicle-details', GetVehicleDetails);
-    RED.nodes.registerType('get-onstar-plan', GetOnstarPlan);
-    RED.nodes.registerType('get-vehicle-recall-info', GetVehicleRecallInfo);
-    RED.nodes.registerType('get-warranty-info', GetWarrantyInfo);
-    RED.nodes.registerType('get-sxm-subscription-info', GetSxmSubscriptionInfo);
-    RED.nodes.registerType('stop-lights', StopLights);
 }
