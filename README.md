@@ -124,6 +124,10 @@ The v3 API provides:
 - Get Vehicle Details
 - Get OnStar Plan
 - Get Vehicle Recall Info
+- Get Warranty Info
+- Get SXM Subscription Info
+
+> **Note:** The OnStar API only returns plan detail fields (`planInfo`, `planExpiryInfo`, `activePlans`, `orders`, `offers`) for primary account holders. Shared accounts will receive `onstarInfo` with the active status but plan details will be empty or may return partial errors that are handled gracefully.
 
 ### EV Charging Control (v3 API)
 
@@ -197,6 +201,8 @@ Comprehensive mocked tests for OnStar operations:
 - **start-myvehicle**: Mock successful remote start
 - **cancel-start-myvehicle**: Mock successful remote start cancellation
 - **alert-myvehicle**: Mock successful vehicle alerts (honk/flash)
+- **get-warranty-info**: Mock vehicle warranty information
+- **get-sxm-subscription-info**: Mock SiriusXM subscription information
 - **get-mycharge-profile**: Mock EV charging profile data
 - **mycharge-override**: Mock charging override commands
 

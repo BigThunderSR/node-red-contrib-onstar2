@@ -971,13 +971,105 @@
         ]
     },
     {
+        "id": "a7b8c9d0e1f23456",
+        "type": "get-warranty-info",
+        "z": "4675ad755acd7bf0",
+        "name": "Get Warranty Info",
+        "onstar2": "be898e0ea720276d",
+        "x": 530,
+        "y": 1300,
+        "wires": [
+            [
+                "0a01acc5e4d92829"
+            ],
+            [
+                "944af7a03383e640"
+            ]
+        ]
+    },
+    {
+        "id": "b8c9d0e1f2a34567",
+        "type": "inject",
+        "z": "4675ad755acd7bf0",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 260,
+        "y": 1300,
+        "wires": [
+            [
+                "a7b8c9d0e1f23456"
+            ]
+        ]
+    },
+    {
+        "id": "c9d0e1f2a3b45678",
+        "type": "get-sxm-subscription-info",
+        "z": "4675ad755acd7bf0",
+        "name": "Get SXM Subscription Info",
+        "onstar2": "be898e0ea720276d",
+        "x": 550,
+        "y": 1360,
+        "wires": [
+            [
+                "0a01acc5e4d92829"
+            ],
+            [
+                "944af7a03383e640"
+            ]
+        ]
+    },
+    {
+        "id": "d0e1f2a3b4c56789",
+        "type": "inject",
+        "z": "4675ad755acd7bf0",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 260,
+        "y": 1360,
+        "wires": [
+            [
+                "c9d0e1f2a3b45678"
+            ]
+        ]
+    },
+    {
         "id": "a1b2c3d4e5f6abcd",
         "type": "stop-lights",
         "z": "4675ad755acd7bf0",
         "name": "Stop Lights",
         "onstar2": "be898e0ea720276d",
         "x": 510,
-        "y": 1300,
+        "y": 1420,
         "wires": [
             [
                 "0a01acc5e4d92829"
@@ -1009,7 +1101,7 @@
         "payload": "",
         "payloadType": "date",
         "x": 260,
-        "y": 1300,
+        "y": 1420,
         "wires": [
             [
                 "a1b2c3d4e5f6abcd"

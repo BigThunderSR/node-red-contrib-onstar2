@@ -569,6 +569,58 @@
 </script>
 
 <script type="text/javascript">
+    RED.nodes.registerType('get-warranty-info', {
+        category: 'onstar2',
+        color: '#7eb0ff',
+        defaults: {
+            name: { value: 'Get Warranty Info' },
+            onstar2: { value: 'Onstar Config', type: 'onstar2' }
+        },
+        inputs: 1,
+        outputs: 2,
+        outputLabels: ["Warranty Info","result"],
+        icon: 'onstar.svg',
+        label: function () {
+            var configCarName = RED.nodes.node(this.onstar2);
+            return configCarName.label()+" "+this.name;
+        },
+        oneditsave: function() {
+            var editNodeName = $("#node-input-name").val();
+            if (editNodeName == '') {
+                $("#node-input-name").val("Get Warranty Info");
+            }
+            $("#node-input-name").val();
+        },
+    });
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType('get-sxm-subscription-info', {
+        category: 'onstar2',
+        color: '#7eb0ff',
+        defaults: {
+            name: { value: 'Get SXM Subscription Info' },
+            onstar2: { value: 'Onstar Config', type: 'onstar2' }
+        },
+        inputs: 1,
+        outputs: 2,
+        outputLabels: ["SXM Subscription Info","result"],
+        icon: 'onstar.svg',
+        label: function () {
+            var configCarName = RED.nodes.node(this.onstar2);
+            return configCarName.label()+" "+this.name;
+        },
+        oneditsave: function() {
+            var editNodeName = $("#node-input-name").val();
+            if (editNodeName == '') {
+                $("#node-input-name").val("Get SXM Subscription Info");
+            }
+            $("#node-input-name").val();
+        },
+    });
+</script>
+
+<script type="text/javascript">
     RED.nodes.registerType('stop-lights', {
         category: 'onstar2',
         color: '#7eb0ff',
@@ -994,8 +1046,9 @@
 
 <script type="text/html" data-help-name="get-onstar-plan">
     <p>Retrieve current OnStar subscription plan information (v3 API).
-        <br><br>Returns details about your active OnStar subscription including plan features and status.
+        <br><br>Returns details about your active OnStar subscription including offers, active plans, orders, plan expiry info, and OnStar account status.
     </p>
+    <p><strong>Note:</strong> The OnStar API only returns plan detail fields (<code>planInfo</code>, <code>planExpiryInfo</code>, <code>activePlans</code>, <code>orders</code>, <code>offers</code>) for primary account holders. Shared accounts will receive <code>onstarInfo</code> with the active status but plan details will be empty or may return partial errors that are handled gracefully.</p>
 </script>
 
 <script type="text/html" data-template-name="get-vehicle-recall-info">
@@ -1029,6 +1082,40 @@
 <script type="text/html" data-help-name="stop-lights">
     <p>Stop flashing vehicle lights (v3 API).
         <br><br>Use this to cancel an active lights alert that was started with the Alert Vehicle Lights node.
+    </p>
+</script>
+
+<script type="text/html" data-template-name="get-warranty-info">
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name" />
+    </div>
+    <div class="form-row">
+        <label for="node-input-onstar2"><i class="icon-tag"></i> Config</label>
+        <input type="text" id="node-input-onstar2" placeholder="Name" />
+    </div>
+</script>
+
+<script type="text/html" data-help-name="get-warranty-info">
+    <p>Retrieve vehicle warranty information (v3 API).
+        <br><br>Returns warranty coverage details including warranty types (powertrain, bumper-to-bumper, corrosion, emissions, etc.), coverage dates, mileage limits, and current status.
+    </p>
+</script>
+
+<script type="text/html" data-template-name="get-sxm-subscription-info">
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name" />
+    </div>
+    <div class="form-row">
+        <label for="node-input-onstar2"><i class="icon-tag"></i> Config</label>
+        <input type="text" id="node-input-onstar2" placeholder="Name" />
+    </div>
+</script>
+
+<script type="text/html" data-help-name="get-sxm-subscription-info">
+    <p>Retrieve SiriusXM satellite radio subscription information (v3 API).
+        <br><br>Returns subscription details including device ID, subscription status, channel account details, and deactivation info.
     </p>
 </script>
 

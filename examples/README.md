@@ -85,6 +85,43 @@ Contains cleaned, structured data for easy use in your flows.
 - **Get Diagnostics**:
   Returns all available diagnostic data from the vehicle (v3 API automatically returns complete diagnostics).
 
+- **Get Warranty Info**:
+
+  ```json
+  {
+    "vehicleDetails": {
+      "warrantyInfo": [
+        {
+          "warrantyType": "Bumper-to-Bumper",
+          "expirationDate": "2024-03-15",
+          "expirationMileage": 36000,
+          "coverageDescription": "Basic vehicle coverage"
+        },
+        {
+          "warrantyType": "Powertrain",
+          "expirationDate": "2026-03-15",
+          "expirationMileage": 60000,
+          "coverageDescription": "Engine and transmission coverage"
+        }
+      ]
+    }
+  }
+  ```
+
+- **Get SXM Subscription Info**:
+
+  ```json
+  {
+    "vehicleDetails": {
+      "sxmSubscriptionInfo": {
+        "deviceId": "device-123",
+        "subscriptionStatus": "ACTIVE",
+        "channelAccount": "SXM-12345"
+      }
+    }
+  }
+  ```
+
 #### Output 2 (Bottom Wire) - Raw API Response
 
 Contains the complete, unmodified response from the OnStar API, useful for debugging or accessing additional metadata.
@@ -115,8 +152,12 @@ The example flow includes all available nodes:
 - **Get Vehicle Details** - Returns comprehensive vehicle information (make, model, year, RPO codes, etc.)
 - **Get OnStar Plan** - Returns current OnStar subscription plan information
 - **Get Vehicle Recall Info** - Check for any active recalls on your vehicle
+- **Get Warranty Info** - Returns vehicle warranty information
+- **Get SXM Subscription Info** - Returns SiriusXM subscription information
 - **Diagnostics** - Returns comprehensive vehicle diagnostic data (v3 API)
 - **Get Vehicle Location** - Returns GPS coordinates, velocity, and timestamp
+
+> **Note:** The OnStar API only returns plan detail fields (`planInfo`, `planExpiryInfo`, `activePlans`, `orders`, `offers`) for primary account holders. Shared accounts will receive `onstarInfo` with the active status but plan details will be empty or may return partial errors that are handled gracefully.
 
 #### Vehicle Control
 
@@ -182,7 +223,7 @@ If commands fail:
 
 ### API Version Information
 
-This example flow uses **onstarjs2 v2.14.1+** which:
+This example flow uses **onstarjs2 v2.16.0+** which:
 
 - Automatically uses v3 API for action commands with v1 fallback
 - Uses v3 API exclusively for diagnostics (returns all diagnostics automatically)

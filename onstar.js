@@ -677,6 +677,52 @@ module.exports = function(RED) {
         });
     }
 
+    function GetWarrantyInfo(config) {
+        RED.nodes.createNode(this, config);
+        const node = this;
+
+        node.on('input', async function () {
+            try {
+                let configNode = RED.nodes.getNode(config.onstar2);
+                let client = createClient(configNode);
+                let result = await client.getWarrantyInfo();
+                let msg1 = {payload: result.data || result};
+                let msg2 = {payload: result};
+                node.send(
+                    [(msg1), (msg2)]
+                );
+            } catch (err) {
+                let errmsg = {payload: err}
+                node.send(
+                    [errmsg, errmsg]
+                );
+            }
+        });
+    }
+
+    function GetSxmSubscriptionInfo(config) {
+        RED.nodes.createNode(this, config);
+        const node = this;
+
+        node.on('input', async function () {
+            try {
+                let configNode = RED.nodes.getNode(config.onstar2);
+                let client = createClient(configNode);
+                let result = await client.getSxmSubscriptionInfo();
+                let msg1 = {payload: result.data || result};
+                let msg2 = {payload: result};
+                node.send(
+                    [(msg1), (msg2)]
+                );
+            } catch (err) {
+                let errmsg = {payload: err}
+                node.send(
+                    [errmsg, errmsg]
+                );
+            }
+        });
+    }
+
     function StopLights(config) {
         RED.nodes.createNode(this, config);
         const node = this;
@@ -737,5 +783,7 @@ module.exports = function(RED) {
     RED.nodes.registerType('get-vehicle-details', GetVehicleDetails);
     RED.nodes.registerType('get-onstar-plan', GetOnstarPlan);
     RED.nodes.registerType('get-vehicle-recall-info', GetVehicleRecallInfo);
+    RED.nodes.registerType('get-warranty-info', GetWarrantyInfo);
+    RED.nodes.registerType('get-sxm-subscription-info', GetSxmSubscriptionInfo);
     RED.nodes.registerType('stop-lights', StopLights);
 }
