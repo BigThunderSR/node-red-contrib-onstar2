@@ -972,6 +972,174 @@ describe('OnStar Functionality Tests (Mocked)', function () {
     });
   });
 
+  describe('get-warranty-info', function () {
+    it('Should return warranty info successfully', function (done) {
+      // Mock response matching onstarjs2 v2.16.0 WarrantyInfoResponse structure
+      var mockWarrantyInfoResponse = {
+        errors: [],
+        data: {
+          vehicleDetails: {
+            warrantyInfo: [
+              {
+                warrantyType: 'Bumper-to-Bumper',
+                startDate: '2018-04-27',
+                endDate: '2021-04-26',
+                mileageLimit: 36000,
+                status: 'Expired'
+              },
+              {
+                warrantyType: 'Powertrain',
+                startDate: '2018-04-27',
+                endDate: '2023-04-26',
+                mileageLimit: 60000,
+                status: 'Expired'
+              },
+              {
+                warrantyType: 'Corrosion',
+                startDate: '2018-04-27',
+                endDate: '2024-04-26',
+                mileageLimit: 100000,
+                status: 'Active'
+              }
+            ]
+          }
+        },
+        extensions: null,
+        dataPresent: true
+      };
+
+      var mockClient = {
+        getWarrantyInfo: sinon.stub().resolves(mockWarrantyInfoResponse)
+      };
+      sandbox.stub(OnStarJS, 'create').returns(mockClient);
+
+      var flow = [
+        { id:"n1",type:"get-warranty-info",name:"Get Warranty Info",onstar2:"config1",wires:[["n2"],["n3"]] },
+        { id:"config1",type:"onstar2",carname:"TestCar",username:"test@example.com",password:"testpass",pin:"1234",vin:"1G1ZB5ST5JF260429",deviceid:"test-device-id",totp:"TESTTOTP",checkrequeststatus:"true",requestpollingtimeoutseconds:"90",requestpollingintervalseconds:"6" },
+        { id: "n2", type: "helper" },
+        { id: "n3", type: "helper" }
+      ];
+
+      helper.load(onStar, flow, function () {
+        var n1 = helper.getNode("n1");
+        var n2 = helper.getNode("n2");
+        var n3 = helper.getNode("n3");
+
+        var processedDataReceived = false;
+        var rawDataReceived = false;
+
+        n2.on("input", function (msg) {
+          try {
+            processedDataReceived = true;
+            // Node outputs result.data or result
+            msg.payload.should.have.property('vehicleDetails');
+            msg.payload.vehicleDetails.should.have.property('warrantyInfo');
+            msg.payload.vehicleDetails.warrantyInfo.should.be.an.Array();
+            msg.payload.vehicleDetails.warrantyInfo.length.should.equal(3);
+            msg.payload.vehicleDetails.warrantyInfo[0].should.have.property('warrantyType', 'Bumper-to-Bumper');
+            msg.payload.vehicleDetails.warrantyInfo[1].should.have.property('warrantyType', 'Powertrain');
+            
+            if (processedDataReceived && rawDataReceived) done();
+          } catch(err) {
+            done(err);
+          }
+        });
+
+        n3.on("input", function (msg) {
+          try {
+            rawDataReceived = true;
+            // Second output returns full result
+            msg.payload.should.have.property('errors');
+            msg.payload.should.have.property('data');
+            msg.payload.should.have.property('dataPresent', true);
+            
+            if (processedDataReceived && rawDataReceived) done();
+          } catch(err) {
+            done(err);
+          }
+        });
+
+        n1.receive({ payload: "test" });
+      });
+    });
+  });
+
+  describe('get-sxm-subscription-info', function () {
+    it('Should return SXM subscription info successfully', function (done) {
+      // Mock response matching onstarjs2 v2.16.0 SxmSubscriptionInfoResponse structure
+      var mockSxmSubscriptionInfoResponse = {
+        errors: [],
+        data: {
+          vehicleDetails: {
+            sxmSubscriptionInfo: {
+              deviceId: 'SXM-DEVICE-123456',
+              subscriptionStatus: 'Active',
+              channelAccount: {
+                accountId: 'ACCT-789',
+                status: 'Active'
+              },
+              deactivationInfo: null
+            }
+          }
+        },
+        extensions: null,
+        dataPresent: true
+      };
+
+      var mockClient = {
+        getSxmSubscriptionInfo: sinon.stub().resolves(mockSxmSubscriptionInfoResponse)
+      };
+      sandbox.stub(OnStarJS, 'create').returns(mockClient);
+
+      var flow = [
+        { id:"n1",type:"get-sxm-subscription-info",name:"Get SXM Subscription Info",onstar2:"config1",wires:[["n2"],["n3"]] },
+        { id:"config1",type:"onstar2",carname:"TestCar",username:"test@example.com",password:"testpass",pin:"1234",vin:"1G1ZB5ST5JF260429",deviceid:"test-device-id",totp:"TESTTOTP",checkrequeststatus:"true",requestpollingtimeoutseconds:"90",requestpollingintervalseconds:"6" },
+        { id: "n2", type: "helper" },
+        { id: "n3", type: "helper" }
+      ];
+
+      helper.load(onStar, flow, function () {
+        var n1 = helper.getNode("n1");
+        var n2 = helper.getNode("n2");
+        var n3 = helper.getNode("n3");
+
+        var processedDataReceived = false;
+        var rawDataReceived = false;
+
+        n2.on("input", function (msg) {
+          try {
+            processedDataReceived = true;
+            // Node outputs result.data or result
+            msg.payload.should.have.property('vehicleDetails');
+            msg.payload.vehicleDetails.should.have.property('sxmSubscriptionInfo');
+            msg.payload.vehicleDetails.sxmSubscriptionInfo.should.have.property('deviceId', 'SXM-DEVICE-123456');
+            msg.payload.vehicleDetails.sxmSubscriptionInfo.should.have.property('subscriptionStatus', 'Active');
+            
+            if (processedDataReceived && rawDataReceived) done();
+          } catch(err) {
+            done(err);
+          }
+        });
+
+        n3.on("input", function (msg) {
+          try {
+            rawDataReceived = true;
+            // Second output returns full result
+            msg.payload.should.have.property('errors');
+            msg.payload.should.have.property('data');
+            msg.payload.should.have.property('dataPresent', true);
+            
+            if (processedDataReceived && rawDataReceived) done();
+          } catch(err) {
+            done(err);
+          }
+        });
+
+        n1.receive({ payload: "test" });
+      });
+    });
+  });
+
   describe('stop-lights', function () {
     it('Should stop lights successfully', function (done) {
       // Mock response matching onstarjs2 v2.14.1+ v3 API structure
