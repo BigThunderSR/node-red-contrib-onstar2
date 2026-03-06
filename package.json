@@ -41,7 +41,7 @@
     "mocha": "^11.7.5",
     "node-red": "^4.1.6",
     "node-red-node-test-helper": "^0.3.6",
-    "sinon": "^21.0.1"
+    "sinon": "^21.0.2"
   },
   "keywords": [
     "node-red",
