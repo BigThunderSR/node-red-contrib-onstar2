@@ -4,6 +4,7 @@
   "description": "An updated Node-RED Library using OnStarJS2, supporting both v1 and v3 OnStar APIs with automatic version detection",
   "main": "onstar.js",
   "scripts": {
+    "check-deps": "node scripts/check-deep-imports.js",
     "test": "c8 --exclude=\"deps/index.cjs\" --exclude=\"test\" mocha --exclude test/real-api.spec.js",
     "test:auth": "c8 --exclude=\"deps/index.cjs\" --exclude=\"test\" mocha test/authentication.spec.js",
     "test:auth-legacy": "RUN_AUTH_TESTS=true c8 --exclude=\"deps/index.cjs\" --exclude=\"test\" mocha test/authentication.spec.js",
