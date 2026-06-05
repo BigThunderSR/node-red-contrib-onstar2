@@ -40,7 +40,7 @@
     "eslint": "^10.4.0",
     "globals": "^17.6.0",
     "mocha": "^11.7.5",
-    "node-red": "^4.1.10",
+    "node-red": "^4.1.11",
     "node-red-node-test-helper": "^0.3.6",
     "sinon": "^22.0.0"
   },
