@@ -18,7 +18,7 @@
     "chromium-bidi": "^15.0.0",
     "jsonwebtoken": "^9.0.3",
     "onstarjs2": "^2.16.4",
-    "uuid": "^14.0.0"
+    "uuid": "^14.0.1"
   },
   "node-red": {
     "version": ">=4.0.9",
