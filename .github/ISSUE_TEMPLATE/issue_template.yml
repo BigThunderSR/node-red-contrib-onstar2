@@ -51,7 +51,7 @@ body:
     attributes:
       label: Node-RED Version
       description: Which Node-RED version are you running? (Check Settings menu or `node-red --version`)
-      placeholder: e.g., 3.1.0, 4.0.0
+      placeholder: e.g., 4.0.0, 5.0.0
     validations:
       required: true
 
