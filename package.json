@@ -17,7 +17,7 @@
     "axios": "^1.19.0",
     "chromium-bidi": "^15.0.0",
     "jsonwebtoken": "^9.0.3",
-    "onstarjs2": "^2.16.5",
+    "onstarjs2": "^2.16.6",
     "uuid": "^14.0.1"
   },
   "node-red": {
