@@ -62,7 +62,7 @@ npx patchright install --with-deps chromium
 
 #### Option 2: Use Token Workaround (Recommended for Docker)
 
-If you encounter issues with Xvfb/Chromium in Docker, or are using an unsupported platform, use the [token workaround method](https://github.com/BigThunderSR/node-red-contrib-onstar2/discussions/430) to generate tokens on your host system and map them into the container.
+If you encounter issues with Xvfb/Chromium in Docker, or are using an unsupported platform, use the [OnStar Auth Token Saver Firefox extension](https://github.com/metheos/onstar_firefox) to generate `microsoft_tokens.json` on your host system and map it into the container. See the [token workaround discussion](https://github.com/BigThunderSR/node-red-contrib-onstar2/discussions/430) for additional context and container mapping instructions.
 
 ## Documentation
 
@@ -73,7 +73,7 @@ Each node is self-explanatory with hints provided wherever necessary as well as 
 Collect the following information:
 
 1. [Generate](https://www.uuidgenerator.net/version4) a v4 uuid for the device ID
-1. OnStar login: username, password, PIN, [TOTP Key (Please click link for instructions)](https://github.com/BigThunderSR/OnStarJS?tab=readme-ov-file#new-requirement-as-of-2024-11-19)
+1. OnStar login: username, password, PIN, [TOTP Key (Please click link for instructions)](https://github.com/BigThunderSR/OnStarJS?tab=readme-ov-file#new-requirement-as-of-2024-11-19) — if TOTP setup is not possible or automated login is blocked, see the [Firefox token procedure](#automated-authentication-consistently-failing--firefox-token-procedure) below
 1. Your car's VIN. Easily found in the monthly OnStar diagnostic emails.
 
 **Important:** [Special Instructions for Running in the official Home Assistant Node-RED Add-on](https://github.com/BigThunderSR/node-red-contrib-onstar2/discussions/430)
@@ -251,6 +251,23 @@ By default, all tests use mocked API responses to prevent account lockouts. Howe
    ```
 
 **Note:** The `.env` file is automatically excluded from git via `.gitignore` to protect your credentials.
+
+## Authentication Troubleshooting
+
+### "Access Denied" during login
+
+GM's auth server uses bot detection that can block automated logins unpredictably. If you receive an `Access Denied` error during the authentication flow, **wait several hours before retrying** — retrying immediately makes the block worse.
+
+### Automated authentication consistently failing — Firefox token procedure
+
+If automated authentication is repeatedly blocked and waiting does not help, you can generate the required token file manually using the [OnStar Auth Token Saver Firefox extension](https://github.com/metheos/onstar_firefox):
+
+1. Install the Firefox extension from the link above and follow its instructions to log in to your OnStar/GM account.
+2. The extension will save a `microsoft_tokens.json` file to your local machine.
+3. Place (or map) `microsoft_tokens.json` into the directory configured as `tokenLocation` in the node configuration.
+4. Restart Node-RED — the library will load the token and refresh it automatically for approximately 60 days before another manual re-auth is needed.
+
+**Note:** `ONSTAR_TOTP` / the TOTP key is still required in the node configuration — it is used when the token eventually expires (~60 days) and the library attempts automated re-authentication.
 
 ## My other related projects
 
