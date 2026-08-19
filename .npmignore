@@ -18,3 +18,7 @@ coverage
 *tokens.json
 temp-browser-profile
 REAL_API_TESTING.md
+.devcontainer
+docs
+scripts
+test-lock-unlock-manual.js
