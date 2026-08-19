@@ -37,9 +37,9 @@ On Linux, macOS, or Windows, you may also need to install browser binaries (and 
 npx patchright install --with-deps chromium
 ```
 
-> **⚠️ Alpine Linux users (including Home Assistant Node-RED Add-on):** Patchright is not supported on Alpine. Use the [token workaround method](https://github.com/BigThunderSR/node-red-contrib-onstar2/discussions/430).
+> **⚠️ Alpine Linux users (including Home Assistant Node-RED Add-on):** Patchright is not supported on Alpine. Use the [OnStar Auth Token Saver Firefox extension](https://github.com/metheos/onstar_firefox) to generate tokens, then follow the [token workaround discussion](https://github.com/BigThunderSR/node-red-contrib-onstar2/discussions/430) for container mapping instructions.
 >
-> **⚠️ Debian Trixie users:** Xvfb compatibility issues have been reported on Debian Trixie-based Docker containers and direct installations. Use Debian Bookworm-based containers or the [token workaround method](https://github.com/BigThunderSR/node-red-contrib-onstar2/discussions/430).
+> **⚠️ Debian Trixie users:** Xvfb compatibility issues have been reported on Debian Trixie-based Docker containers and direct installations. Use Debian Bookworm-based containers or the [OnStar Auth Token Saver Firefox extension](https://github.com/metheos/onstar_firefox) to generate tokens (see [token workaround discussion](https://github.com/BigThunderSR/node-red-contrib-onstar2/discussions/430) for container mapping instructions).
 
 ### Docker Installation
 
