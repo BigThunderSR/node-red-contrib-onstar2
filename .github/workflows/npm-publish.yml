@@ -12,8 +12,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v7
-      - uses: actions/setup-node@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7
         with:
           node-version: 24.x
       - run: npm ci
@@ -26,8 +26,8 @@ jobs:
       id-token: write
       contents: read
     steps:
-      - uses: actions/checkout@v7
-      - uses: actions/setup-node@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7
         with:
           node-version: 24.x
           registry-url: https://registry.npmjs.org/
@@ -38,7 +38,7 @@ jobs:
         #  NODE_AUTH_TOKEN: ${{secrets.npm_token}}        
       - if: steps.publish.outputs.type != 'none'
         name: Update Node-Red flow-library
-        uses: BigThunderSR/update-package-node-red-flow-library-action@v1.3.22
+        uses: BigThunderSR/update-package-node-red-flow-library-action@fc91472a9753be9717747eb4bb09e1e5396e087f # v1.3.22
         continue-on-error: true
         with:
           package-name: 'node-red-contrib-onstar2'
