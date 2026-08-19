@@ -18,6 +18,7 @@
     "prepublishOnly": "npm run check-pack",
     "check-pack": "node scripts/check-pack.js",
     "check-deps": "node scripts/check-deep-imports.js",
+    "check-actions": "node scripts/check-action-pins.js",
     "test": "c8 --exclude=\"deps/index.cjs\" --exclude=\"test\" mocha --exclude test/real-api.spec.js",
     "test:auth": "c8 --exclude=\"deps/index.cjs\" --exclude=\"test\" mocha test/authentication.spec.js",
     "test:auth-legacy": "RUN_AUTH_TESTS=true c8 --exclude=\"deps/index.cjs\" --exclude=\"test\" mocha test/authentication.spec.js",
