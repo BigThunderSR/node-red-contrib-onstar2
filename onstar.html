@@ -649,16 +649,18 @@
         category: 'config',
         defaults: {
             carname: { required: true },
-            username: { required: true },
-            password: { required: true },
-            totp: { required: true},
-            pin: { required: true, validate: RED.validators.number() },
             vin: { required: true },
-            deviceid: { required: true },
             tokenlocation: { value: '', required: false },
             checkrequeststatus: { value: true, required: true },
             requestpollingtimeoutseconds: { value: 90, required: true, validate: RED.validators.number() },
             requestpollingintervalseconds: { value: 6, required: true, validate: RED.validators.number() }
+        },
+        credentials: {
+            username: { type: 'text', required: true },
+            password: { type: 'password', required: true },
+            totp: { type: 'password', required: true },
+            pin: { type: 'password', required: true },
+            deviceid: { type: 'text', required: true }
         },
         label: function () {
             return this.carname;

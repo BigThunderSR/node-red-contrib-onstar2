@@ -727,12 +727,12 @@ module.exports = function(RED) {
     }
     function OnStarNode(config) {
         RED.nodes.createNode(this, config);
-        this.username = config.username;
-        this.password = config.password;
-        this.totp = config.totp;
-        this.pin = config.pin;
+        this.username = this.credentials ? this.credentials.username : config.username;
+        this.password = this.credentials ? this.credentials.password : config.password;
+        this.totp = this.credentials ? this.credentials.totp : config.totp;
+        this.pin = this.credentials ? this.credentials.pin : config.pin;
         this.vin = config.vin;
-        this.deviceid = config.deviceid;
+        this.deviceid = this.credentials ? this.credentials.deviceid : config.deviceid;
         this.tokenlocation = config.tokenlocation;
         this.checkrequeststatus = config.checkrequeststatus;
         this.requestpollingtimeoutseconds = config.requestpollingtimeoutseconds;
