@@ -69,5 +69,9 @@
     "Cadillac"
   ],
   "author": "BigThunderSR",
-  "license": "MIT"
+  "license": "MIT",
+  "allowScripts": {
+    "onstarjs2@2.16.6": true,
+    "sleep@6.1.0": true
+  }
 }
