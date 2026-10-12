@@ -18,7 +18,7 @@ updates:
       interval: "daily"
     versioning-strategy: increase
     open-pull-requests-limit: 50
+    # Exempt onstarjs2 from the default cooldown; all other deps keep the default
     cooldown:
-      default-days: 1
       exclude:
-        - onstarjs2
+        - "onstarjs2"

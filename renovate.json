@@ -1,64 +1,70 @@
 {
- "$schema": "https://docs.renovatebot.com/renovate-schema.json",
- "extends": [
-  "config:recommended"
- ],
- "npm": {
-  "minimumReleaseAge": "3 days",
-  "rangeStrategy": "bump"
- },
- "labels": [
-  "Renovate",
-  "dependencies"
- ],
- "packageRules": [
-  {
-   "matchManagers": [
-    "npm"
-   ],
-   "addLabels": [
-    "javascript"
-   ]
-  },
-  {
-   "matchCategories": [
-    "js"
-   ],
-   "addLabels": [
-    "javascript"
-   ]
-  },
-  {
-   "matchManagers": [
-    "github-actions"
-   ],
-   "addLabels": [
-    "github_actions"
-   ]
-  },
-  {
-   "matchManagers": [
-    "dockerfile"
-   ],
-   "addLabels": [
-    "dockerfile"
-   ]
-  },
-  {
-   "addLabels": [
-    "dockerfile"
-   ],
-   "matchPackageNames": [
-    "/dockerfile/"
-   ]
-  },
-  {
-   "matchManagers": [
-    "nvm"
-   ],
-   "addLabels": [
-    "nvm"
-   ]
-  }
- ]
+    "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+    "extends": [
+        "config:recommended"
+    ],
+    "npm": {
+        "minimumReleaseAge": "3 days",
+        "rangeStrategy": "bump"
+    },
+    "labels": [
+        "Renovate",
+        "dependencies"
+    ],
+    "packageRules": [
+        {
+            "matchManagers": [
+                "npm"
+            ],
+            "addLabels": [
+                "javascript"
+            ]
+        },
+        {
+            "matchCategories": [
+                "js"
+            ],
+            "addLabels": [
+                "javascript"
+            ]
+        },
+        {
+            "matchPackageNames": [
+                "onstarjs2"
+            ],
+            "minimumReleaseAge": "0 days"
+        },
+        {
+            "matchManagers": [
+                "github-actions"
+            ],
+            "addLabels": [
+                "github_actions"
+            ]
+        },
+        {
+            "matchManagers": [
+                "dockerfile"
+            ],
+            "addLabels": [
+                "dockerfile"
+            ]
+        },
+        {
+            "addLabels": [
+                "dockerfile"
+            ],
+            "matchPackageNames": [
+                "/dockerfile/"
+            ]
+        },
+        {
+            "matchManagers": [
+                "nvm"
+            ],
+            "addLabels": [
+                "nvm"
+            ]
+        }
+    ]
 }
