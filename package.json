@@ -6,7 +6,7 @@
   "files": [
     "onstar.js",
     "onstar.html",
-    "deps/",
+    "deps/vehicle.js",
     "icons/",
     "nr_nodes_v3.png",
     "MIGRATION.md",
