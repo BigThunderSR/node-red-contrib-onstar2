@@ -22,3 +22,4 @@ updates:
     cooldown:
       exclude:
         - "onstarjs2"
+        - "update-package-node-red-flow-library-action"

@@ -30,7 +30,8 @@
         },
         {
             "matchPackageNames": [
-                "onstarjs2"
+                "onstarjs2",
+                "update-package-node-red-flow-library-action"
             ],
             "minimumReleaseAge": "0 days"
         },
