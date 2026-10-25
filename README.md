@@ -39,6 +39,8 @@ npx patchright install --with-deps chromium
 
 > **⚠️ Alpine Linux users (including Home Assistant Node-RED Add-on):** Patchright is not supported on Alpine. Use the [OnStar Auth Token Saver Firefox extension](https://github.com/metheos/onstar_firefox) to generate tokens, then follow the [token workaround discussion](https://github.com/BigThunderSR/node-red-contrib-onstar2/discussions/430) for container mapping instructions.
 >
+> **⚠️ Ubuntu 26.04 users:** The Patchright version pinned by `onstarjs2` (1.60.2) does not support Ubuntu 26.04, so `npm install` fails in the `onstarjs2` postinstall step (`patchright install chromium`). Newer Patchright versions currently break authentication, so the pin can't be raised yet. Use Ubuntu 24.04 or earlier for now.
+>
 > **⚠️ Debian Trixie users:** Xvfb compatibility issues have been reported on Debian Trixie-based Docker containers and direct installations. Use Debian Bookworm-based containers or the [OnStar Auth Token Saver Firefox extension](https://github.com/metheos/onstar_firefox) to generate tokens (see [token workaround discussion](https://github.com/BigThunderSR/node-red-contrib-onstar2/discussions/430) for container mapping instructions).
 
 ### Docker Installation
