@@ -31,7 +31,7 @@
         {
             "matchPackageNames": [
                 "onstarjs2",
-                "update-package-node-red-flow-library-action"
+                "BigThunderSR/update-package-node-red-flow-library-action"
             ],
             "minimumReleaseAge": "0 days"
         },

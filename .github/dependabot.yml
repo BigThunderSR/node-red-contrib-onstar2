@@ -7,7 +7,9 @@ updates:
       interval: "daily"
     open-pull-requests-limit: 50
     cooldown:
-      default-days: 1
+      default-days: 3
+      exclude:
+        - "BigThunderSR/update-package-node-red-flow-library-action"
     groups:
       codeql:
         patterns:
@@ -20,6 +22,6 @@ updates:
     open-pull-requests-limit: 50
     # Exempt onstarjs2 from the default cooldown; all other deps keep the default
     cooldown:
+      default-days: 3
       exclude:
         - "onstarjs2"
-        - "update-package-node-red-flow-library-action"
